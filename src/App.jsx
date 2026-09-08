@@ -15,6 +15,8 @@ import Curtains from '../pages/Curtains';
 import Blinds from '../pages/Blinds';
 import Sofa from '../pages/Sofa';
 
+import AdminLogin from "../pages/AdminLogin";
+
 function Home() {
 
   return (
@@ -47,6 +49,13 @@ function App(){
 
         {/* Sofa */}
         <Route path='/sofa' element={<Sofa />} />
+
+        {/* Testimonials */}
+        <Route path='/testimonials' element={<Sofa />} />
+
+        {/* Admin Login */}
+        <Route path='/admin' element={<AdminLogin />}></Route>
+
       </Routes>
     </BrowserRouter>
   )
