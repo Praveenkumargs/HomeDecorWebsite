@@ -1,7 +1,141 @@
-import React from "react";
-import "../css/CustomerReviews.css"
+import React, { useEffect, useState } from "react";
+import "../css/CustomerReviews.css";
 
 function CustomerReviews() {
+
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+
+        async function fetchReviews() {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/api/reviews"
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch reviews");
+                }
+
+                const data = await response.json();
+
+                setReviews(data);
+
+            } catch (error) {
+
+                console.error("Error fetching reviews:", error);
+
+                setError("Unable to load reviews.");
+
+            } finally {
+
+                setLoading(false);
+
+            }
+        }
+
+        fetchReviews();
+
+    }, []);
+
+
+    // Loading state
+    if (loading) {
+        return (
+            <section className="reviews-section">
+
+                <div className="reviews-container">
+
+                    <div className="reviews-heading">
+
+                        <div>
+                            <p className="reviews-label">
+                                CLIENT STORIES
+                            </p>
+
+                            <h2>
+                                Loved by
+                                <br />
+                                <span>Our Customers.</span>
+                            </h2>
+                        </div>
+
+                        <p className="reviews-intro">
+                            Every beautiful space begins with trust.
+                            Here's what our customers have to say
+                            about their experience with us.
+                        </p>
+
+                    </div>
+
+                    <p>Loading reviews...</p>
+
+                </div>
+
+            </section>
+        );
+    }
+
+
+    // Error state
+    if (error) {
+        return (
+            <section className="reviews-section">
+
+                <div className="reviews-container">
+
+                    <p>{error}</p>
+
+                </div>
+
+            </section>
+        );
+    }
+
+
+    // No reviews
+    if (reviews.length === 0) {
+        return (
+            <section className="reviews-section">
+
+                <div className="reviews-container">
+
+                    <div className="reviews-heading">
+
+                        <div>
+                            <p className="reviews-label">
+                                CLIENT STORIES
+                            </p>
+
+                            <h2>
+                                Loved by
+                                <br />
+                                <span>Our Customers.</span>
+                            </h2>
+                        </div>
+
+                    </div>
+
+                    <p>No reviews available yet.</p>
+
+                </div>
+
+            </section>
+        );
+    }
+
+
+    // First review becomes featured review
+    const featuredReview = reviews[0];
+
+    // Remaining reviews
+    const smallerReviews = reviews.slice(1, 4);
+
+
     return (
         <section className="reviews-section">
 
@@ -12,6 +146,7 @@ function CustomerReviews() {
                 <div className="reviews-heading">
 
                     <div>
+
                         <p className="reviews-label">
                             CLIENT STORIES
                         </p>
@@ -21,6 +156,7 @@ function CustomerReviews() {
                             <br />
                             <span>Our Customers.</span>
                         </h2>
+
                     </div>
 
                     <p className="reviews-intro">
@@ -43,28 +179,31 @@ function CustomerReviews() {
                     <div className="featured-content">
 
                         <div className="stars">
-                            ★ ★ ★ ★ ★
+                            {"★ ".repeat(featuredReview.rating)}
                         </div>
 
                         <blockquote>
-                            We are Highly impressed with Lucky Home Decor's curtain collections. Service done by Mr. Venkat and team service was excellent, If you are looking for good customized curtains in reasonable cost, go for it !
-
+                            {featuredReview.review}
                         </blockquote>
 
                         <div className="customer">
 
                             <div className="customer-avatar">
-                                P
+                                {featuredReview.customer_name
+                                    .charAt(0)
+                                    .toUpperCase()}
                             </div>
 
                             <div>
+
                                 <h4>
-                                    Praveen Kumar G S
+                                    {featuredReview.customer_name}
                                 </h4>
 
                                 <p>
                                     Bengaluru
                                 </p>
+
                             </div>
 
                         </div>
@@ -78,73 +217,36 @@ function CustomerReviews() {
 
                 <div className="review-grid">
 
-                    <div className="review-card">
+                    {smallerReviews.map((review) => (
 
-                        <div className="stars">
-                            ★ ★ ★ ★ ★
+                        <div
+                            className="review-card"
+                            key={review.id}
+                        >
+
+                            <div className="stars">
+                                {"★ ".repeat(review.rating)}
+                            </div>
+
+                            <p>
+                                {review.review}
+                            </p>
+
+                            <div className="review-author">
+
+                                <strong>
+                                    {review.customer_name}
+                                </strong>
+
+                                <span>
+                                    Bengaluru
+                                </span>
+
+                            </div>
+
                         </div>
 
-                        <p>
-                            Good quality fabrics and well thought designs. They guide you well on the selection of colors and designs . Overall happy with the final outcome.
-                        </p>
-
-                        <div className="review-author">
-                            <strong>
-                                Mohan Kumar
-                            </strong>
-
-                            <span>
-                                Bengaluru
-                            </span>
-                        </div>
-
-                    </div>
-
-
-                    <div className="review-card">
-
-                        <div className="stars">
-                            ★ ★ ★ ★ ★
-                        </div>
-
-                        <p>
-                            Recently I have taken their service for Roman Blinds purchase and installation and I am very much impressed with their collection as well as perfect and quick installation. Everything was so professional and work was done just within 2 days. Will definitely look forward for more purchase soon
-                        </p>
-
-                        <div className="review-author">
-                            <strong>
-                                Anand Shivraj
-                            </strong>
-
-                            <span>
-                                Bengaluru
-                            </span>
-                        </div>
-
-                    </div>
-
-
-                    <div className="review-card">
-
-                        <div className="stars">
-                            ★ ★ ★ ★ ★
-                        </div>
-
-                        <p>
-                            "I highly recommend Lucky Home Decor if you’re looking for high-quality curtains and blinds, along with reliable service."
-                        </p>
-
-                        <div className="review-author">
-                            <strong>
-                                Anil Kumar Manvi
-                            </strong>
-
-                            <span>
-                                Bengaluru
-                            </span>
-                        </div>
-
-                    </div>
+                    ))}
 
                 </div>
 

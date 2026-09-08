@@ -160,6 +160,66 @@ app.delete('/api/products/:id', authenticateAdmin, async (req,res) => {
     }
 });
 
+app.get('/api/reviews', async (req,res) => {
+    try {
+        const result = await pool.query(
+            `SELECT * FROM reviews ORDER BY created_at DESC`
+        );
+
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error fetching reviews:", error);
+
+        res.status(500).json({
+            message: "Failed to fetch reviews"
+        });
+    }
+});
+
+app.post("/api/reviews", authenticateAdmin, async (req,res) => {
+
+    try {
+        const {
+        customer_name,
+        rating,
+        review,
+        location
+        } = req.body;
+
+    if (!customer_name || !review || !rating || !location) {
+        return res.status(400).json({
+            message: "Customer name, review, rating and location required"
+        });
+    }
+
+    if(rating<1 || rating > 5) {
+        return res.status(400).json({
+            message: "Rating must be between 1 and 5"
+        });
+    }
+
+    const result = await pool.query(
+        `INSERT INTO reviews 
+        (customer_name,rating,review,location)
+        VALUES ($1,$2,$3,$4)
+        RETURNING *`,[
+            customer_name, rating,review,location
+        ]
+    )
+
+    res.status(201).json({
+        message: "Review added successfully",
+        product: result.rows[0]
+    })
+    } catch (error) {
+        console.error("Error creating review:", error);
+
+        res.status(500).json({
+            message: "Failed to create review"
+        });
+    }
+});
+
 app.get("/api/products/:id", async (req, res) => {
 
     try {
