@@ -1,0 +1,168 @@
+.why-section {
+    padding: 130px 6%;
+
+    background-color: #12372A;
+
+    color: #F8F6F1;
+}
+
+.why-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 0.9fr 1.1fr;
+
+    gap: 100px;
+
+    align-items: center;
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.why-intro {
+    max-width: 470px;
+}
+
+.why-label {
+    margin-bottom: 20px;
+
+    color: #C9A96E;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 4px;
+}
+
+.why-intro h2 {
+    margin-bottom: 28px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 5vw, 68px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+
+    letter-spacing: -1px;
+}
+
+.whyintro h2 span {
+    color: #D7C49F;
+
+    font-style: italic;
+}
+
+.why-description {
+    max-width: 430px;
+
+    margin-bottom: 35px;
+
+    color: #C7D0CA;
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+.why-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px 22px;
+
+    border: 1px solid rgba(201, 169, 110, 0.7);
+
+    color: #F8F6F1;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: all 0.3s ease;
+}
+
+.why-button span {
+    color: #C9A96E;
+
+    font-size: 18px;
+
+    transition: transform 0.3 ease;
+}
+
+.why-button:hover {
+    background-color: #C9A96E;
+
+    color: #12372A;
+}
+
+.why-button:hover span {
+    color: #12372A;
+
+    transform: translateX(5px);
+}
+
+.why-feature {
+    display: grid;
+
+    grid-template-columns: 60px 1fr;
+
+    gap: 25px;
+
+    padding: 30px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+    transition: padding-left 0.3 ease;
+}
+
+.why-feature:hover {
+    padding-left: 10px;
+}
+
+/* Number */
+
+.feature-number {
+    padding-top: 5px;
+
+    color: #C9A96E;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+/* Content */
+
+.feature-content h3 {
+    margin-bottom: 9px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 25px;
+
+    font-weight: 500;
+
+    color: #F8F6F1;
+}
+
+.feature-content p {
+    max-width: 480px;
+
+    color: #AEBAB2;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+

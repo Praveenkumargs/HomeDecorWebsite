@@ -1,0 +1,182 @@
+.Header {
+    width: 100%;
+    height: 82px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    background-color: #12372A;
+    border-bottom: 1px solid rgba( 255, 255, 255, 0.08);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo + Company Name */
+
+.logocombo {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+    color: white;
+}
+.logo-mark {
+    width: 62px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #C9A96E;
+    border-radius: 50%;
+
+    color: #C9A96E;
+
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+    letter-spacing: 3px;
+
+    color: #F8F6F1;
+}
+
+.brand-subtitle {
+    margin-top: 2px;
+
+    font-size: 8px;
+    letter-spacing: 4px;
+
+    color: #C9A96E;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+}
+
+.header-list {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+
+    list-style: none;
+}
+
+.list-items {
+    position: relative;
+
+    padding: 8px 0;
+
+    text-decoration: none;
+
+    color: #E8E3D8;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: color 0.3 ease;
+}
+
+/* Hover */
+
+.list-items:hover {
+    color: #C9A96E;
+}
+
+/* Underline animation */
+
+.list-items::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 1px;
+
+    background-color: #C9A96E;
+
+    transition: width 0.3s ease;
+}
+
+.list-items:hover::after {
+    width: 100%;
+}
+
+.list-items.active {
+    color: #C9A96E;
+}
+
+.list-items.active::after {
+    width: 100%;
+}
+
+/* =========================
+   QUOTE BUTTON
+========================= */
+
+.quote-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 20px;
+
+    text-decoration: none;
+
+    background-color: #C9A96E;
+
+    color: #12372A;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border-radius: 2px;
+
+    transition: all 0.3s ease;
+}
+
+.quote-btn span {
+    font-size: 18px;
+
+    transition: transform 0.3s ease;
+}
+
+.quote-btn:hover {
+    background-color: #E0C18A;
+}
+
+.quote-btn:hover span {
+    transform: translateX(4px);
+}

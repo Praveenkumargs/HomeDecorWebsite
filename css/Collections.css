@@ -1,0 +1,201 @@
+.collections {
+    padding: 120px 6%;
+
+    background-color: #F8F6F1;
+
+    color: #12372A;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.collections-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 50px;
+
+    max-width: 1200px;
+
+    margin: 0 auto 55px;
+}
+
+.section-label {
+    margin-bottom: 18px;
+
+    color: #C9A96E;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 4px;
+}
+
+.collections-heading h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(42px, 5vw, 65px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+
+    letter-spacing: -1px;
+}
+
+.collections-heading h2 span {
+    color: #8C7650;
+
+    font-style: italic;
+}
+
+.section-description {
+    max-width: 390px;
+
+    margin-bottom: 5px;
+
+    color: #68736C;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+/* =========================
+   CARD GRID
+========================= */
+
+.collection-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    max-width: 1200px;
+    
+    margin: auto;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.collection-card {
+    position: relative;
+
+    height: 520px;
+
+    overflow: hidden;
+
+    text-decoration: none;
+
+    background-color: #12372A;
+}
+
+/* Image */
+
+.collection-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.7s ease;
+}
+
+/* Overlay */
+
+.card-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: 
+        linear-gradient(
+            to top,
+            rgba(10, 30, 22, 0.85),
+            rgba(10, 30, 22, 0.85) 65%
+        )
+    ;
+    transition: background-color 0.4s ease;
+}
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.card-content {
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+
+    color: white;
+
+    text-decoration: none;
+}
+
+.card-content img {
+    height: 340px;
+}
+
+.card-content p {
+    margin-bottom: 10px;
+
+    color: #C9A96E;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    padding-top: 10px;
+}
+
+.card-content h3 {
+    margin-bottom: 14px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+
+    font-weight: 500;
+}
+
+.card-content span {
+    color: #E8E3D8;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    transition: color 0.3s ease;
+}
+
+/* =========================
+   HOVER
+========================= */
+
+.collection-card:hover img {
+    transform: scale(1.06);
+}
+
+.collection-card:hover .card-overlay {
+    background: 
+        linear-gradient(
+            to top,
+            rgba(10, 30, 22, 0.95),
+            rgba(10, 30, 22, 0.15) 70%
+        );
+}
+
+.collection-card:hover .card-content span {
+    color: #C9A96E;
+}
