@@ -83,6 +83,54 @@ app.post("/api/products", authenticateAdmin, async (req,res) => {
     }
 });
 
+app.put('/api/products/:id', authenticateAdmin, (req,res) => {
+    try {
+        
+        const { id } = req.params;
+
+        const {
+            name,
+            category,
+            description,
+            image_url
+        } = req.body;
+
+        const result = await pool.query(
+            `UPDATE products
+            SET name=$1,
+            category=$2,
+            description=$3,
+            image_url=$4
+            WHERE id=$5
+            RETURNING *`,[
+                name,
+                category,
+                description,
+                image_url,
+                id
+            ]
+        );
+
+        if(result.rows.length === 0) {
+            return res.status(404).json({
+                message: "Product not found."
+            });
+        }
+
+        res.json({
+            message: "Product updated successfully",
+            product: result.rows[0]
+        })
+
+    } catch (error) {
+        console.error("Error updating product:", error);
+
+        res.status(500).json({
+            message: "Failed to update product"
+        });
+    }
+});
+
 app.get("/api/products/:id", async (req, res) => {
 
     try {
