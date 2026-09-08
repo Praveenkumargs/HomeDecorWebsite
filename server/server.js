@@ -83,7 +83,7 @@ app.post("/api/products", authenticateAdmin, async (req,res) => {
     }
 });
 
-app.put('/api/products/:id', authenticateAdmin, (req,res) => {
+app.put('/api/products/:id', authenticateAdmin, async (req,res) => {
     try {
         
         const { id } = req.params;
@@ -127,6 +127,35 @@ app.put('/api/products/:id', authenticateAdmin, (req,res) => {
 
         res.status(500).json({
             message: "Failed to update product"
+        });
+    }
+});
+
+app.delete('/api/products/:id', authenticateAdmin, async (req,res) => {
+    try {
+    
+        const { id } = req.params;
+
+        const result = await pool.query(
+           `DELETE FROM products WHERE id=$1 RETURNING *`,[id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        res.json({
+            message: "Product deleted successfully",
+            product: result.rows[0]
+        });
+        
+    } catch (error) {
+        console.error("Error deleting product:",error);
+
+        res.status(500).json({
+            message: "Failed to delete product"
         });
     }
 });
