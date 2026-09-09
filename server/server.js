@@ -186,38 +186,97 @@ app.post("/api/reviews", authenticateAdmin, async (req,res) => {
         location
         } = req.body;
 
-    if (!customer_name || !review || !rating || !location) {
-        return res.status(400).json({
-            message: "Customer name, review, rating and location required"
+        if (!customer_name || !review || !rating || !location) {
+            return res.status(400).json({
+                message: "Customer name, review, rating and location required"
+            });
+        }
+
+        if(rating<1 || rating > 5) {
+            return res.status(400).json({
+                message: "Rating must be between 1 and 5"
+            });
+        }
+
+        const result = await pool.query(
+            `INSERT INTO reviews 
+            (customer_name,rating,review,location)
+            VALUES ($1,$2,$3,$4)
+            RETURNING *`,[
+                customer_name, rating,review,location
+            ]
+        );
+
+        res.status(201).json({
+            message: "Review added successfully",
+            product: result.rows[0]
         });
-    }
 
-    if(rating<1 || rating > 5) {
-        return res.status(400).json({
-            message: "Rating must be between 1 and 5"
-        });
-    }
-
-    const result = await pool.query(
-        `INSERT INTO reviews 
-        (customer_name,rating,review,location)
-        VALUES ($1,$2,$3,$4)
-        RETURNING *`,[
-            customer_name, rating,review,location
-        ]
-    )
-
-    res.status(201).json({
-        message: "Review added successfully",
-        product: result.rows[0]
-    })
     } catch (error) {
-        console.error("Error creating review:", error);
+        console.error("Error adding review:", error);
 
         res.status(500).json({
-            message: "Failed to create review"
+            message: "Failed to add review"
         });
     }
+});
+
+app.put("/api/reviews/:id", authenticateAdmin, async (req,res) => {
+    try {
+        
+        const { id } = req.params;
+        const {
+            customer_name,
+            rating,
+            review
+        } = req.body;
+
+        if (!customer_name || !rating || !review) {
+            return res.status(400).json({
+                message: "Customer name, rating and review is required."
+            });
+        }
+
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({
+                message: "Rating msut be between 1 and 5"
+            });
+        }
+
+        const result = await pool.query(
+            `UPDATE reviews
+            SET customer_name=$1,
+            rating=$2,
+            review=$3
+            WHERE id=$4
+            RETURNING *`,[
+                customer_name,
+                rating,
+                review,
+                id
+            ]
+        )
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message: "Review not found"
+            });
+        }
+
+        res.json({
+            message: "Review updated successfully",
+            review: result.rows[0]
+        });
+    } catch (error) {
+        console.error("Error updating review:", error);
+
+        res.status(500).json({
+            message: "failed to update review"
+        });
+        
+    }
+
+
 });
 
 app.get("/api/products/:id", async (req, res) => {
