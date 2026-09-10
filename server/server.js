@@ -272,11 +272,37 @@ app.put("/api/reviews/:id", authenticateAdmin, async (req,res) => {
 
         res.status(500).json({
             message: "failed to update review"
-        });
-        
+        });   
     }
+});
 
+app.delete("/api/reviews/:id", authenticateAdmin, async (req,res) => {
 
+    try {
+        
+        const { id } = req.params;
+
+        const result = await pool.query(
+            `DELETE FROM reviews WHERE id=$1 RETURNING *`,[id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message: "Review not found"
+            });
+        }
+
+        res.json({
+            message:"Review deleted successfully",
+            product: result.rows[0]
+        });
+    } catch (error) {
+        console.error("Error deleting review:",error);
+
+        res.status(500).json({
+            message: "Failed to delete review"
+        });
+    }
 });
 
 app.get("/api/products/:id", async (req, res) => {
