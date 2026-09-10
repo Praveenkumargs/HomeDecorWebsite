@@ -8,6 +8,7 @@ import WhyChooseUs from '../components/WhyChooseUs';
 import CustomerReviews from "../components/CustomerReviews";
 import Footer from '../components/Footer';
 
+
 import "../src/App.css";
 
 import Quote from '../pages/Quote';
@@ -16,6 +17,8 @@ import Blinds from '../pages/Blinds';
 import Sofa from '../pages/Sofa';
 
 import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function Home() {
 
@@ -54,7 +57,13 @@ function App(){
         <Route path='/testimonials' element={<Sofa />} />
 
         {/* Admin Login */}
-        <Route path='/admin' element={<AdminLogin />}></Route>
+        <Route path='/admin' element={<AdminLogin />} />
+
+        {/* Dashboard */}
+        <Route path="/admin/dashboard" 
+        element={<ProtectedRoute>
+          <AdminDashboard />
+          </ProtectedRoute>}/>
 
       </Routes>
     </BrowserRouter>
