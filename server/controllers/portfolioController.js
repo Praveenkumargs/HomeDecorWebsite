@@ -89,7 +89,8 @@ export async function createPortfolio(req,res) {
         console.error("Error creating portfolio projects:", error);
 
         res.status(500).json({
-            message: "Failed to create portfolio project"
+            message: "Failed to create portfolio project",
+            error: error.message
         });
     }
 

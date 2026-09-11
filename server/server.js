@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import pool from "./db.js";
 import adminRoutes from "../server/routes/admin.js";
 import { authenticateAdmin } from "../server/middleware/auth.js";
+import portfolioRoutes from "../server/routes/portfolio.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/portfolio", portfolioRoutes);
 
 app.get("/", (req,res) => {
     res.json({

@@ -10,6 +10,10 @@ export async function getStats(req, res) {
             "SELECT COUNT(*) FROM products"
         );
 
+        const portfolioResult = await pool.query(
+            "SELECT COUNT(*) FROM portfolio"
+        );
+
         const enquiriesResult = await pool.query(
             "SELECT COUNT(*) FROM enquiries"
         );
@@ -23,6 +27,10 @@ export async function getStats(req, res) {
 
             products: Number(
                 productsResult.rows[0].count
+            ),
+
+            portfolio: Number(
+                portfolioResult.rows[0].count
             ),
 
             enquiries: Number(

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
+import PortfolioManagement from "../components/PortfolioManagement";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function AdminDashboard() {
 
   const [stats, setStats] = useState({
     products: 0,
+    portfolio: 0,
     enquiries: 0,
     reviews: 0,
   });
@@ -93,93 +95,66 @@ function AdminDashboard() {
       setLoading(false);
     }
   }
-  
+
   function getAdminToken() {
     return localStorage.getItem("adminToken");
-}
+  }
 
   // =========================
   // FETCH ENQUIRIES
   // =========================
 
-async function fetchEnquiries() {
-
+  async function fetchEnquiries() {
     setLoading(true);
 
     const token = getAdminToken();
 
-    console.log(
-        "Admin token exists:",
-        !!token
-    );
+    console.log("Admin token exists:", !!token);
 
     if (!token) {
-        console.error("No admin token found.");
-        setLoading(false);
-        navigate("/admin");
-        return;
+      console.error("No admin token found.");
+      setLoading(false);
+      navigate("/admin");
+      return;
     }
 
     try {
+      const response = await fetch("http://localhost:3000/api/enquiries", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-        const response = await fetch(
-            "http://localhost:3000/api/enquiries",
-            {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+      console.log("Enquiries API status:", response.status);
 
-        console.log(
-            "Enquiries API status:",
-            response.status
-        );
+      if (response.status === 401) {
+        console.error("Admin token is invalid or expired.");
 
-        if (response.status === 401) {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("admin");
 
-            console.error(
-                "Admin token is invalid or expired."
-            );
+        navigate("/admin");
 
-            localStorage.removeItem("adminToken");
-            localStorage.removeItem("admin");
+        return;
+      }
 
-            navigate("/admin");
+      if (!response.ok) {
+        throw new Error("Failed to fetch enquiries");
+      }
 
-            return;
-        }
+      const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(
-                "Failed to fetch enquiries"
-            );
-        }
+      console.log("Enquiries received:", data);
 
-        const data = await response.json();
-
-        console.log(
-            "Enquiries received:",
-            data
-        );
-
-        setEnquiries(data);
-
+      setEnquiries(data);
     } catch (error) {
-
-        console.error(
-            "Error fetching enquiries:",
-            error
-        );
-
+      console.error("Error fetching enquiries:", error);
     } finally {
-
-        setLoading(false);
-
+      setLoading(false);
     }
-}
+  }
 
   // =========================
   // SIDEBAR SECTION
@@ -348,62 +323,47 @@ async function fetchEnquiries() {
   }
   async function handleDeleteEnquiry(id) {
     const confirmed = window.confirm(
-        "Are you sure you want to delete this enquiry?"
+      "Are you sure you want to delete this enquiry?",
     );
 
     if (!confirmed) {
-        return;
+      return;
     }
 
     try {
+      const response = await fetch(
+        `http://localhost:3000/api/enquiries/${id}`,
+        {
+          method: "DELETE",
 
-        const response = await fetch(
-            `http://localhost:3000/api/enquiries/${id}`,
-            {
-                method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-                headers: {
-                    Authorization:
-                        `Bearer ${token}`
-                }
-            }
-        );
+      const data = await response.json();
 
-        const data = await response.json();
+      if (response.status === 401) {
+        logout();
+        return;
+      }
 
-        if (response.status === 401) {
-            logout();
-            return;
-        }
+      if (!response.ok) {
+        alert(data.message || "Failed to delete enquiry");
 
-        if (!response.ok) {
+        return;
+      }
 
-            alert(
-                data.message ||
-                "Failed to delete enquiry"
-            );
+      setEnquiries((prev) => prev.filter((enquiry) => enquiry.id !== id));
 
-            return;
-        }
-
-        setEnquiries(prev =>
-            prev.filter(
-                enquiry => enquiry.id !== id
-            )
-        );
-
-        fetchStats();
-
+      fetchStats();
     } catch (error) {
+      console.error("Error deleting enquiry:", error);
 
-        console.error(
-            "Error deleting enquiry:",
-            error
-        );
-
-        alert("Unable to delete enquiry.");
+      alert("Unable to delete enquiry.");
     }
-}
+  }
 
   // =========================
   // RESET REVIEW FORM
@@ -459,11 +419,11 @@ async function fetchEnquiries() {
           </button>
 
           <button
-            className={activeSection === "products" ? "active" : ""}
-            onClick={() => handleSectionChange("products")}
+            className={activeSection === "portfolio" ? "active" : ""}
+            onClick={() => handleSectionChange("portfolio")}
           >
             <span>▣</span>
-            Products
+            Portfolio
           </button>
 
           <button
@@ -500,7 +460,6 @@ async function fetchEnquiries() {
 
       <main className="admin-main">
         {/* TOP BAR */}
-
         <header className="admin-topbar">
           <div>
             <p className="dashboard-label">ADMINISTRATION</p>
@@ -508,7 +467,7 @@ async function fetchEnquiries() {
             <h1>
               {activeSection === "dashboard" && "Dashboard"}
 
-              {activeSection === "products" && "Products"}
+              {activeSection === "portfolio" && "Portfolio"}
 
               {activeSection === "enquiries" && "Enquiries"}
 
@@ -528,40 +487,48 @@ async function fetchEnquiries() {
             </div>
           </div>
         </header>
-
         {/* =========================
                     DASHBOARD
                 ========================= */}
-
         {activeSection === "dashboard" && (
           <>
             <section className="stats-grid">
+              {/* PRODUCTS */}
               <div className="stat-card">
                 <div className="stat-icon">▣</div>
 
                 <div>
                   <p>TOTAL PRODUCTS</p>
-
                   <h2>{stats.products}</h2>
                 </div>
               </div>
 
+              {/* PORTFOLIO */}
+              <div className="stat-card">
+                <div className="stat-icon">◇</div>
+
+                <div>
+                  <p>TOTAL PORTFOLIO</p>
+                  <h2>{stats.portfolio}</h2>
+                </div>
+              </div>
+
+              {/* ENQUIRIES */}
               <div className="stat-card">
                 <div className="stat-icon">✉</div>
 
                 <div>
                   <p>TOTAL ENQUIRIES</p>
-
                   <h2>{stats.enquiries}</h2>
                 </div>
               </div>
 
+              {/* REVIEWS */}
               <div className="stat-card">
                 <div className="stat-icon">★</div>
 
                 <div>
                   <p>TOTAL REVIEWS</p>
-
                   <h2>{stats.reviews}</h2>
                 </div>
               </div>
@@ -578,8 +545,7 @@ async function fetchEnquiries() {
                 </h2>
 
                 <p>
-                  Manage your products, customer enquiries and reviews from one
-                  place.
+                  Manage your products, portfolio, customer enquiries and reviews from one place.
                 </p>
               </div>
 
@@ -587,33 +553,13 @@ async function fetchEnquiries() {
             </section>
           </>
         )}
-
         {/* =========================
-                    PRODUCTS
+                    PORTFOLIO
                 ========================= */}
-
-        {activeSection === "products" && (
-          <section className="admin-section">
-            <div className="section-header">
-              <div>
-                <p className="dashboard-label">CATALOG</p>
-
-                <h2>Manage Products</h2>
-              </div>
-            </div>
-
-            <div className="empty-admin-state">
-              <h3>Product Management</h3>
-
-              <p>We'll connect your products here next.</p>
-            </div>
-          </section>
-        )}
-
+        {activeSection === "portfolio" && <PortfolioManagement />}
         {/* =========================
                     ENQUIRIES
                 ========================= */}
-
         {activeSection === "enquiries" && (
           <section className="admin-section">
             <div className="section-header">
@@ -697,11 +643,9 @@ async function fetchEnquiries() {
             )}
           </section>
         )}
-
         {/* =========================
                     REVIEWS
                 ========================= */}
-
         {activeSection === "reviews" && (
           <section className="admin-section">
             {/* HEADER */}
