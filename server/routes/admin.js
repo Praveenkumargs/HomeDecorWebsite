@@ -1,10 +1,12 @@
 import express from "express";
-import { loginAdmin } from "../controllers/adminController.js";
+import { loginAdmin, getStats } from "../controllers/adminController.js";
 import { authenticateAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.post("/login", loginAdmin);
+
+router.get("/stats",authenticateAdmin,getStats);
 
 router.get("/dashboard", authenticateAdmin, (req, res) => {
     res.json({

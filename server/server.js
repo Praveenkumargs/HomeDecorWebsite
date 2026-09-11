@@ -357,7 +357,7 @@ app.delete("/api/enquiries/:id", authenticateAdmin, async (req,res) => {
         const { id } = req.params;
 
         const result = await pool.query(
-            `DEFETE FROM enquiries WHERE id=$1 RETURNING *`,[id]
+            `DELETE FROM enquiries WHERE id=$1 RETURNING *`,[id]
         );
 
         if (result.rows.length === 0) {

@@ -2,6 +2,53 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import pool from "../db.js";
 
+export async function getStats(req, res) {
+
+    try {
+
+        const productsResult = await pool.query(
+            "SELECT COUNT(*) FROM products"
+        );
+
+        const enquiriesResult = await pool.query(
+            "SELECT COUNT(*) FROM enquiries"
+        );
+
+        const reviewsResult = await pool.query(
+            "SELECT COUNT(*) FROM reviews"
+        );
+
+
+        res.json({
+
+            products: Number(
+                productsResult.rows[0].count
+            ),
+
+            enquiries: Number(
+                enquiriesResult.rows[0].count
+            ),
+
+            reviews: Number(
+                reviewsResult.rows[0].count
+            )
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error fetching dashboard stats:",
+            error
+        );
+
+        res.status(500).json({
+            message: "Failed to fetch dashboard stats"
+        });
+
+    }
+}
+
 export const loginAdmin = async (req, res) => {
     try {
         const { username, password } = req.body;
