@@ -1,80 +1,131 @@
+/* =========================================
+   PRODUCT PAGE
+========================================= */
+
 .product-page {
-    min-height: 100vh;
-    background: #f8f6f1;
-}
-
-
-.product-hero {
-    min-height: calc(100vh - 88px);
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-
-.product-image {
-    height: calc(100vh - 88px);
-}
-
-
-.product-image img {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
 
-    object-fit: cover;
-
-    display: block;
-
-    padding: 10px;
-}
-
-
-.product-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 80px;
-}
-
-
-.product-label {
-    margin-bottom: 20px;
-
-    color: #b18a4a;
-
-    font-size: 12px;
-    font-weight: 600;
-
-    letter-spacing: 3px;
-}
-
-
-.product-content h1 {
-    margin-bottom: 25px;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 64px;
-    font-weight: 500;
+    background: #f8f6f1;
 
     color: #123c32;
 }
 
 
+/* =========================================
+   PRODUCT HERO
+========================================= */
+
+.product-hero {
+    width: 100%;
+    min-height: calc(100vh - 88px);
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    background: #f8f6f1;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.product-image {
+    width: 100%;
+    height: calc(100vh - 88px);
+
+    overflow: hidden;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   PRODUCT CONTENT
+========================================= */
+
+.product-content {
+    width: 100%;
+
+    min-height: calc(100vh - 88px);
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 70px 8%;
+}
+
+
+/* LABEL */
+
+.product-label {
+    margin: 0 0 20px;
+
+    color: #b18a4a;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* TITLE */
+
+.product-content h1 {
+    margin: 0 0 25px;
+
+    color: #123c32;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(45px, 5vw, 68px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+}
+
+
+/* DESCRIPTION */
+
 .product-content > p:not(.product-label) {
     max-width: 500px;
 
-    margin-bottom: 35px;
+    margin: 0 0 35px;
 
     color: #666;
 
     font-size: 17px;
+
     line-height: 1.8;
 }
 
 
+/* QUOTE BUTTON */
+
 .product-quote-btn {
+    display: inline-block;
+
     width: fit-content;
 
     padding: 16px 25px;
@@ -88,9 +139,8 @@
     font-size: 14px;
     font-weight: 600;
 
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
-
 
 .product-quote-btn:hover {
     background: #145744;
@@ -99,22 +149,173 @@
 }
 
 
-@media (max-width: 800px) {
+/* =========================================
+   INSTALLATION LINK
+========================================= */
+
+.product-installation-link {
+    width: calc(100% - 16%);
+
+    margin: 70px 8%;
+
+    padding: 32px 38px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    background: #123c32;
+
+    border-left: 3px solid #b18a4a;
+}
+
+
+/* TEXT */
+
+.installation-link-content > p {
+    margin: 0 0 7px;
+
+    color: #d4af68;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.installation-link-content h2 {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 25px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+}
+
+
+/* LINK */
+
+.installation-link-button {
+    flex-shrink: 0;
+
+    color: #d4af68;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #d4af68;
+
+    padding-bottom: 6px;
+
+    transition: all 0.25s ease;
+}
+
+.installation-link-button:hover {
+    color: white;
+
+    border-color: white;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
 
     .product-hero {
         grid-template-columns: 1fr;
     }
 
     .product-image {
-        height: 55vh;
+        height: 60vh;
+
+        min-height: 450px;
     }
 
     .product-content {
-        padding: 60px 8%;
+        min-height: auto;
+
+        padding: 70px 8%;
+    }
+
+    .product-content h1 {
+        font-size: 52px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .product-image {
+        height: 50vh;
+
+        min-height: 350px;
+
+        padding: 6px;
+    }
+
+    .product-content {
+        padding: 55px 7%;
     }
 
     .product-content h1 {
         font-size: 45px;
+    }
+
+    .product-content > p:not(.product-label) {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    /* INSTALLATION */
+
+    .product-installation-link {
+        width: calc(100% - 14%);
+
+        margin: 50px 7%;
+
+        padding: 30px 25px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 22px;
+    }
+
+    .installation-link-content h2 {
+        font-size: 23px;
+    }
+
+    .installation-link-button {
+        white-space: normal;
     }
 
 }

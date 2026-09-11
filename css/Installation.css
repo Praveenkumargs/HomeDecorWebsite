@@ -1,0 +1,568 @@
+/* =========================================
+   INSTALLATION PAGE
+========================================= */
+
+.installation-page {
+    background: #f8f6f1;
+    color: #123c32;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.installation-hero {
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 80px 8%;
+
+    background:
+        linear-gradient(
+            rgba(18, 60, 50, 0.82),
+            rgba(18, 60, 50, 0.82)
+        ),
+        url("/images/Curtains.jpeg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.installation-hero-content {
+    max-width: 700px;
+}
+
+.installation-eyebrow,
+.section-eyebrow {
+    margin: 0 0 15px;
+
+    color: #b18a4a;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.installation-hero h1 {
+    margin: 0 0 25px;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(48px, 6vw, 78px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+}
+
+.installation-hero-text {
+    max-width: 570px;
+
+    margin-bottom: 35px;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+.installation-primary-button {
+    display: inline-block;
+
+    padding: 14px 26px;
+
+    background: #b18a4a;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    transition: 0.2s ease;
+}
+
+.installation-primary-button:hover {
+    background: #967438;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.installation-intro {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    padding: 110px 8%;
+
+    border-bottom: 1px solid #e5dfd4;
+}
+
+.installation-intro-heading h2 {
+    margin: 0;
+
+    color: #123c32;
+
+    font-family: Georgia, serif;
+
+    font-size: 46px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+}
+
+.installation-intro-text {
+    max-width: 550px;
+
+    align-self: end;
+}
+
+.installation-intro-text p {
+    margin: 0 0 18px;
+
+    color: #666;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   SERVICES
+========================================= */
+
+.installation-services {
+    padding: 110px 8%;
+}
+
+.installation-section-heading {
+    margin-bottom: 50px;
+}
+
+.installation-section-heading h2 {
+    margin: 0;
+
+    color: #123c32;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+
+    font-weight: 500;
+}
+
+.installation-section-heading > p:last-child {
+    max-width: 600px;
+
+    margin-top: 15px;
+
+    color: #777;
+
+    line-height: 1.7;
+}
+
+.installation-service-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+.installation-service-card {
+    position: relative;
+
+    padding: 38px 32px;
+
+    background: white;
+
+    border: 1px solid #e5dfd4;
+}
+
+.service-number {
+    position: absolute;
+
+    top: 25px;
+    right: 25px;
+
+    color: #c7bda9;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.service-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    background: #f1eadc;
+
+    color: #b18a4a;
+
+    font-size: 22px;
+}
+
+.installation-service-card h3 {
+    margin: 0 0 15px;
+
+    color: #123c32;
+
+    font-family: Georgia, serif;
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+.installation-service-card p {
+    margin-bottom: 25px;
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.installation-service-card ul {
+    padding: 0;
+
+    margin: 0;
+
+    list-style: none;
+}
+
+.installation-service-card li {
+    padding: 9px 0;
+
+    border-top: 1px solid #eee8df;
+
+    color: #555;
+
+    font-size: 12px;
+}
+
+.installation-service-card li::before {
+    content: "✓";
+
+    margin-right: 9px;
+
+    color: #b18a4a;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   PORTFOLIO
+========================================= */
+
+.installation-portfolio {
+    padding: 110px 8%;
+
+    background: white;
+}
+
+.installation-filters {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 35px;
+}
+
+.installation-filters button {
+    padding: 11px 22px;
+
+    background: transparent;
+
+    border: 1px solid #dcd5ca;
+
+    color: #666;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.installation-filters button:hover,
+.installation-filters button.active {
+    background: #123c32;
+
+    border-color: #123c32;
+
+    color: white;
+}
+
+
+/* PROJECT GRID */
+
+.installation-project-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+.installation-project-card {
+    background: #f8f6f1;
+
+    border: 1px solid #e5dfd4;
+
+    overflow: hidden;
+}
+
+.installation-project-image {
+    height: 270px;
+
+    overflow: hidden;
+
+    background: #eee;
+}
+
+.installation-project-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.4s ease;
+}
+
+.installation-project-card:hover
+.installation-project-image img {
+    transform: scale(1.04);
+}
+
+.installation-project-content {
+    padding: 25px;
+}
+
+.installation-project-content > span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #b18a4a;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.installation-project-content h3 {
+    margin: 0 0 10px;
+
+    color: #123c32;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    font-weight: 500;
+}
+
+.installation-project-content p {
+    margin-bottom: 12px;
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.installation-project-content small {
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* EMPTY */
+
+.installation-empty {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    border: 1px solid #e5dfd4;
+
+    background: #f8f6f1;
+}
+
+.empty-symbol {
+    margin-bottom: 15px;
+
+    color: #b18a4a;
+
+    font-size: 30px;
+}
+
+.installation-empty h3 {
+    margin: 0 0 8px;
+
+    color: #123c32;
+
+    font-family: Georgia, serif;
+}
+
+.installation-empty p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.installation-cta {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    padding: 90px 8%;
+
+    background: #123c32;
+}
+
+.installation-cta h2 {
+    margin: 0;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+}
+
+.installation-cta-right {
+    align-self: end;
+
+    max-width: 500px;
+}
+
+.installation-cta-right p {
+    margin: 0 0 25px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.installation-secondary-button {
+    display: inline-block;
+
+    color: #d4af68;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border-bottom: 1px solid #d4af68;
+
+    padding-bottom: 5px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .installation-service-grid,
+    .installation-project-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .installation-intro,
+    .installation-cta {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .installation-hero {
+        min-height: 520px;
+
+        padding: 60px 7%;
+    }
+
+    .installation-hero h1 {
+        font-size: 45px;
+    }
+
+    .installation-intro,
+    .installation-services,
+    .installation-portfolio {
+        padding: 75px 7%;
+    }
+
+    .installation-intro-heading h2,
+    .installation-section-heading h2,
+    .installation-cta h2 {
+        font-size: 35px;
+    }
+
+    .installation-service-grid,
+    .installation-project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .installation-cta {
+        padding: 70px 7%;
+    }
+
+}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 import "./ProductPage.css";
-
 
 function Blinds() {
 
@@ -36,6 +36,10 @@ function Blinds() {
 
             <main className="product-page">
 
+                {/* =====================================
+                    BLINDS HERO
+                ===================================== */}
+
                 <section className="product-hero">
 
                     <div className="product-image">
@@ -62,16 +66,46 @@ function Blinds() {
                             {product.description}
                         </p>
 
-                        <a
-                            href="/quote"
+                        <Link
+                            to="/quote"
                             className="product-quote-btn"
                         >
                             Get a Quote →
-                        </a>
+                        </Link>
 
                     </div>
 
                 </section>
+
+
+                {/* =====================================
+                    INSTALLATION LINK
+                ===================================== */}
+
+                <section className="product-installation-link">
+
+                    <div className="installation-link-content">
+
+                        <p>
+                            NEED INSTALLATION?
+                        </p>
+
+                        <h2>
+                            Professional curtain & blind
+                            installation services.
+                        </h2>
+
+                    </div>
+
+                    <Link
+                        to="/installation"
+                        className="installation-link-button"
+                    >
+                        Explore Installation Services →
+                    </Link>
+
+                </section>
+
 
             </main>
 

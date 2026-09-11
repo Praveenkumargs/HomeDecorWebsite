@@ -47,31 +47,31 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Curtain Stitching
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Curtain Installation
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Blind Stitching
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Blind Installation
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Curtain Rod & Track Installation
                             </a>
                         </li>
@@ -117,7 +117,7 @@ function Footer() {
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/installation">
                                 Curtain Hardware
                             </a>
                         </li>

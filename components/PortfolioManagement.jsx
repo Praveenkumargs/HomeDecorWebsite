@@ -535,8 +535,16 @@ function PortfolioManagement() {
                                         Curtains
                                     </option>
 
+                                    <option value="cutrain-installation">
+                                        Curtains Installation
+                                    </option>
+
                                     <option value="blinds">
                                         Blinds
+                                    </option>
+
+                                    <option value="blinds-installation">
+                                        Blinds Installation
                                     </option>
 
                                     <option value="sofa">

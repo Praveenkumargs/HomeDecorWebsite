@@ -19,6 +19,7 @@ import Sofa from '../pages/Sofa';
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Installation from '../pages/Installation';
 
 function Home() {
 
@@ -53,6 +54,10 @@ function App(){
         {/* Sofa */}
         <Route path='/sofa' element={<Sofa />} />
 
+        {/* Installation */}
+        <Route path='/installation'
+        element={<Installation/>}/>
+
         {/* Testimonials */}
         <Route path='/testimonials' element={<Sofa />} />
 
@@ -61,9 +66,7 @@ function App(){
 
         {/* Dashboard */}
         <Route path="/admin/dashboard" 
-        element={<ProtectedRoute>
-          <AdminDashboard />
-          </ProtectedRoute>}/>
+        element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}/>
 
       </Routes>
     </BrowserRouter>
