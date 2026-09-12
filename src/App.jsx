@@ -20,6 +20,7 @@ import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Installation from '../pages/Installation';
+import Testimonials from '../pages/Testimonials';
 
 function Home() {
 
@@ -59,7 +60,7 @@ function App(){
         element={<Installation/>}/>
 
         {/* Testimonials */}
-        <Route path='/testimonials' element={<Sofa />} />
+        <Route path='/testimonials' element={<Testimonials />} />
 
         {/* Admin Login */}
         <Route path='/admin' element={<AdminLogin />} />
