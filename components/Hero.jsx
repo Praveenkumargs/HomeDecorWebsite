@@ -39,7 +39,7 @@ function Hero() {
                     </a>
 
                     <Link to={"/quote"}  className="secondary-btn">
-                        Get a Quote                        
+                        Book an Appointment                       
                     </Link>
 
                 </div>

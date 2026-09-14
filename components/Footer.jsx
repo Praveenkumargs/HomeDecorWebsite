@@ -27,7 +27,7 @@ function Footer() {
                     </p>
 
                     <Link to={'/quote'} className="footer-cta">
-                        Get a Quote
+                        Book an Appointment
                         <span>→</span>
                     </Link>
 
@@ -231,13 +231,13 @@ function Footer() {
 
                 <div className="footer-links">
 
-                    <a href="#">
+                    <Link to={"/privacy-policy"}>
                         Privacy Policy
-                    </a>
+                    </Link>
 
-                    <a href="#">
+                    <Link to={"/terms-and-conditions"}>
                         Terms & Conditions
-                    </a>
+                    </Link>
 
                 </div>
 

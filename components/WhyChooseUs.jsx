@@ -28,11 +28,6 @@ function WhyChooseUs() {
                         we take care of every detail.
                     </p>
 
-                    <a href="#" className="why-button">
-                        Discover Our Story
-                        <span>→</span>
-                    </a>
-
                 </div>
 
 

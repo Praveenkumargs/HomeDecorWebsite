@@ -1,0 +1,156 @@
+.legal-page {
+    min-height: 100vh;
+    background: #f8f6f1;
+    color: #24332d;
+}
+
+/* HERO */
+
+.legal-hero {
+    background: #0d3b2e;
+    color: #ffffff;
+    padding: 90px 20px 80px;
+}
+
+.legal-container {
+    width: min(1000px, 92%);
+    margin: 0 auto;
+}
+
+.legal-eyebrow {
+    display: inline-block;
+    color: #d4af68;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.legal-hero h1 {
+    margin: 0 0 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 500;
+    line-height: 1.05;
+}
+
+.legal-hero p {
+    max-width: 680px;
+    margin: 0 0 25px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.legal-updated {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+}
+
+/* CONTENT */
+
+.legal-content {
+    padding: 75px 0 100px;
+}
+
+.legal-content section {
+    margin-bottom: 55px;
+}
+
+.legal-content h2 {
+    margin: 0 0 18px;
+    color: #0d3b2e;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.legal-content h3 {
+    margin: 30px 0 12px;
+    color: #315548;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.legal-content p {
+    max-width: 850px;
+    margin: 0 0 17px;
+    color: #5d6862;
+    font-size: 15.5px;
+    line-height: 1.85;
+}
+
+.legal-content ul {
+    max-width: 850px;
+    margin: 15px 0 20px;
+    padding-left: 24px;
+}
+
+.legal-content li {
+    margin-bottom: 10px;
+    color: #5d6862;
+    font-size: 15.5px;
+    line-height: 1.7;
+}
+
+.legal-content strong {
+    color: #33463e;
+}
+
+/* CONTACT */
+
+.legal-contact {
+    margin-top: 25px;
+    padding: 25px 30px;
+    border-left: 3px solid #d4af68;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(13, 59, 46, 0.06);
+}
+
+.legal-contact p {
+    margin-bottom: 8px;
+}
+
+.legal-contact p:last-child {
+    margin-bottom: 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .legal-hero {
+        padding: 65px 20px 55px;
+    }
+
+    .legal-hero h1 {
+        font-size: 42px;
+    }
+
+    .legal-hero p {
+        font-size: 15px;
+    }
+
+    .legal-content {
+        padding: 55px 0 70px;
+    }
+
+    .legal-content section {
+        margin-bottom: 42px;
+    }
+
+    .legal-content h2 {
+        font-size: 25px;
+    }
+
+    .legal-content p,
+    .legal-content li {
+        font-size: 15px;
+    }
+
+    .legal-contact {
+        padding: 20px;
+    }
+}

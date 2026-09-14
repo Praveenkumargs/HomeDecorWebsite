@@ -5,457 +5,302 @@ import Footer from "../components/Footer";
 import "../css/Installation.css";
 
 function Installation() {
+  const [projects, setProjects] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
 
-    const [projects, setProjects] = useState([]);
-    const [activeFilter, setActiveFilter] = useState("all");
-    const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchInstallationProjects();
+  }, []);
 
-    useEffect(() => {
-        fetchInstallationProjects();
-    }, []);
+  async function fetchInstallationProjects() {
+    try {
+      const response = await fetch("http://localhost:3000/api/portfolio");
 
-    async function fetchInstallationProjects() {
-        try {
+      if (!response.ok) {
+        throw new Error("Failed to fetch portfolio");
+      }
 
-            const response = await fetch(
-                "http://localhost:3000/api/portfolio"
-            );
+      const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch portfolio");
-            }
+      const installationProjects = data.filter(
+        (project) =>
+          project.category === "curtain-installation" ||
+          project.category === "blind-installation",
+      );
 
-            const data = await response.json();
+      setProjects(installationProjects);
+    } catch (error) {
+      console.error("Error fetching installation projects:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-            const installationProjects = data.filter(
-                project =>
-                    project.category === "curtain-installation" ||
-                    project.category === "blind-installation"
-            );
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.category === activeFilter);
 
-            setProjects(installationProjects);
-
-        } catch (error) {
-
-            console.error(
-                "Error fetching installation projects:",
-                error
-            );
-
-        } finally {
-
-            setLoading(false);
-
-        }
+  function getImageUrl(imageUrl) {
+    if (!imageUrl) {
+      return "";
     }
 
-    const filteredProjects =
-        activeFilter === "all"
-            ? projects
-            : projects.filter(
-                project =>
-                    project.category === activeFilter
-            );
+    // Images uploaded through the admin dashboard
+    if (imageUrl.startsWith("/uploads/")) {
+      return `http://localhost:3000${imageUrl}`;
+    }
 
+    // Existing images from React public folder
+    if (imageUrl.startsWith("/images/")) {
+      return imageUrl;
+    }
 
-    return (
-        <>
+    return imageUrl;
+  }
+  return (
+    <>
+      <Header />
 
-            <Header />
-
-            <main className="installation-page">
-
-                {/* =====================================
+      <main className="installation-page">
+        {/* =====================================
                     HERO
                 ===================================== */}
 
-                <section className="installation-hero">
+        <section className="installation-hero">
+          <div className="installation-hero-content">
+            <p className="installation-eyebrow">INSTALLATION SERVICES</p>
 
-                    <div className="installation-hero-content">
+            <h1>
+              Curtain & Blind
+              <br />
+              Installation
+            </h1>
 
-                        <p className="installation-eyebrow">
-                            INSTALLATION SERVICES
-                        </p>
+            <p className="installation-hero-text">
+              Professional installation for curtains, blinds and their hardware,
+              finished with precision and care.
+            </p>
 
-                        <h1>
-                            Curtain & Blind
-                            <br />
-                            Installation
-                        </h1>
+            <Link to="/quote" className="installation-primary-button">
+              Book an Installation
+            </Link>
+          </div>
+        </section>
 
-                        <p className="installation-hero-text">
-                            Professional installation for curtains,
-                            blinds and their hardware, finished with
-                            precision and care.
-                        </p>
-
-                        <Link
-                            to="/quote"
-                            className="installation-primary-button"
-                        >
-                            Book an Installation
-                        </Link>
-
-                    </div>
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     INTRO
                 ===================================== */}
 
-                <section className="installation-intro">
+        <section className="installation-intro">
+          <div className="installation-intro-heading">
+            <p className="section-eyebrow">WHAT WE DO</p>
 
-                    <div className="installation-intro-heading">
+            <h2>
+              Professional installation,
+              <br />
+              done right.
+            </h2>
+          </div>
 
-                        <p className="section-eyebrow">
-                            WHAT WE DO
-                        </p>
+          <div className="installation-intro-text">
+            <p>
+              Already have your curtains or blinds? We can take care of the
+              installation.
+            </p>
 
-                        <h2>
-                            Professional installation,
-                            <br />
-                            done right.
-                        </h2>
+            <p>
+              Our installation service covers curtain hardware, blind mounting
+              systems and complete installation for your space.
+            </p>
+          </div>
+        </section>
 
-                    </div>
-
-                    <div className="installation-intro-text">
-
-                        <p>
-                            Already have your curtains or blinds?
-                            We can take care of the installation.
-                        </p>
-
-                        <p>
-                            Our installation service covers curtain
-                            hardware, blind mounting systems and
-                            complete installation for your space.
-                        </p>
-
-                    </div>
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     SERVICES
                 ===================================== */}
 
-                <section className="installation-services">
+        <section className="installation-services">
+          <div className="installation-section-heading">
+            <p className="section-eyebrow">OUR SERVICES</p>
 
-                    <div className="installation-section-heading">
+            <h2>Installation for every setup</h2>
+          </div>
 
-                        <p className="section-eyebrow">
-                            OUR SERVICES
-                        </p>
+          <div className="installation-service-grid">
+            <article className="installation-service-card">
+              <span className="service-number">01</span>
 
-                        <h2>
-                            Installation for every setup
-                        </h2>
+              <div className="service-icon">◇</div>
 
-                    </div>
+              <h3>Curtain Installation</h3>
 
+              <p>
+                Professional installation of curtains with the right mounting
+                system for your space.
+              </p>
 
-                    <div className="installation-service-grid">
+              <ul>
+                <li>Curtain rods</li>
+                <li>Curtain tracks</li>
+                <li>Wall-mounted systems</li>
+                <li>Ceiling-mounted systems</li>
+              </ul>
+            </article>
 
-                        <article className="installation-service-card">
+            <article className="installation-service-card">
+              <span className="service-number">02</span>
 
-                            <span className="service-number">
-                                01
-                            </span>
+              <div className="service-icon">□</div>
 
-                            <div className="service-icon">
-                                ◇
-                            </div>
+              <h3>Blind Installation</h3>
 
-                            <h3>
-                                Curtain Installation
-                            </h3>
+              <p>
+                Precise installation of different blind systems for a clean and
+                finished appearance.
+              </p>
 
-                            <p>
-                                Professional installation of curtains
-                                with the right mounting system for
-                                your space.
-                            </p>
+              <ul>
+                <li>Roller blinds</li>
+                <li>Roman blinds</li>
+                <li>Zebra blinds</li>
+                <li>Other blind systems</li>
+              </ul>
+            </article>
 
-                            <ul>
-                                <li>Curtain rods</li>
-                                <li>Curtain tracks</li>
-                                <li>Wall-mounted systems</li>
-                                <li>Ceiling-mounted systems</li>
-                            </ul>
+            <article className="installation-service-card">
+              <span className="service-number">03</span>
 
-                        </article>
+              <div className="service-icon">+</div>
 
+              <h3>Hardware Installation</h3>
 
-                        <article className="installation-service-card">
+              <p>
+                Already have your curtains or blinds? We can install the
+                hardware for you.
+              </p>
 
-                            <span className="service-number">
-                                02
-                            </span>
+              <ul>
+                <li>Rods</li>
+                <li>Tracks</li>
+                <li>Channels</li>
+                <li>Mounting hardware</li>
+              </ul>
+            </article>
+          </div>
+        </section>
 
-                            <div className="service-icon">
-                                □
-                            </div>
-
-                            <h3>
-                                Blind Installation
-                            </h3>
-
-                            <p>
-                                Precise installation of different
-                                blind systems for a clean and
-                                finished appearance.
-                            </p>
-
-                            <ul>
-                                <li>Roller blinds</li>
-                                <li>Roman blinds</li>
-                                <li>Zebra blinds</li>
-                                <li>Other blind systems</li>
-                            </ul>
-
-                        </article>
-
-
-                        <article className="installation-service-card">
-
-                            <span className="service-number">
-                                03
-                            </span>
-
-                            <div className="service-icon">
-                                +
-                            </div>
-
-                            <h3>
-                                Hardware Installation
-                            </h3>
-
-                            <p>
-                                Already have your curtains or blinds?
-                                We can install the hardware for you.
-                            </p>
-
-                            <ul>
-                                <li>Rods</li>
-                                <li>Tracks</li>
-                                <li>Channels</li>
-                                <li>Mounting hardware</li>
-                            </ul>
-
-                        </article>
-
-                    </div>
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     PORTFOLIO
                 ===================================== */}
 
-                <section className="installation-portfolio">
+        <section className="installation-portfolio">
+          <div className="installation-section-heading">
+            <p className="section-eyebrow">OUR WORK</p>
 
-                    <div className="installation-section-heading">
+            <h2>Installation projects</h2>
 
-                        <p className="section-eyebrow">
-                            OUR WORK
-                        </p>
+            <p>
+              Explore some of our completed curtain and blind installation work.
+            </p>
+          </div>
 
-                        <h2>
-                            Installation projects
-                        </h2>
+          <div className="installation-filters">
+            <button
+              className={activeFilter === "all" ? "active" : ""}
+              onClick={() => setActiveFilter("all")}
+            >
+              All
+            </button>
 
-                        <p>
-                            Explore some of our completed curtain
-                            and blind installation work.
-                        </p>
+            <button
+              className={
+                activeFilter === "curtain-installation" ? "active" : ""
+              }
+              onClick={() => setActiveFilter("curtain-installation")}
+            >
+              Curtains
+            </button>
 
-                    </div>
+            <button
+              className={activeFilter === "blind-installation" ? "active" : ""}
+              onClick={() => setActiveFilter("blind-installation")}
+            >
+              Blinds
+            </button>
+          </div>
 
+          {loading ? (
+            <div className="installation-empty">
+              <p>Loading projects...</p>
+            </div>
+          ) : filteredProjects.length === 0 ? (
+            <div className="installation-empty">
+              <div className="empty-symbol">◇</div>
 
-                    <div className="installation-filters">
+              <h3>Projects Coming Soon</h3>
 
-                        <button
-                            className={
-                                activeFilter === "all"
-                                    ? "active"
-                                    : ""
-                            }
-                            onClick={() =>
-                                setActiveFilter("all")
-                            }
-                        >
-                            All
-                        </button>
+              <p>We're adding our latest installation projects here.</p>
+            </div>
+          ) : (
+            <div className="installation-project-grid">
+              {filteredProjects.map((project) => (
+                <article className="installation-project-card" key={project.id}>
+                  <div className="installation-project-image">
+                    <img src={getImageUrl(project.image_url)} alt={project.title} />
+                  </div>
 
-                        <button
-                            className={
-                                activeFilter === "curtain-installation"
-                                    ? "active"
-                                    : ""
-                            }
-                            onClick={() =>
-                                setActiveFilter(
-                                    "curtain-installation"
-                                )
-                            }
-                        >
-                            Curtains
-                        </button>
+                  <div className="installation-project-content">
+                    <span>
+                      {project.category === "curtain-installation"
+                        ? "Curtain Installation"
+                        : "Blind Installation"}
+                    </span>
 
-                        <button
-                            className={
-                                activeFilter === "blind-installation"
-                                    ? "active"
-                                    : ""
-                            }
-                            onClick={() =>
-                                setActiveFilter(
-                                    "blind-installation"
-                                )
-                            }
-                        >
-                            Blinds
-                        </button>
+                    <h3>{project.title}</h3>
 
-                    </div>
+                    {project.description && <p>{project.description}</p>}
 
+                    {project.location && <small>📍 {project.location}</small>}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
 
-                    {loading ? (
-
-                        <div className="installation-empty">
-                            <p>Loading projects...</p>
-                        </div>
-
-                    ) : filteredProjects.length === 0 ? (
-
-                        <div className="installation-empty">
-
-                            <div className="empty-symbol">
-                                ◇
-                            </div>
-
-                            <h3>
-                                Projects Coming Soon
-                            </h3>
-
-                            <p>
-                                We're adding our latest installation
-                                projects here.
-                            </p>
-
-                        </div>
-
-                    ) : (
-
-                        <div className="installation-project-grid">
-
-                            {filteredProjects.map(project => (
-
-                                <article
-                                    className="installation-project-card"
-                                    key={project.id}
-                                >
-
-                                    <div className="installation-project-image">
-
-                                        <img
-                                            src={project.image_url}
-                                            alt={project.title}
-                                        />
-
-                                    </div>
-
-
-                                    <div className="installation-project-content">
-
-                                        <span>
-                                            {
-                                                project.category ===
-                                                "curtain-installation"
-                                                    ? "Curtain Installation"
-                                                    : "Blind Installation"
-                                            }
-                                        </span>
-
-                                        <h3>
-                                            {project.title}
-                                        </h3>
-
-                                        {project.description && (
-                                            <p>
-                                                {project.description}
-                                            </p>
-                                        )}
-
-                                        {project.location && (
-                                            <small>
-                                                📍 {project.location}
-                                            </small>
-                                        )}
-
-                                    </div>
-
-                                </article>
-
-                            ))}
-
-                        </div>
-
-                    )}
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     CTA
                 ===================================== */}
 
-                <section className="installation-cta">
+        <section className="installation-cta">
+          <div>
+            <p className="section-eyebrow">NEED INSTALLATION?</p>
 
-                    <div>
+            <h2>
+              Let us handle the
+              <br />
+              installation for you.
+            </h2>
+          </div>
 
-                        <p className="section-eyebrow">
-                            NEED INSTALLATION?
-                        </p>
+          <div className="installation-cta-right">
+            <p>
+              Whether you need curtain hardware, blind installation or both,
+              we're ready to help.
+            </p>
 
-                        <h2>
-                            Let us handle the
-                            <br />
-                            installation for you.
-                        </h2>
+            <Link to="/quote" className="installation-secondary-button">
+              Book an Installation →
+            </Link>
+          </div>
+        </section>
+      </main>
 
-                    </div>
-
-                    <div className="installation-cta-right">
-
-                        <p>
-                            Whether you need curtain hardware,
-                            blind installation or both, we're ready
-                            to help.
-                        </p>
-
-                        <Link
-                            to="/quote"
-                            className="installation-secondary-button"
-                        >
-                            Book an Installation →
-                        </Link>
-
-                    </div>
-
-                </section>
-
-            </main>
-
-            <Footer />
-
-        </>
-    );
+      <Footer />
+    </>
+  );
 }
 
 export default Installation;

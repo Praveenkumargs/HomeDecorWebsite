@@ -56,7 +56,7 @@ function Header() {
 
             {/* CTA */}
             <Link to={"/quote"} className="quote-btn">
-                Get a Quote
+                Book an Appointment
                 <span>→</span>
             </Link>
 

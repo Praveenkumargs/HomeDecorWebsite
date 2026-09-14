@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "../components/Header";
-import Hero from '../components/Hero';
-import Collections from '../components/Collections';
-import WhyChooseUs from '../components/WhyChooseUs';
+import Hero from "../components/Hero";
+import Collections from "../components/Collections";
+import WhyChooseUs from "../components/WhyChooseUs";
 import CustomerReviews from "../components/CustomerReviews";
-import Footer from '../components/Footer';
-
+import Footer from "../components/Footer";
 
 import "../src/App.css";
 
-import Quote from '../pages/Quote';
-import Curtains from '../pages/Curtains';
-import Blinds from '../pages/Blinds';
-import Sofa from '../pages/Sofa';
+import Quote from "../pages/Quote";
+import Curtains from "../pages/Curtains";
+import Blinds from "../pages/Blinds";
+import Sofa from "../pages/Sofa";
 
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
-import Installation from '../pages/Installation';
-import Testimonials from '../pages/Testimonials';
+import Installation from "../pages/Installation";
+import Testimonials from "../pages/Testimonials";
+
+import PrivacyPolicy from "../components/PrivacyPolicy";
+import TermsAndConditions from "../components/TermsAndConditions";
 
 function Home() {
-
   return (
     <div>
       <Header />
@@ -36,42 +37,50 @@ function Home() {
   );
 }
 
-function App(){
+function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Home */}
-        <Route path='/' element={<Home />} />
+        <Route path="/" element={<Home />} />
 
         {/* Quote */}
-        <Route path='/quote' element={<Quote />} />
+        <Route path="/quote" element={<Quote />} />
 
         {/* Curtains */}
-        <Route path='/curtains' element={<Curtains />} />
+        <Route path="/curtains" element={<Curtains />} />
 
         {/* Blinds */}
-        <Route path='/blinds' element={<Blinds />} />
+        <Route path="/blinds" element={<Blinds />} />
 
         {/* Sofa */}
-        <Route path='/sofa' element={<Sofa />} />
+        <Route path="/sofa" element={<Sofa />} />
 
         {/* Installation */}
-        <Route path='/installation'
-        element={<Installation/>}/>
+        <Route path="/installation" element={<Installation />} />
 
         {/* Testimonials */}
-        <Route path='/testimonials' element={<Testimonials />} />
+        <Route path="/testimonials" element={<Testimonials />} />
 
         {/* Admin Login */}
-        <Route path='/admin' element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLogin />} />
 
         {/* Dashboard */}
-        <Route path="/admin/dashboard" 
-        element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}/>
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

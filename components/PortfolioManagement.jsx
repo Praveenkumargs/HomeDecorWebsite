@@ -2,650 +2,573 @@ import React, { useEffect, useState } from "react";
 import "../css/PortfolioManagement.css";
 
 function PortfolioManagement() {
+  const [projects, setProjects] = useState([]);
 
-    const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
-    const [showForm, setShowForm] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
 
-    const [editingProject, setEditingProject] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "curtains",
+    description: "",
+    location: "",
+  });
 
-    const [formData, setFormData] = useState({
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // ================================
+  // GET PORTFOLIO
+  // ================================
+
+  async function fetchPortfolio() {
+    try {
+      setLoading(true);
+
+      const response = await fetch("http://localhost:3000/api/portfolio");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch portfolio");
+      }
+
+      const data = await response.json();
+
+      setProjects(data);
+    } catch (error) {
+      console.error("Error fetching portfolio:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchPortfolio();
+  }, []);
+
+  // ================================
+  // FORM CHANGE
+  // ================================
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+  function handleImageChange(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    // Check file size
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Image must be smaller than 5MB.");
+        event.target.value = "";
+        return;
+    }
+
+    setSelectedImage(file);
+
+    const previewUrl = URL.createObjectURL(file);
+
+    setImagePreview(previewUrl);
+}
+
+function getImageUrl(imageUrl) {
+
+    if (!imageUrl) {
+        return "";
+    }
+
+    // New uploaded images
+    if (imageUrl.startsWith("/uploads/")) {
+        return `http://localhost:3000${imageUrl}`;
+    }
+
+    // Existing images from React public folder
+    if (imageUrl.startsWith("/images/")) {
+        return imageUrl;
+    }
+
+    return imageUrl;
+}
+
+  // ================================
+  // OPEN ADD FORM
+  // ================================
+
+  function handleAdd() {
+
+    setEditingProject(null);
+
+    setFormData({
         title: "",
         category: "curtains",
         description: "",
-        image_url: "",
         location: ""
     });
 
+    setSelectedImage(null);
+    setImagePreview(null);
 
-    // ================================
-    // GET PORTFOLIO
-    // ================================
+    setShowForm(true);
+}
 
-    async function fetchPortfolio() {
+  // ================================
+  // OPEN EDIT FORM
+  // ================================
 
-        try {
+  function handleEdit(project) {
 
-            setLoading(true);
+    setEditingProject(project);
 
-            const response = await fetch(
-                "http://localhost:3000/api/portfolio"
+    setFormData({
+        title: project.title || "",
+        category: project.category || "curtains",
+        description: project.description || "",
+        location: project.location || ""
+    });
+
+    // No new image selected initially
+    setSelectedImage(null);
+    setImagePreview(null);
+
+    setShowForm(true);
+}
+
+  // ================================
+  // SAVE PROJECT
+  // ================================
+
+  async function handleSubmit(event) {
+
+    event.preventDefault();
+
+    const token =
+        localStorage.getItem("adminToken");
+
+    if (!token) {
+        alert("Admin login required.");
+        return;
+    }
+
+
+    // =========================
+    // VALIDATION
+    // =========================
+
+    if (!editingProject && !selectedImage) {
+
+        alert("Please select a project image.");
+
+        return;
+    }
+
+
+    try {
+
+        const url = editingProject
+            ? `http://localhost:3000/api/portfolio/${editingProject.id}`
+            : "http://localhost:3000/api/portfolio";
+
+
+        const method = editingProject
+            ? "PUT"
+            : "POST";
+
+
+        // =========================
+        // FORM DATA
+        // =========================
+
+        const data = new FormData();
+
+        data.append(
+            "title",
+            formData.title
+        );
+
+        data.append(
+            "category",
+            formData.category
+        );
+
+        data.append(
+            "description",
+            formData.description
+        );
+
+        data.append(
+            "location",
+            formData.location
+        );
+
+
+        // Only send image if a new one was selected
+        if (selectedImage) {
+
+            data.append(
+                "image",
+                selectedImage
             );
-
-            if (!response.ok) {
-                throw new Error(
-                    "Failed to fetch portfolio"
-                );
-            }
-
-            const data = await response.json();
-
-            setProjects(data);
-
-        } catch (error) {
-
-            console.error(
-                "Error fetching portfolio:",
-                error
-            );
-
-        } finally {
-
-            setLoading(false);
-
         }
-    }
 
 
-    useEffect(() => {
+        // =========================
+        // REQUEST
+        // =========================
 
-        fetchPortfolio();
+        const response = await fetch(
+            url,
+            {
+                method: method,
 
-    }, [])
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                },
 
-
-    // ================================
-    // FORM CHANGE
-    // ================================
-
-    function handleChange(event) {
-
-        const {
-            name,
-            value
-        } = event.target;
-
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    }
+                body: data
+            }
+        );
 
 
-    // ================================
-    // OPEN ADD FORM
-    // ================================
+        const result =
+            await response.json();
 
-    function handleAdd() {
+
+        if (!response.ok) {
+
+            console.error(result);
+
+            alert(
+                result.message ||
+                result.error ||
+                "Failed to save project."
+            );
+
+            return;
+        }
+
+
+        // =========================
+        // SUCCESS
+        // =========================
+
+        setShowForm(false);
 
         setEditingProject(null);
 
-        setFormData({
-            title: "",
-            category: "curtains",
-            description: "",
-            image_url: "",
-            location: ""
-        });
+        setSelectedImage(null);
 
-        setShowForm(true);
-    }
+        setImagePreview(null);
 
+        await fetchPortfolio();
 
-    // ================================
-    // OPEN EDIT FORM
-    // ================================
 
-    function handleEdit(project) {
+    } catch (error) {
 
-        setEditingProject(project);
+        console.error(
+            "Error saving project:",
+            error
+        );
 
-        setFormData({
-            title: project.title || "",
-            category: project.category || "curtains",
-            description: project.description || "",
-            image_url: project.image_url || "",
-            location: project.location || ""
-        });
-
-        setShowForm(true);
-    }
-
-
-    // ================================
-    // SAVE PROJECT
-    // ================================
-
-    async function handleSubmit(event) {
-
-        event.preventDefault();
-
-        const token =
-            localStorage.getItem("adminToken");
-
-
-        if (!token) {
-
-            alert("Admin login required.");
-
-            return;
-        }
-
-
-        try {
-
-            const url = editingProject
-
-                ? `http://localhost:3000/api/portfolio/${editingProject.id}`
-
-                : "http://localhost:3000/api/portfolio";
-
-
-            const method =
-                editingProject
-                    ? "PUT"
-                    : "POST";
-
-
-            const response = await fetch(
-                url,
-                {
-                    method,
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${token}`
-                    },
-
-                    body: JSON.stringify(
-                        formData
-                    )
-                }
-            );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                console.error(data);
-
-                alert(
-                    data.error ||
-                    data.message ||
-                    "Failed to save project"
-                );
-
-                return;
-            }
-
-
-            setShowForm(false);
-
-            setEditingProject(null);
-
-            await fetchPortfolio();
-
-
-        } catch (error) {
-
-            console.error(
-                "Error saving project:",
-                error
-            );
-
-            alert(
-                "Unable to save project."
-            );
-
-        }
-    }
-
-
-    // ================================
-    // DELETE PROJECT
-    // ================================
-
-    async function handleDelete(id) {
-
-        const confirmed =
-            window.confirm(
-                "Are you sure you want to delete this project?"
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        const token =
-            localStorage.getItem("adminToken");
-
-
-        try {
-
-            const response = await fetch(
-                `http://localhost:3000/api/portfolio/${id}`,
-                {
-                    method: "DELETE",
-
-                    headers: {
-                        "Authorization":
-                            `Bearer ${token}`
-                    }
-                }
-            );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                alert(
-                    data.message ||
-                    "Failed to delete project"
-                );
-
-                return;
-            }
-
-
-            setProjects(prev =>
-                prev.filter(
-                    project =>
-                        project.id !== id
-                )
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Error deleting project:",
-                error
-            );
-
-            alert(
-                "Unable to delete project."
-            );
-
-        }
-    }
-
-
-    // ================================
-    // LOADING
-    // ================================
-
-    if (loading) {
-
-        return (
-            <div className="empty-admin-state">
-                <p>
-                    Loading portfolio...
-                </p>
-            </div>
+        alert(
+            "Unable to save project."
         );
     }
+}
 
+  // ================================
+  // DELETE PROJECT
+  // ================================
 
-    // ================================
-    // UI
-    // ================================
+  async function handleDelete(id) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this project?",
+    );
 
+    if (!confirmed) {
+      return;
+    }
+
+    const token = localStorage.getItem("adminToken");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/portfolio/${id}`,
+        {
+          method: "DELETE",
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || "Failed to delete project");
+
+        return;
+      }
+
+      setProjects((prev) => prev.filter((project) => project.id !== id));
+    } catch (error) {
+      console.error("Error deleting project:", error);
+
+      alert("Unable to delete project.");
+    }
+  }
+
+  // ================================
+  // LOADING
+  // ================================
+
+  if (loading) {
     return (
+      <div className="empty-admin-state">
+        <p>Loading portfolio...</p>
+      </div>
+    );
+  }
 
-        <section className="portfolio-management">
+  // ================================
+  // UI
+  // ================================
 
-            <div className="section-header">
+  return (
+    <section className="portfolio-management">
+      <div className="section-header">
+        <div>
+          <p className="dashboard-label">PROJECT SHOWCASE</p>
 
-                <div>
+          <h2>Manage Portfolio</h2>
+        </div>
 
-                    <p className="dashboard-label">
-                        PROJECT SHOWCASE
-                    </p>
+        <button className="add-product-button" onClick={handleAdd}>
+          + Add Project
+        </button>
+      </div>
 
-                    <h2>
-                        Manage Portfolio
-                    </h2>
+      {/* PROJECT GRID */}
 
+      {projects.length === 0 ? (
+        <div className="empty-admin-state">
+          <div className="empty-icon">◇</div>
+
+          <h3>No Projects Yet</h3>
+
+          <p>Add your first completed project to the portfolio.</p>
+        </div>
+      ) : (
+        <div className="portfolio-admin-grid">
+          {projects.map((project) => (
+            <div className="portfolio-admin-card" key={project.id}>
+              <div className="portfolio-image">
+                <img src={getImageUrl(project.image_url)} alt={project.title} />
+              </div>
+
+              <div className="portfolio-content">
+                <span>{project.category}</span>
+
+                <h3>{project.title}</h3>
+
+                <p>{project.description}</p>
+
+                {project.location && <small>📍 {project.location}</small>}
+
+                <div className="portfolio-actions">
+                  <button
+                    className="edit-product-button"
+                    onClick={() => handleEdit(project)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="delete-product-button"
+                    onClick={() => handleDelete(project.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
-
-
-                <button
-                    className="add-product-button"
-                    onClick={handleAdd}
-                >
-                    + Add Project
-                </button>
-
+              </div>
             </div>
+          ))}
+        </div>
+      )}
 
-
-            {/* PROJECT GRID */}
-
-            {projects.length === 0 ? (
-
-                <div className="empty-admin-state">
-
-                    <div className="empty-icon">
-                        ◇
-                    </div>
-
-                    <h3>
-                        No Projects Yet
-                    </h3>
-
-                    <p>
-                        Add your first completed
-                        project to the portfolio.
-                    </p>
-
-                </div>
-
-            ) : (
-
-                <div className="portfolio-admin-grid">
-
-                    {projects.map(project => (
-
-                        <div
-                            className="portfolio-admin-card"
-                            key={project.id}
-                        >
-
-                            <div className="portfolio-image">
-
-                                <img
-                                    src={
-                                        project.image_url
-                                    }
-                                    alt={
-                                        project.title
-                                    }
-                                />
-
-                            </div>
-
-
-                            <div className="portfolio-content">
-
-                                <span>
-                                    {project.category}
-                                </span>
-
-                                <h3>
-                                    {project.title}
-                                </h3>
-
-                                <p>
-                                    {
-                                        project.description
-                                    }
-                                </p>
-
-                                {project.location && (
-
-                                    <small>
-                                        📍{" "}
-                                        {project.location}
-                                    </small>
-
-                                )}
-
-
-                                <div className="portfolio-actions">
-
-                                    <button
-                                        className="edit-product-button"
-                                        onClick={() =>
-                                            handleEdit(
-                                                project
-                                            )
-                                        }
-                                    >
-                                        Edit
-                                    </button>
-
-
-                                    <button
-                                        className="delete-product-button"
-                                        onClick={() =>
-                                            handleDelete(
-                                                project.id
-                                            )
-                                        }
-                                    >
-                                        Delete
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    ))}
-
-                </div>
-
-            )}
-
-
-            {/* ================================
+      {/* ================================
                 ADD / EDIT MODAL
             ================================= */}
 
-            {showForm && (
+      {showForm && (
+        <div className="product-modal-overlay">
+          <div className="product-modal">
+            <div className="product-modal-header">
+              <div>
+                <p className="dashboard-label">PROJECT SHOWCASE</p>
 
-                <div className="product-modal-overlay">
+                <h2>{editingProject ? "Edit Project" : "Add Project"}</h2>
+              </div>
 
-                    <div className="product-modal">
+              <button
+                className="close-modal"
+                onClick={() => setShowForm(false)}
+              >
+                ×
+              </button>
+            </div>
 
-                        <div className="product-modal-header">
+            <form className="product-form" onSubmit={handleSubmit}>
+              <label>
+                Project Title
+                <input
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="Elegant Living Room Curtains"
+                  required
+                />
+              </label>
 
-                            <div>
+              <label>
+                Category
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                >
+                  <option value="curtains">Curtains</option>
 
-                                <p className="dashboard-label">
-                                    PROJECT SHOWCASE
-                                </p>
+                  <option value="curtain-installation">
+                    Curtain Installation
+                  </option>
 
-                                <h2>
-                                    {editingProject
-                                        ? "Edit Project"
-                                        : "Add Project"}
-                                </h2>
+                  <option value="blinds">Blinds</option>
 
-                            </div>
+                  <option value="blind-installation">
+                    Blind Installation
+                  </option>
 
+                  <option value="sofa">Sofa</option>
+                </select>
+              </label>
 
-                            <button
-                                className="close-modal"
-                                onClick={() =>
-                                    setShowForm(false)
-                                }
-                            >
-                                ×
-                            </button>
+              <label>
+                Description
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows="4"
+                  placeholder="Describe the completed project..."
+                />
+              </label>
 
-                        </div>
+              <div className="image-upload-group">
 
+    <label>
+        Project Image
+    </label>
 
-                        <form
-                            className="product-form"
-                            onSubmit={
-                                handleSubmit
-                            }
-                        >
+    <div className="image-upload-box">
 
-                            <label>
+        <input
+            type="file"
+            id="project-image"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleImageChange}
+            required={!editingProject}
+        />
 
-                                Project Title
+        <label
+            htmlFor="project-image"
+            className="image-upload-label"
+        >
+            <span className="upload-icon">↑</span>
 
-                                <input
-                                    name="title"
-                                    value={
-                                        formData.title
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    placeholder="Elegant Living Room Curtains"
-                                    required
-                                />
+            <strong>
+                {selectedImage
+                    ? selectedImage.name
+                    : "Choose Project Image"}
+            </strong>
 
-                            </label>
+            <small>
+                JPG, PNG or WebP · Max 5MB
+            </small>
+        </label>
 
+    </div>
 
-                            <label>
+    {imagePreview && (
+        <div className="portfolio-image-preview">
 
-                                Category
+            <p>IMAGE PREVIEW</p>
 
-                                <select
-                                    name="category"
-                                    value={
-                                        formData.category
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                >
+            <img
+                src={imagePreview}
+                alt="Project preview"
+            />
 
-                                    <option value="curtains">
-                                        Curtains
-                                    </option>
+        </div>
+    )}
 
-                                    <option value="cutrain-installation">
-                                        Curtains Installation
-                                    </option>
+    {!imagePreview &&
+        editingProject?.image_url && (
+            <div className="portfolio-image-preview">
 
-                                    <option value="blinds">
-                                        Blinds
-                                    </option>
+                <p>CURRENT IMAGE</p>
 
-                                    <option value="blinds-installation">
-                                        Blinds Installation
-                                    </option>
+                <img
+                    src={getImageUrl(editingProject.image_url)}
+                    alt={editingProject.title}
+                />
 
-                                    <option value="sofa">
-                                        Sofa
-                                    </option>
+            </div>
+        )}
 
-                                </select>
+</div>
 
-                            </label>
+              <label>
+                Location
+                <input
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Bengaluru"
+                />
+              </label>
 
+              <div className="product-form-actions">
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancel
+                </button>
 
-                            <label>
-
-                                Description
-
-                                <textarea
-                                    name="description"
-                                    value={
-                                        formData.description
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    rows="4"
-                                    placeholder="Describe the completed project..."
-                                />
-
-                            </label>
-
-
-                            <label>
-
-                                Image URL
-
-                                <input
-                                    name="image_url"
-                                    value={
-                                        formData.image_url
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    placeholder="/images/curtains/curtain-1.jpg"
-                                    required
-                                />
-
-                            </label>
-
-
-                            <label>
-
-                                Location
-
-                                <input
-                                    name="location"
-                                    value={
-                                        formData.location
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    placeholder="Bengaluru"
-                                />
-
-                            </label>
-
-
-                            <div className="product-form-actions">
-
-                                <button
-                                    type="button"
-                                    className="cancel-button"
-                                    onClick={() =>
-                                        setShowForm(false)
-                                    }
-                                >
-                                    Cancel
-                                </button>
-
-
-                                <button
-                                    type="submit"
-                                    className="save-product-button"
-                                >
-                                    {editingProject
-                                        ? "Update Project"
-                                        : "Add Project"}
-                                </button>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            )}
-
-        </section>
-    );
+                <button type="submit" className="save-product-button">
+                  {editingProject ? "Update Project" : "Add Project"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
 
 export default PortfolioManagement;

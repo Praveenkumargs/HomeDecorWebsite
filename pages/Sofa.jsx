@@ -66,7 +66,7 @@ function Sofa() {
                             href="/quote"
                             className="product-quote-btn"
                         >
-                            Get a Quote →
+                            Book an Appointment →
                         </a>
 
                     </div>

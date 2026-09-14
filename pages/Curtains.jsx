@@ -47,7 +47,7 @@ function Curtains() {
             <p>{product.description}</p>
 
             <Link to="/quote" className="product-quote-btn">
-              Get a Quote →
+              Book an Appointment →
             </Link>
           </div>
         </section>

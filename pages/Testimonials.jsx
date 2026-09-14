@@ -179,7 +179,7 @@ function Testimonials() {
                             to="/quote"
                             className="testimonials-cta-button"
                         >
-                            Get a Quote →
+                            Book an Appointment →
                         </Link>
 
                     </div>
