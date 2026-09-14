@@ -5,6 +5,8 @@ import pool from "./db.js";
 import adminRoutes from "../server/routes/admin.js";
 import { authenticateAdmin } from "../server/middleware/auth.js";
 import portfolioRoutes from "../server/routes/portfolio.js";
+import galleryRoutes from "../server/routes/gallery.js";
+import path from "path";
 
 dotenv.config();
 
@@ -16,6 +18,14 @@ app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
+app.use("/api/gallery", galleryRoutes);
+
+app.use(
+    "/uploads",
+    express.static(
+        path.join(process.cwd(), "uploads")
+    )
+);
 
 app.get("/", (req,res) => {
     res.json({

@@ -1,0 +1,333 @@
+/* =========================
+   GALLERY MANAGEMENT
+========================= */
+
+.gallery-management {
+    width: 100%;
+}
+
+
+/* HEADER */
+
+.gallery-header {
+    margin-bottom: 35px;
+}
+
+.gallery-header h2 {
+    margin: 5px 0 10px;
+    font-size: 32px;
+    font-weight: 500;
+    color: #123c32;
+}
+
+.gallery-description {
+    margin: 0;
+    max-width: 600px;
+    color: #7a8580;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   UPLOAD CARD
+========================= */
+
+.gallery-upload-card {
+    background: #ffffff;
+    border: 1px solid #e5e2d9;
+    padding: 32px;
+    margin-bottom: 50px;
+}
+
+.gallery-upload-title {
+    margin-bottom: 28px;
+}
+
+.gallery-upload-title h3 {
+    margin: 0 0 8px;
+    color: #123c32;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.gallery-upload-title p {
+    margin: 0;
+    color: #7a8580;
+    font-size: 14px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.gallery-upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.gallery-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gallery-form-group label {
+    color: #53615b;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.gallery-form-group select,
+.gallery-form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 15px;
+    border: 1px solid #ddd9cf;
+    background: #faf9f6;
+    color: #123c32;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.gallery-form-group select:focus,
+.gallery-form-group input:focus {
+    border-color: #b18a4a;
+}
+
+.gallery-form-group small {
+    color: #8a928e;
+    font-size: 12px;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.gallery-preview {
+    margin-top: 30px;
+}
+
+.gallery-preview > p {
+    margin-bottom: 10px;
+    color: #53615b;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.gallery-preview-image {
+    width: 260px;
+    height: 190px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.gallery-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================
+   UPLOAD BUTTON
+========================= */
+
+.gallery-upload-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.gallery-upload-button {
+    padding: 13px 26px;
+    border: none;
+    background: #123c32;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.gallery-upload-button:hover {
+    background: #1b5143;
+}
+
+.gallery-upload-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   GALLERY LIST
+========================= */
+
+.gallery-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+
+.gallery-list-header h3 {
+    margin: 5px 0 0;
+    color: #123c32;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.gallery-count {
+    color: #8a928e;
+    font-size: 13px;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.gallery-card {
+    background: #ffffff;
+    border: 1px solid #e5e2d9;
+    overflow: hidden;
+}
+
+.gallery-card-image {
+    position: relative;
+    height: 260px;
+    background: #eee;
+    overflow: hidden;
+}
+
+.gallery-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover
+.gallery-card-image img {
+    transform: scale(1.04);
+}
+
+
+/* DELETE */
+
+.gallery-delete-button {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+
+    border: none;
+    padding: 9px 14px;
+
+    background: rgba(255, 255, 255, 0.95);
+    color: #9b4b4b;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.gallery-delete-button:hover {
+    background: #ffffff;
+}
+
+
+/* CARD CONTENT */
+
+.gallery-card-content {
+    padding: 15px 18px;
+}
+
+.gallery-card-content span {
+    color: #b18a4a;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.gallery-empty-state {
+    padding: 80px 20px;
+    background: #ffffff;
+    border: 1px solid #e5e2d9;
+    text-align: center;
+}
+
+.gallery-empty-icon {
+    margin-bottom: 15px;
+    color: #b18a4a;
+    font-size: 35px;
+}
+
+.gallery-empty-state h3 {
+    margin-bottom: 8px;
+    color: #123c32;
+}
+
+.gallery-empty-state p {
+    margin: 0;
+    color: #7a8580;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .gallery-upload-card {
+        padding: 22px;
+    }
+
+    .gallery-upload-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-card-image {
+        height: 280px;
+    }
+
+    .gallery-list-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+}

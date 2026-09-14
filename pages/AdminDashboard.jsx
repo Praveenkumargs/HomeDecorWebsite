@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 import PortfolioManagement from "../components/PortfolioManagement";
+import GalleryManagement from "../components/GalleryManagement";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -427,6 +428,14 @@ function AdminDashboard() {
           </button>
 
           <button
+            className={activeSection === "gallery" ? "active" : ""}
+            onClick={() => handleSectionChange("gallery")}
+          >
+            <span>▧</span>
+            Gallery
+          </button>
+
+          <button
             className={activeSection === "enquiries" ? "active" : ""}
             onClick={() => handleSectionChange("enquiries")}
           >
@@ -468,6 +477,8 @@ function AdminDashboard() {
               {activeSection === "dashboard" && "Dashboard"}
 
               {activeSection === "portfolio" && "Portfolio"}
+
+              {activeSection === "gallery" && "Gallery"}
 
               {activeSection === "enquiries" && "Enquiries"}
 
@@ -545,7 +556,8 @@ function AdminDashboard() {
                 </h2>
 
                 <p>
-                  Manage your products, portfolio, customer enquiries and reviews from one place.
+                  Manage your products, portfolio, customer enquiries and
+                  reviews from one place.
                 </p>
               </div>
 
@@ -557,6 +569,13 @@ function AdminDashboard() {
                     PORTFOLIO
                 ========================= */}
         {activeSection === "portfolio" && <PortfolioManagement />}
+
+        {/* =========================
+                    GALLERY
+            ========================= */}
+
+        {activeSection === "gallery" && <GalleryManagement />}
+
         {/* =========================
                     ENQUIRIES
                 ========================= */}
