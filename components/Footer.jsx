@@ -12,7 +12,7 @@ function Footer() {
                 <div className="footer-brand">
 
                     <div className="footer-logo">
-                        <span className="footer-logo-mark">C</span>
+                        <img className="logo-mark" src="../images/LHD_Logo.jpeg" alt="Logo" />
 
                         <div>
                             <h3>CURTAIN</h3>
