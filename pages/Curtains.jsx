@@ -3,117 +3,87 @@ import { Link } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PublicGallery from "../components/PublicGallery";
 
 import "./ProductPage.css";
 
 function Curtains() {
+  const [product, setProduct] = useState(null);
 
-    const [product, setProduct] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products/1")
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
-    useEffect(() => {
+  if (!product) {
+    return <p>Loading...</p>;
+  }
 
-        fetch("http://localhost:3000/api/products/1")
-            .then(response => response.json())
-            .then(data => {
-                setProduct(data);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+  return (
+    <>
+      <Header />
 
-    }, []);
-
-
-    if (!product) {
-        return <p>Loading...</p>;
-    }
-
-
-    return (
-
-        <>
-            <Header />
-
-            <main className="product-page">
-
-                {/* =====================================
+      <main className="product-page">
+        {/* =====================================
                     CUSTOM CURTAINS
                 ===================================== */}
 
-                <section className="product-hero">
+        <section className="product-hero">
+          <div className="product-image">
+            <img src={product.image_url} alt={product.name} />
+          </div>
 
-                    <div className="product-image">
+          <div className="product-content">
+            <p className="product-label">OUR COLLECTION</p>
 
-                        <img
-                            src={product.image_url}
-                            alt={product.name}
-                        />
+            <h1>{product.name}</h1>
 
-                    </div>
+            <p>{product.description}</p>
 
+            <Link to="/quote" className="product-quote-btn">
+              Get a Quote →
+            </Link>
+          </div>
+        </section>
 
-                    <div className="product-content">
-
-                        <p className="product-label">
-                            OUR COLLECTION
-                        </p>
-
-                        <h1>
-                            {product.name}
-                        </h1>
-
-                        <p>
-                            {product.description}
-                        </p>
-
-                        <Link
-                            to="/quote"
-                            className="product-quote-btn"
-                        >
-                            Get a Quote →
-                        </Link>
-
-                    </div>
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     INSTALLATION LINK
                 ===================================== */}
 
-                <section className="product-installation-link">
+        <section className="product-installation-link">
+          <div className="installation-link-content">
+            <p>NEED INSTALLATION?</p>
 
-                    <div className="installation-link-content">
+            <h2>We also provide professional curtain & blind installation.</h2>
+          </div>
 
-                        <p>
-                            NEED INSTALLATION?
-                        </p>
+          <Link to="/installation" className="installation-link-button">
+            Explore Installation Services →
+          </Link>
+        </section>
 
-                        <h2>
-                            We also provide professional
-                            curtain & blind installation.
-                        </h2>
+        <PublicGallery
+          category="curtains"
+          title={
+            <>
+              Our Best
+              <br />
+              Curtain Work
+            </>
+          }
+          description="A selection of curtains crafted and installed for beautiful homes and spaces."
+        />
+      </main>
 
-                    </div>
-
-
-                    <Link
-                        to="/installation"
-                        className="installation-link-button"
-                    >
-                        Explore Installation Services →
-                    </Link>
-
-                </section>
-
-            </main>
-
-            <Footer />
-        </>
-
-    );
-
+      <Footer />
+    </>
+  );
 }
 
 export default Curtains;

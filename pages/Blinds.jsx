@@ -3,117 +3,87 @@ import { Link } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PublicGallery from "../components/PublicGallery";
 
 import "./ProductPage.css";
 
 function Blinds() {
+  const [product, setProduct] = useState(null);
 
-    const [product, setProduct] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products/2")
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
-    useEffect(() => {
+  if (!product) {
+    return <p>Loading...</p>;
+  }
 
-        fetch("http://localhost:3000/api/products/2")
-            .then(response => response.json())
-            .then(data => {
-                setProduct(data);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+  return (
+    <>
+      <Header />
 
-    }, []);
-
-
-    if (!product) {
-        return <p>Loading...</p>;
-    }
-
-
-    return (
-
-        <>
-            <Header />
-
-            <main className="product-page">
-
-                {/* =====================================
+      <main className="product-page">
+        {/* =====================================
                     BLINDS HERO
                 ===================================== */}
 
-                <section className="product-hero">
+        <section className="product-hero">
+          <div className="product-image">
+            <img src={product.image_url} alt={product.name} />
+          </div>
 
-                    <div className="product-image">
+          <div className="product-content">
+            <p className="product-label">OUR COLLECTION</p>
 
-                        <img
-                            src={product.image_url}
-                            alt={product.name}
-                        />
+            <h1>{product.name}</h1>
 
-                    </div>
+            <p>{product.description}</p>
 
+            <Link to="/quote" className="product-quote-btn">
+              Get a Quote →
+            </Link>
+          </div>
+        </section>
 
-                    <div className="product-content">
-
-                        <p className="product-label">
-                            OUR COLLECTION
-                        </p>
-
-                        <h1>
-                            {product.name}
-                        </h1>
-
-                        <p>
-                            {product.description}
-                        </p>
-
-                        <Link
-                            to="/quote"
-                            className="product-quote-btn"
-                        >
-                            Get a Quote →
-                        </Link>
-
-                    </div>
-
-                </section>
-
-
-                {/* =====================================
+        {/* =====================================
                     INSTALLATION LINK
                 ===================================== */}
 
-                <section className="product-installation-link">
+        <section className="product-installation-link">
+          <div className="installation-link-content">
+            <p>NEED INSTALLATION?</p>
 
-                    <div className="installation-link-content">
+            <h2>Professional curtain & blind installation services.</h2>
+          </div>
 
-                        <p>
-                            NEED INSTALLATION?
-                        </p>
+          <Link to="/installation" className="installation-link-button">
+            Explore Installation Services →
+          </Link>
+        </section>
 
-                        <h2>
-                            Professional curtain & blind
-                            installation services.
-                        </h2>
+        <PublicGallery
+          category="blinds"
+          title={
+            <>
+              Our Best
+              <br />
+              Blind Work
+            </>
+          }
+          description="Explore a selection of blinds installed with precision and designed to complement modern interiors."
+        />
+      </main>
 
-                    </div>
-
-                    <Link
-                        to="/installation"
-                        className="installation-link-button"
-                    >
-                        Explore Installation Services →
-                    </Link>
-
-                </section>
-
-
-            </main>
-
-            <Footer />
-        </>
-
-    );
-
+      <Footer />
+    </>
+  );
 }
 
 export default Blinds;

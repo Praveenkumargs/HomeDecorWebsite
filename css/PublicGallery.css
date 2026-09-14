@@ -1,0 +1,308 @@
+/* =========================
+   PUBLIC GALLERY
+========================= */
+
+.public-gallery {
+    padding: 110px 8%;
+    background: #f8f6f1;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.public-gallery-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 60px;
+    margin-bottom: 55px;
+}
+
+.public-gallery-eyebrow {
+    margin: 0 0 18px;
+
+    color: #b18a4a;
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.public-gallery-heading h2 {
+    margin: 0;
+
+    color: #123c32;
+
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.05;
+    font-weight: 500;
+}
+
+.public-gallery-heading > p {
+    max-width: 430px;
+    margin: 0;
+
+    color: #69756f;
+
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.public-gallery-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    grid-auto-rows: 360px;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   IMAGE ITEM
+========================= */
+
+.public-gallery-item {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    border: none;
+
+    overflow: hidden;
+
+    background: #ddd;
+
+    cursor: pointer;
+}
+
+.public-gallery-item img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.6s ease,
+        filter 0.4s ease;
+}
+
+
+/* First image is larger */
+
+.gallery-item-large {
+    grid-row: span 2;
+}
+
+
+/* Hover */
+
+.public-gallery-item:hover img {
+    transform: scale(1.045);
+    filter: brightness(0.78);
+}
+
+
+/* =========================
+   VIEW LABEL
+========================= */
+
+.gallery-view {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -40%);
+
+    padding: 11px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+.public-gallery-item:hover .gallery-view {
+    opacity: 1;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* =========================
+   LOADING / EMPTY
+========================= */
+
+.public-gallery-message {
+    min-height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e5e2d9;
+
+    background: #ffffff;
+
+    color: #7a8580;
+}
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.gallery-lightbox {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: rgba(10, 25, 21, 0.94);
+
+    cursor: zoom-out;
+}
+
+
+.gallery-lightbox-content {
+    max-width: 1200px;
+    max-height: 90vh;
+
+    cursor: default;
+}
+
+
+.gallery-lightbox-content img {
+    display: block;
+
+    max-width: 100%;
+    max-height: 88vh;
+
+    object-fit: contain;
+}
+
+
+/* Close */
+
+.gallery-lightbox-close {
+    position: absolute;
+
+    top: 25px;
+    right: 30px;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 32px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.gallery-lightbox-close:hover {
+    background: #ffffff;
+    color: #123c32;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+    .public-gallery {
+        padding: 80px 7%;
+    }
+
+    .public-gallery-heading {
+        display: block;
+    }
+
+    .public-gallery-heading h2 {
+        margin-bottom: 20px;
+    }
+
+    .public-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 320px;
+    }
+
+    .gallery-item-large {
+        grid-row: span 1;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .public-gallery {
+        padding: 70px 6%;
+    }
+
+    .public-gallery-grid {
+        grid-auto-rows: 280px;
+        gap: 12px;
+    }
+
+    .gallery-lightbox {
+        padding: 20px;
+    }
+
+    .gallery-lightbox-close {
+        top: 15px;
+        right: 15px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+}
