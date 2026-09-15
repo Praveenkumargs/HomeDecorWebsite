@@ -15,8 +15,7 @@ function Footer() {
                         <img className="logo-mark" src="../images/LHD_Logo.jpeg" alt="Logo" />
 
                         <div>
-                            <h3>CURTAIN</h3>
-                            <span>INTERIORS</span>
+                            <h3>LUCKY HOME DECOR</h3>
                         </div>
                     </div>
 

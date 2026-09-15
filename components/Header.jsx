@@ -13,8 +13,7 @@ function Header() {
                     <img className="logo-mark" src="../images/LHD_Logo.jpeg" alt="Logo" />
 
                     <span className="brand">
-                        <span className="brand-name">CURTAIN</span>
-                        <span className="brand-subtitle">INTERIORS</span>
+                        <span className="brand-name">LUCKY HOME DECOR</span>
                     </span>
                 </Link>
             </div>

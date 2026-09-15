@@ -33,10 +33,10 @@ function Hero() {
 
                 <div className="hero-buttons">
 
-                    <a href="#" className="primary-btn">
+                    <Link to={"/curtains"} className="primary-btn">
                         Explore Collection
                         <span>→</span>
-                    </a>
+                    </Link>
 
                     <Link to={"/quote"}  className="secondary-btn">
                         Book an Appointment                       

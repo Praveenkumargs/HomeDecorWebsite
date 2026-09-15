@@ -1,8 +1,12 @@
 import React from "react";
 import "../css/LegalPages.css";
+import Header from "./Header";
+import Footer from "./Footer";
 
 function TermsAndConditions() {
     return (
+        <div>
+            <Header />
         <div className="legal-page">
 
             <section className="legal-hero">
@@ -398,12 +402,14 @@ function TermsAndConditions() {
                         </p>
                         <p>
                             <strong>Email:</strong>{" "}
-                            [YOUR BUSINESS EMAIL]
+                            luckyhomedecor2019@gmail.com
                         </p>
                     </div>
                 </section>
 
             </main>
+        </div>
+        <Footer />
         </div>
     );
 }
