@@ -5,9 +5,7 @@
 .product-page {
     width: 100%;
     min-height: 100vh;
-
     background: #f8f6f1;
-
     color: #123c32;
 }
 
@@ -73,7 +71,9 @@
 }
 
 
-/* LABEL */
+/* =========================================
+   LABEL
+========================================= */
 
 .product-label {
     margin: 0 0 20px;
@@ -89,7 +89,9 @@
 }
 
 
-/* TITLE */
+/* =========================================
+   TITLE
+========================================= */
 
 .product-content h1 {
     margin: 0 0 25px;
@@ -106,7 +108,9 @@
 }
 
 
-/* DESCRIPTION */
+/* =========================================
+   DESCRIPTION
+========================================= */
 
 .product-content > p:not(.product-label) {
     max-width: 500px;
@@ -121,7 +125,9 @@
 }
 
 
-/* QUOTE BUTTON */
+/* =========================================
+   QUOTE BUTTON
+========================================= */
 
 .product-quote-btn {
     display: inline-block;
@@ -176,7 +182,9 @@
 }
 
 
-/* TEXT */
+/* =========================================
+   INSTALLATION TEXT
+========================================= */
 
 .installation-link-content > p {
     margin: 0 0 7px;
@@ -208,7 +216,9 @@
 }
 
 
-/* LINK */
+/* =========================================
+   INSTALLATION LINK BUTTON
+========================================= */
 
 .installation-link-button {
     flex-shrink: 0;
@@ -236,86 +246,290 @@
 }
 
 
-/* =========================================
+/* =====================================================
    TABLET
-========================================= */
+   768px - 1100px
+===================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) and (min-width: 768px) {
+
+    /* HERO */
 
     .product-hero {
-        grid-template-columns: 1fr;
-    }
+        grid-template-columns: 1fr 1fr;
 
-    .product-image {
-        height: 60vh;
-
-        min-height: 450px;
-    }
-
-    .product-content {
         min-height: auto;
-
-        padding: 70px 8%;
     }
-
-    .product-content h1 {
-        font-size: 52px;
-    }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 700px) {
 
     .product-image {
-        height: 50vh;
+        height: 650px;
 
-        min-height: 350px;
-
-        padding: 6px;
+        padding: 8px;
     }
 
     .product-content {
+        min-height: 650px;
+
         padding: 55px 7%;
     }
 
+    .product-label {
+        font-size: 11px;
+
+        letter-spacing: 2.5px;
+
+        margin-bottom: 18px;
+    }
+
     .product-content h1 {
-        font-size: 45px;
+        font-size: 48px;
+
+        margin-bottom: 22px;
     }
 
     .product-content > p:not(.product-label) {
-        font-size: 15px;
+        max-width: 430px;
+
+        font-size: 16px;
 
         line-height: 1.7;
+
+        margin-bottom: 30px;
+    }
+
+    .product-quote-btn {
+        padding: 15px 22px;
+
+        font-size: 13px;
     }
 
 
     /* INSTALLATION */
 
     .product-installation-link {
+        width: calc(100% - 10%);
+
+        margin: 60px 5%;
+
+        padding: 30px;
+
+        gap: 25px;
+    }
+
+    .installation-link-content h2 {
+        max-width: 520px;
+
+        font-size: 22px;
+    }
+
+    .installation-link-button {
+        font-size: 11px;
+    }
+}
+
+
+/* =====================================================
+   SMALL TABLET
+   768px - 850px
+
+   Gives the content slightly more breathing room
+===================================================== */
+
+@media (max-width: 850px) and (min-width: 768px) {
+
+    .product-image {
+        height: 600px;
+    }
+
+    .product-content {
+        min-height: 600px;
+
+        padding: 45px 6%;
+    }
+
+    .product-content h1 {
+        font-size: 43px;
+    }
+
+    .product-content > p:not(.product-label) {
+        font-size: 15px;
+    }
+
+    .product-installation-link {
+        padding: 28px;
+    }
+
+    .installation-link-content h2 {
+        font-size: 20px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   Below 768px
+===================================================== */
+
+@media (max-width: 767px) {
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .product-hero {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+    }
+
+
+    /* =========================================
+       IMAGE
+    ========================================= */
+
+    .product-image {
+        width: 100%;
+
+        height: 55vh;
+
+        min-height: 350px;
+        max-height: 520px;
+
+        padding: 6px;
+    }
+
+
+    /* =========================================
+       CONTENT
+    ========================================= */
+
+    .product-content {
+        min-height: auto;
+
+        padding: 55px 7% 65px;
+    }
+
+    .product-label {
+        margin-bottom: 16px;
+
+        font-size: 10px;
+
+        letter-spacing: 2.5px;
+    }
+
+    .product-content h1 {
+        margin-bottom: 20px;
+
+        font-size: clamp(40px, 11vw, 48px);
+
+        line-height: 1.05;
+    }
+
+    .product-content > p:not(.product-label) {
+        max-width: 100%;
+
+        margin-bottom: 30px;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+    .product-quote-btn {
+        padding: 15px 22px;
+
+        font-size: 13px;
+    }
+
+
+    /* =========================================
+       INSTALLATION
+    ========================================= */
+
+    .product-installation-link {
         width: calc(100% - 14%);
 
-        margin: 50px 7%;
+        margin: 45px 7%;
 
-        padding: 30px 25px;
+        padding: 28px 24px;
 
         flex-direction: column;
 
         align-items: flex-start;
 
+        justify-content: flex-start;
+
         gap: 22px;
     }
 
+    .installation-link-content > p {
+        font-size: 9px;
+
+        letter-spacing: 1.8px;
+    }
+
     .installation-link-content h2 {
-        font-size: 23px;
+        max-width: 100%;
+
+        font-size: 22px;
+
+        line-height: 1.3;
     }
 
     .installation-link-button {
         white-space: normal;
+
+        font-size: 11px;
+
+        line-height: 1.5;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+   Below 400px
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .product-image {
+        height: 45vh;
+
+        min-height: 300px;
+
+        padding: 5px;
     }
 
+    .product-content {
+        padding: 45px 7% 55px;
+    }
+
+    .product-content h1 {
+        font-size: 38px;
+    }
+
+    .product-content > p:not(.product-label) {
+        font-size: 14px;
+    }
+
+    .product-quote-btn {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        text-align: center;
+
+        padding: 15px 18px;
+    }
+
+    .product-installation-link {
+        padding: 25px 20px;
+
+        margin-top: 40px;
+    }
+
+    .installation-link-content h2 {
+        font-size: 20px;
+    }
 }
