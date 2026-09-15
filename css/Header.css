@@ -1,7 +1,10 @@
+/* =========================================================
+   HEADER
+========================================================= */
+
 .Header {
     width: 100%;
-    height: 82px;
-
+    min-height: 82px;
 
     display: flex;
     align-items: center;
@@ -10,43 +13,47 @@
     padding: 0 6%;
 
     background-color: #12372A;
-    border-bottom: 1px solid rgba( 255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
     position: sticky;
     top: 0;
     z-index: 1000;
+
+    box-sizing: border-box;
 }
 
-/* Logo + Company Name */
+
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logocombo {
     display: flex;
     align-items: center;
+
+    flex-shrink: 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
+
     gap: 12px;
 
     text-decoration: none;
     color: white;
 }
+
 .logo-mark {
     width: 62px;
     height: 52px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+
+    object-fit: cover;
 
     border: 1px solid #C9A96E;
     border-radius: 50%;
-
-    color: #C9A96E;
-
-    font-family: "Playfair Display", serif;
-    font-size: 22px;
 }
 
 .brand {
@@ -61,6 +68,8 @@
     letter-spacing: 3px;
 
     color: #F8F6F1;
+
+    white-space: nowrap;
 }
 
 .brand-subtitle {
@@ -72,9 +81,10 @@
     color: #C9A96E;
 }
 
-/* =========================
+
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
 .navbar {
     height: 100%;
@@ -86,13 +96,24 @@
 .header-list {
     display: flex;
     align-items: center;
+
     gap: 34px;
 
     list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.header-list li {
+    margin: 0;
+    padding: 0;
 }
 
 .list-items {
     position: relative;
+
+    display: inline-block;
 
     padding: 8px 0;
 
@@ -103,16 +124,22 @@
     font-size: 14px;
     font-weight: 500;
 
-    transition: color 0.3 ease;
+    transition: color 0.3s ease;
 }
 
-/* Hover */
+
+/* =========================================================
+   NAVIGATION HOVER
+========================================================= */
 
 .list-items:hover {
     color: #C9A96E;
 }
 
-/* Underline animation */
+
+/* =========================================================
+   NAVIGATION UNDERLINE
+========================================================= */
 
 .list-items::after {
     content: "";
@@ -134,6 +161,11 @@
     width: 100%;
 }
 
+
+/* =========================================================
+   ACTIVE LINK
+========================================================= */
+
 .list-items.active {
     color: #C9A96E;
 }
@@ -142,27 +174,34 @@
     width: 100%;
 }
 
-/* =========================
-   QUOTE BUTTON
-========================= */
+
+/* =========================================================
+   BOOK AN APPOINTMENT BUTTON
+========================================================= */
 
 .quote-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
+
     gap: 12px;
 
     padding: 12px 20px;
-
-    text-decoration: none;
 
     background-color: #C9A96E;
 
     color: #12372A;
 
+    text-decoration: none;
+
     font-size: 13px;
     font-weight: 600;
 
     border-radius: 2px;
+
+    white-space: nowrap;
+
+    flex-shrink: 0;
 
     transition: all 0.3s ease;
 }
@@ -177,6 +216,417 @@
     background-color: #E0C18A;
 }
 
-.quote-btn:hover span {
+.quote-btn:hover span:last-child {
     transform: translateX(4px);
+}
+
+
+/* =========================================================
+   MOBILE / TABLET MENU BUTTON
+========================================================= */
+
+.menu-toggle {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+
+    flex-shrink: 0;
+}
+
+.menu-toggle span {
+    width: 24px;
+    height: 2px;
+
+    display: block;
+
+    background-color: #F8F6F1;
+
+    transition: all 0.3s ease;
+}
+
+
+/* =========================================================
+   MOBILE APPOINTMENT BUTTON
+   Hidden on desktop
+========================================================= */
+
+.mobile-quote-btn {
+    display: none;
+}
+/* =========================================================
+   HAMBURGER → X
+========================================================= */
+
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .Header {
+        min-height: 76px;
+
+        padding: 0 5%;
+    }
+
+    /* Logo */
+
+    .logo {
+        gap: 10px;
+    }
+
+    .logo-mark {
+        width: 56px;
+        height: 48px;
+    }
+
+    .brand-name {
+        font-size: 17px;
+        letter-spacing: 2px;
+    }
+
+
+    /* Hide normal navigation */
+
+    .navbar {
+        position: absolute;
+
+        top: 76px;
+        left: 0;
+
+        width: 100%;
+
+        height: auto;
+
+        display: none;
+
+        padding: 12px 5% 25px;
+
+        box-sizing: border-box;
+
+        background-color: #12372A;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+
+    /* Open navigation */
+
+    .navbar.mobile-open {
+        display: block;
+    }
+
+
+    /* Navigation list */
+
+    .header-list {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+    }
+
+    .header-list li {
+        width: 100%;
+    }
+
+
+    /* Navigation links */
+
+    .list-items {
+        display: block;
+
+        width: 100%;
+
+        padding: 16px 0;
+
+        font-size: 15px;
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+        box-sizing: border-box;
+    }
+
+
+    /* Remove desktop underline */
+
+    .list-items::after {
+        display: none;
+    }
+
+
+    /* Appointment button */
+
+    .quote-btn {
+        margin-left: auto;
+        margin-right: 12px;
+
+        padding: 11px 16px;
+
+        font-size: 12px;
+    }
+
+
+    /* Hamburger */
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 900px
+========================================================= */
+
+@media (max-width: 900px) and (min-width: 768px) {
+
+    .Header {
+        padding: 0 4%;
+    }
+
+    .logo-mark {
+        width: 54px;
+        height: 46px;
+    }
+
+    .brand-name {
+        font-size: 16px;
+        letter-spacing: 1.8px;
+    }
+
+    .quote-btn {
+        padding: 10px 14px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   0px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .Header {
+        min-height: 70px;
+        padding: 0 5%;
+    }
+
+    .logo {
+        gap: 8px;
+    }
+
+    .logo-mark {
+        width: 48px;
+        height: 42px;
+    }
+
+    .brand-name {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+    }
+
+    /* Hide desktop appointment button */
+    .quote-btn {
+        display: none;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+        display: flex;
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Mobile navigation */
+    .navbar {
+        top: 70px;
+        padding: 12px 5% 25px;
+    }
+
+    .list-items {
+        padding: 15px 0;
+        font-size: 15px;
+    }
+
+    /* =========================================
+       MOBILE APPOINTMENT BUTTON
+    ========================================= */
+
+    .mobile-quote-btn {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+
+        width: 100%;
+
+        margin-top: 20px;
+
+        padding: 14px 18px;
+
+        box-sizing: border-box;
+
+        background-color: #C9A96E;
+
+        color: #12372A;
+
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        border-radius: 2px;
+
+        transition: background-color 0.3s ease;
+    }
+
+    .mobile-quote-btn:hover {
+        background-color: #E0C18A;
+    }
+
+    .mobile-quote-btn span:last-child {
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   321px - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .Header {
+        padding: 0 4%;
+    }
+
+    .logo {
+        gap: 7px;
+    }
+
+    .logo-mark {
+        width: 45px;
+        height: 39px;
+    }
+
+    .brand-name {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+    }
+
+    .menu-toggle {
+        width: 38px;
+        height: 38px;
+    }
+
+    .menu-toggle span {
+        width: 22px;
+    }
+
+    .navbar {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+    .list-items {
+        padding: 14px 0;
+
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   320px and below
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .Header {
+        min-height: 64px;
+
+        padding: 0 3.5%;
+    }
+
+    .logo {
+        gap: 6px;
+    }
+
+    .logo-mark {
+        width: 40px;
+        height: 35px;
+    }
+
+    .brand-name {
+        font-size: 10px;
+        letter-spacing: 0.8px;
+    }
+
+    .menu-toggle {
+        width: 36px;
+        height: 36px;
+
+        padding: 6px;
+    }
+
+    .menu-toggle span {
+        width: 20px;
+    }
+
+    .navbar {
+        top: 64px;
+
+        padding: 10px 3.5% 22px;
+    }
+
+    .list-items {
+        padding: 13px 0;
+
+        font-size: 14px;
+    }
 }
