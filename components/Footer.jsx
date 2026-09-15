@@ -224,7 +224,7 @@ function Footer() {
             <div className="footer-bottom">
 
                 <p>
-                    © {new Date().getFullYear()} Curtain Interiors.
+                    © {new Date().getFullYear()} Lucky Home Decor.
                     All rights reserved.
                 </p>
 
