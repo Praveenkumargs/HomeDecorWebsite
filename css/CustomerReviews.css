@@ -1,20 +1,32 @@
+/* =========================================================
+   CUSTOMER REVIEWS
+========================================================= */
+
 .reviews-section {
+    width: 100%;
+
     padding: 130px 6%;
 
     background-color: #F8F6F1;
 
     color: #12372A;
+
+    box-sizing: border-box;
 }
 
 .reviews-container {
+    width: 100%;
     max-width: 1200px;
 
-    margin: auto;
+    margin: 0 auto;
+
+    box-sizing: border-box;
 }
 
-/* =========================
-   HEADING
-========================= */
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
 
 .reviews-heading {
     display: flex;
@@ -28,7 +40,7 @@
 }
 
 .reviews-label {
-    margin-bottom: 18px;
+    margin: 0 0 18px;
 
     color: #C9A96E;
 
@@ -39,6 +51,8 @@
 }
 
 .reviews-heading h2 {
+    margin: 0;
+
     font-family: "Playfair Display", serif;
 
     font-size: clamp(44px, 5vw, 65px);
@@ -46,6 +60,8 @@
     font-weight: 500;
 
     line-height: 1.05;
+
+    letter-spacing: -1px;
 }
 
 .reviews-heading h2 span {
@@ -55,7 +71,10 @@
 }
 
 .reviews-intro {
-    max-width: 390px;
+    width: 390px;
+    max-width: 100%;
+
+    margin: 0;
 
     color: #68736C;
 
@@ -64,9 +83,10 @@
     line-height: 1.8;
 }
 
-/* =========================
+
+/* =========================================================
    FEATURED REVIEW
-========================= */
+========================================================= */
 
 .featured-review {
     position: relative;
@@ -84,6 +104,8 @@
     background-color: #12372A;
 
     color: #F8F6F1;
+
+    box-sizing: border-box;
 }
 
 .quote-mark {
@@ -101,7 +123,7 @@
 }
 
 .stars {
-    margin-bottom: 22px;
+    margin: 0 0 22px;
 
     color: #C9A96E;
 
@@ -111,7 +133,7 @@
 }
 
 .featured-content blockquote {
-    margin-bottom: 35px;
+    margin: 0 0 35px;
 
     font-family: "Playfair Display", serif;
 
@@ -124,9 +146,10 @@
     line-height: 1.5;
 }
 
-/* =========================
+
+/* =========================================================
    CUSTOMER
-========================= */
+========================================================= */
 
 .customer {
     display: flex;
@@ -144,7 +167,10 @@
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
     border: 1px solid #C9A96E;
+
     border-radius: 50%;
 
     color: #C9A96E;
@@ -153,7 +179,7 @@
 }
 
 .customer h4 {
-    margin-bottom: 4px;
+    margin: 0 0 4px;
 
     font-size: 14px;
 
@@ -161,14 +187,17 @@
 }
 
 .customer p {
+    margin: 0;
+
     color: #9EACA4;
 
     font-size: 12px;
 }
 
-/* =========================
+
+/* =========================================================
    REVIEW CARDS
-========================= */
+========================================================= */
 
 .review-grid {
     display: grid;
@@ -186,6 +215,8 @@
     border: 1px solid #E1DED5;
 
     background-color: #FBFAF7;
+
+    box-sizing: border-box;
 
     transition:
         transform 0.3s ease,
@@ -207,7 +238,7 @@
 .review-card > p {
     min-height: 90px;
 
-    margin-bottom: 25px;
+    margin: 0 0 25px;
 
     color: #526058;
 
@@ -218,7 +249,10 @@
     line-height: 1.6;
 }
 
-/* Author */
+
+/* =========================================================
+   REVIEW AUTHOR
+========================================================= */
 
 .review-author {
     display: flex;
@@ -244,9 +278,10 @@
     font-size: 11px;
 }
 
-/* =========================
+
+/* =========================================================
    GOOGLE REVIEWS
-========================= */
+========================================================= */
 
 .google-reviews {
     display: flex;
@@ -261,10 +296,12 @@
     border: 1px solid #DCD8CE;
 
     background-color: #EFECE4;
+
+    box-sizing: border-box;
 }
 
 .google-small {
-    margin-bottom: 5px;
+    margin: 0 0 5px;
 
     color: #8C7650;
 
@@ -274,6 +311,8 @@
 }
 
 .google-reviews h3 {
+    margin: 0;
+
     font-family: "Playfair Display", serif;
 
     font-size: 25px;
@@ -287,6 +326,8 @@
     align-items: center;
 
     gap: 12px;
+
+    flex-shrink: 0;
 }
 
 .rating-number {
@@ -309,12 +350,11 @@
     font-size: 11px;
 }
 
-/* Button */
-
 .google-button {
     display: flex;
 
     align-items: center;
+    justify-content: center;
 
     gap: 12px;
 
@@ -327,6 +367,8 @@
     text-decoration: none;
 
     font-size: 12px;
+
+    white-space: nowrap;
 
     transition: all 0.3s ease;
 }
@@ -341,3 +383,628 @@
     font-size: 16px;
 }
 
+
+/* =========================================================
+   LARGE LAPTOP
+   1101px - 1300px
+========================================================= */
+
+@media (max-width: 1300px) {
+
+    .reviews-section {
+        padding: 110px 5%;
+    }
+
+    .reviews-container {
+        max-width: 1100px;
+    }
+
+    .reviews-heading {
+        gap: 40px;
+
+        margin-bottom: 50px;
+    }
+
+    .featured-review {
+        padding: 50px;
+    }
+
+    .quote-mark {
+        font-size: 105px;
+    }
+
+    .review-card {
+        padding: 27px;
+    }
+
+    .google-reviews {
+        padding: 28px 30px;
+
+        gap: 22px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .reviews-section {
+        padding: 90px 5%;
+    }
+
+    .reviews-container {
+        max-width: 900px;
+    }
+
+
+    /* =========================
+       HEADING
+    ========================= */
+
+    .reviews-heading {
+        gap: 35px;
+
+        margin-bottom: 45px;
+    }
+
+    .reviews-label {
+        margin-bottom: 14px;
+
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+    .reviews-heading h2 {
+        font-size: clamp(40px, 5.5vw, 54px);
+    }
+
+    .reviews-intro {
+        width: 330px;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =========================
+       FEATURED REVIEW
+    ========================= */
+
+    .featured-review {
+        grid-template-columns: 90px 1fr;
+
+        min-height: 330px;
+
+        padding: 45px 40px;
+
+        margin-bottom: 18px;
+    }
+
+    .quote-mark {
+        font-size: 90px;
+    }
+
+    .featured-content {
+        max-width: 650px;
+    }
+
+    .featured-content .stars {
+        margin-bottom: 18px;
+
+        font-size: 13px;
+    }
+
+    .featured-content blockquote {
+        margin-bottom: 28px;
+
+        font-size: clamp(21px, 2.5vw, 28px);
+
+        line-height: 1.45;
+    }
+
+
+    /* =========================
+       CUSTOMER
+    ========================= */
+
+    .customer {
+        gap: 12px;
+    }
+
+    .customer-avatar {
+        width: 42px;
+        height: 42px;
+    }
+
+
+    /* =========================
+       REVIEW CARDS
+    ========================= */
+
+    .review-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+
+        margin-bottom: 45px;
+    }
+
+    .review-card {
+        padding: 25px;
+    }
+
+    .review-card .stars {
+        margin-bottom: 17px;
+
+        font-size: 11px;
+    }
+
+    .review-card > p {
+        min-height: 90px;
+
+        margin-bottom: 22px;
+
+        font-size: 15px;
+
+        line-height: 1.55;
+    }
+
+    .review-author {
+        padding-top: 15px;
+    }
+
+
+    /* =========================
+       GOOGLE REVIEWS
+    ========================= */
+
+    .google-reviews {
+        padding: 25px;
+
+        gap: 20px;
+    }
+
+    .google-reviews h3 {
+        font-size: 22px;
+    }
+
+    .google-rating {
+        gap: 8px;
+    }
+
+    .rating-number {
+        font-size: 26px;
+    }
+
+    .rating-stars {
+        font-size: 13px;
+    }
+
+    .rating-text {
+        font-size: 10px;
+    }
+
+    .google-button {
+        padding: 12px 16px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   768px - 900px
+========================================================= */
+
+@media (max-width: 900px) and (min-width: 768px) {
+
+    .reviews-section {
+        padding: 80px 5%;
+    }
+
+    .reviews-container {
+        max-width: 700px;
+    }
+
+
+    /* =========================
+       HEADING
+    ========================= */
+
+    .reviews-heading {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        margin-bottom: 40px;
+    }
+
+    .reviews-intro {
+        width: 100%;
+
+        max-width: 560px;
+    }
+
+
+    /* =========================
+       FEATURED REVIEW
+    ========================= */
+
+    .featured-review {
+        grid-template-columns: 70px 1fr;
+
+        min-height: auto;
+
+        padding: 40px 30px;
+    }
+
+    .quote-mark {
+        font-size: 75px;
+    }
+
+    .featured-content blockquote {
+        font-size: 24px;
+    }
+
+
+    /* =========================
+       GOOGLE REVIEWS
+    ========================= */
+
+    .google-reviews {
+        display: grid;
+
+        grid-template-columns: 1fr auto;
+
+        gap: 20px;
+    }
+
+    .google-rating {
+        grid-column: 2;
+
+        grid-row: 1;
+    }
+
+    .google-button {
+        grid-column: 1 / -1;
+
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   481px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .reviews-section {
+        padding: 75px 6%;
+    }
+
+
+    /* =========================
+       HEADING
+    ========================= */
+
+    .reviews-heading {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        margin-bottom: 35px;
+    }
+
+    .reviews-label {
+        margin-bottom: 13px;
+
+        font-size: 9px;
+
+        letter-spacing: 2.5px;
+    }
+
+    .reviews-heading h2 {
+        font-size: clamp(39px, 10vw, 52px);
+
+        line-height: 1.05;
+    }
+
+    .reviews-intro {
+        width: 100%;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =========================
+       FEATURED REVIEW
+    ========================= */
+
+    .featured-review {
+        display: block;
+
+        min-height: auto;
+
+        padding: 35px 25px;
+
+        margin-bottom: 15px;
+    }
+
+    .quote-mark {
+        position: absolute;
+
+        top: 18px;
+        right: 22px;
+
+        font-size: 65px;
+    }
+
+    .featured-content {
+        max-width: 100%;
+    }
+
+    .featured-content .stars {
+        margin-bottom: 17px;
+
+        font-size: 12px;
+
+        letter-spacing: 3px;
+    }
+
+    .featured-content blockquote {
+        margin-bottom: 25px;
+
+        font-size: 21px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================
+       CUSTOMER
+    ========================= */
+
+    .customer {
+        gap: 11px;
+    }
+
+    .customer-avatar {
+        width: 40px;
+        height: 40px;
+
+        font-size: 11px;
+    }
+
+    .customer h4 {
+        font-size: 13px;
+    }
+
+    .customer p {
+        font-size: 11px;
+    }
+
+
+    /* =========================
+       REVIEW CARDS
+    ========================= */
+
+    .review-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+        margin-bottom: 40px;
+    }
+
+    .review-card {
+        padding: 24px;
+    }
+
+    .review-card:hover {
+        transform: none;
+
+        box-shadow: none;
+    }
+
+    .review-card > p {
+        min-height: auto;
+
+        font-size: 15px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================
+       GOOGLE REVIEWS
+    ========================= */
+
+    .google-reviews {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        padding: 25px;
+    }
+
+    .google-reviews h3 {
+        font-size: 23px;
+    }
+
+    .google-rating {
+        width: 100%;
+
+        flex-wrap: wrap;
+
+        gap: 8px;
+    }
+
+    .rating-number {
+        font-size: 27px;
+    }
+
+    .rating-text {
+        width: 100%;
+    }
+
+    .google-button {
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   321px - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .reviews-section {
+        padding: 65px 6%;
+    }
+
+    .reviews-heading {
+        gap: 18px;
+
+        margin-bottom: 30px;
+    }
+
+    .reviews-label {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 11px;
+    }
+
+    .reviews-heading h2 {
+        font-size: clamp(36px, 10vw, 48px);
+    }
+
+    .reviews-intro {
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+
+
+    /* Featured */
+
+    .featured-review {
+        padding: 30px 20px;
+    }
+
+    .quote-mark {
+        top: 14px;
+        right: 17px;
+
+        font-size: 55px;
+    }
+
+    .featured-content .stars {
+        font-size: 10px;
+
+        letter-spacing: 2px;
+    }
+
+    .featured-content blockquote {
+        font-size: 19px;
+
+        line-height: 1.5;
+    }
+
+
+    /* Cards */
+
+    .review-card {
+        padding: 20px;
+    }
+
+    .review-card .stars {
+        font-size: 10px;
+    }
+
+    .review-card > p {
+        font-size: 14px;
+    }
+
+
+    /* Google */
+
+    .google-reviews {
+        padding: 22px 20px;
+    }
+
+    .google-small {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+    .google-reviews h3 {
+        font-size: 21px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   320px and below
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .reviews-section {
+        padding: 55px 5%;
+    }
+
+    .reviews-heading h2 {
+        font-size: 34px;
+    }
+
+    .reviews-intro {
+        font-size: 12px;
+    }
+
+    .featured-review {
+        padding: 27px 18px;
+    }
+
+    .featured-content blockquote {
+        font-size: 18px;
+    }
+
+    .review-card {
+        padding: 18px;
+    }
+
+    .review-card > p {
+        font-size: 13px;
+    }
+
+    .google-reviews {
+        padding: 20px 18px;
+    }
+}
