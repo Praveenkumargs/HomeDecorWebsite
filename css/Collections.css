@@ -1,17 +1,30 @@
+/* =========================================================
+   COLLECTIONS SECTION
+========================================================= */
+
 .collections {
+    width: 100%;
+
     padding: 120px 6%;
 
     background-color: #F8F6F1;
 
     color: #12372A;
+
+    box-sizing: border-box;
 }
 
 
-/* =========================
-   HEADING
-========================= */
+/* =========================================================
+   SECTION HEADING
+========================================================= */
 
 .collections-heading {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 55px;
+
     display: flex;
 
     justify-content: space-between;
@@ -19,13 +32,20 @@
 
     gap: 50px;
 
-    max-width: 1200px;
+    box-sizing: border-box;
+}
 
-    margin: 0 auto 55px;
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.collections-heading-title {
+    flex-shrink: 0;
 }
 
 .section-label {
-    margin-bottom: 18px;
+    margin: 0 0 18px;
 
     color: #C9A96E;
 
@@ -36,6 +56,8 @@
 }
 
 .collections-heading h2 {
+    margin: 0;
+
     font-family: "Playfair Display", serif;
 
     font-size: clamp(42px, 5vw, 65px);
@@ -53,10 +75,16 @@
     font-style: italic;
 }
 
-.section-description {
-    max-width: 390px;
 
-    margin-bottom: 5px;
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.section-description {
+    width: 390px;
+    max-width: 100%;
+
+    margin: 0 0 5px;
 
     color: #68736C;
 
@@ -65,25 +93,28 @@
     line-height: 1.8;
 }
 
-/* =========================
-   CARD GRID
-========================= */
+
+/* =========================================================
+   COLLECTION GRID
+========================================================= */
 
 .collection-grid {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
 
     gap: 20px;
-
-    max-width: 1200px;
-    
-    margin: auto;
 }
 
-/* =========================
-   CARD
-========================= */
+
+/* =========================================================
+   COLLECTION CARD
+========================================================= */
 
 .collection-card {
     position: relative;
@@ -92,44 +123,71 @@
 
     overflow: hidden;
 
-    text-decoration: none;
-
     background-color: #12372A;
 }
 
-/* Image */
 
-.collection-card img {
+/* =========================================================
+   CARD LINK
+========================================================= */
+
+.collection-link {
+    position: relative;
+
+    display: block;
+
     width: 100%;
     height: 100%;
 
-    object-fit: cover;
+    color: white;
+
+    text-decoration: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.collection-link > img {
+    width: 100%;
+    height: 100%;
 
     display: block;
+
+    object-fit: cover;
 
     transition: transform 0.7s ease;
 }
 
-/* Overlay */
+
+/* =========================================================
+   CARD OVERLAY
+========================================================= */
 
 .card-overlay {
     position: absolute;
 
     inset: 0;
 
-    background: 
+    background:
         linear-gradient(
             to top,
-            rgba(10, 30, 22, 0.85),
-            rgba(10, 30, 22, 0.85) 65%
-        )
-    ;
-    transition: background-color 0.4s ease;
+            rgba(10, 30, 22, 0.90) 0%,
+            rgba(10, 30, 22, 0.35) 50%,
+            rgba(10, 30, 22, 0.05) 100%
+        );
+
+    transition:
+        background 0.4s ease;
 }
 
-/* =========================
+
+/* =========================================================
    CARD CONTENT
-========================= */
+========================================================= */
 
 .card-content {
     position: absolute;
@@ -138,38 +196,51 @@
     right: 30px;
     bottom: 30px;
 
-    color: white;
-
-    text-decoration: none;
+    z-index: 2;
 }
 
-.card-content img {
-    height: 340px;
-}
+
+/* Number */
 
 .card-content p {
-    margin-bottom: 10px;
+    margin: 0 0 10px;
+
+    padding: 0;
 
     color: #C9A96E;
 
     font-size: 12px;
 
     letter-spacing: 2px;
-
-    padding-top: 10px;
 }
 
+
+/* Card title */
+
 .card-content h3 {
-    margin-bottom: 14px;
+    margin: 0 0 14px;
 
     font-family: "Playfair Display", serif;
 
     font-size: 34px;
 
     font-weight: 500;
+
+    line-height: 1.1;
+
+    color: #F8F6F1;
 }
 
+
+/* Explore text */
+
 .card-content span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
     color: #E8E3D8;
 
     font-size: 12px;
@@ -179,23 +250,453 @@
     transition: color 0.3s ease;
 }
 
-/* =========================
-   HOVER
-========================= */
+.card-content strong {
+    font-size: 17px;
 
-.collection-card:hover img {
+    font-weight: 400;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.collection-card:hover .collection-link > img {
     transform: scale(1.06);
 }
 
 .collection-card:hover .card-overlay {
-    background: 
+    background:
         linear-gradient(
             to top,
-            rgba(10, 30, 22, 0.95),
-            rgba(10, 30, 22, 0.15) 70%
+            rgba(10, 30, 22, 0.95) 0%,
+            rgba(10, 30, 22, 0.20) 70%,
+            rgba(10, 30, 22, 0.05) 100%
         );
 }
 
 .collection-card:hover .card-content span {
     color: #C9A96E;
+}
+
+.collection-card:hover .card-content strong {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   LARGE LAPTOP
+   1101px - 1300px
+========================================================= */
+
+@media (max-width: 1300px) {
+
+    .collections {
+        padding: 100px 5%;
+    }
+
+    .collections-heading {
+        max-width: 1100px;
+
+        gap: 40px;
+    }
+
+    .collection-grid {
+        max-width: 1100px;
+
+        gap: 18px;
+    }
+
+    .collection-card {
+        height: 500px;
+    }
+
+    .card-content {
+        left: 26px;
+        right: 26px;
+        bottom: 26px;
+    }
+
+    .card-content h3 {
+        font-size: 31px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+    .collection-card:last-child {
+        grid-column: 1 / -1;
+        width: calc(50% - 8px);
+        justify-self: center;
+    }
+
+    .collections {
+        padding: 90px 5%;
+    }
+
+
+    /* Heading */
+
+    .collections-heading {
+        max-width: 900px;
+
+        gap: 35px;
+
+        margin-bottom: 45px;
+    }
+
+    .section-label {
+        margin-bottom: 14px;
+
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+    .collections-heading h2 {
+        font-size: clamp(38px, 5.5vw, 54px);
+
+        line-height: 1.05;
+    }
+
+    .section-description {
+        width: 330px;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* Grid */
+
+    .collection-grid {
+        max-width: 900px;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 18px;
+    }
+
+
+    /* Cards */
+
+    .collection-card {
+        height: 470px;
+    }
+
+
+    /* Content */
+
+    .card-content {
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+
+        margin-bottom: 8px;
+    }
+
+    .card-content h3 {
+        font-size: 30px;
+
+        margin-bottom: 12px;
+    }
+
+    .card-content span {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   IPAD / SMALL TABLET
+   768px - 900px
+========================================================= */
+
+@media (max-width: 900px) and (min-width: 768px) {
+
+    .collections {
+        padding: 80px 5%;
+    }
+
+
+    /* Heading becomes stacked */
+
+    .collections-heading {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        margin-bottom: 40px;
+    }
+
+    .section-description {
+        width: 100%;
+        max-width: 500px;
+
+        margin-bottom: 0;
+    }
+
+
+    /* Two columns */
+
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+    }
+
+    .collection-card {
+        height: 450px;
+    }
+
+
+    /* Card content */
+
+    .card-content {
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+    }
+
+    .card-content h3 {
+        font-size: 28px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   481px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .collections {
+        padding: 75px 6%;
+    }
+
+
+    /* Heading */
+
+    .collections-heading {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 22px;
+
+        margin-bottom: 35px;
+    }
+
+
+    .section-label {
+        margin-bottom: 13px;
+
+        font-size: 9px;
+
+        letter-spacing: 2.5px;
+    }
+
+
+    .collections-heading h2 {
+        font-size: clamp(38px, 10vw, 52px);
+
+        line-height: 1.05;
+
+        letter-spacing: -0.5px;
+    }
+
+
+    .section-description {
+        width: 100%;
+        max-width: 500px;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* One column */
+
+    .collection-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    /* Cards */
+
+    .collection-card {
+        height: 460px;
+    }
+
+
+    /* Card content */
+
+    .card-content {
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+    }
+
+
+    .card-content p {
+        font-size: 11px;
+
+        margin-bottom: 8px;
+    }
+
+
+    .card-content h3 {
+        font-size: 31px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .card-content span {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   321px - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .collections {
+        padding: 65px 6%;
+    }
+
+
+    .collections-heading {
+        gap: 18px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .section-label {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 11px;
+    }
+
+
+    .collections-heading h2 {
+        font-size: clamp(35px, 10vw, 47px);
+    }
+
+
+    .section-description {
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+
+
+    .collection-grid {
+        gap: 15px;
+    }
+
+
+    .collection-card {
+        height: 420px;
+    }
+
+
+    .card-content {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+
+
+    .card-content h3 {
+        font-size: 28px;
+    }
+
+
+    .card-content span {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   320px and below
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .collections {
+        padding: 55px 5%;
+    }
+
+
+    .collections-heading {
+        margin-bottom: 25px;
+    }
+
+
+    .section-label {
+        font-size: 7px;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .collections-heading h2 {
+        font-size: 34px;
+    }
+
+
+    .section-description {
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    .collection-card {
+        height: 390px;
+    }
+
+
+    .card-content {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+    }
+
+
+    .card-content h3 {
+        font-size: 26px;
+    }
 }
