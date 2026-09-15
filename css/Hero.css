@@ -1,3 +1,7 @@
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
 .hero {
     position: relative;
 
@@ -5,15 +9,19 @@
     height: calc(100vh - 82px);
 
     min-height: 600px;
+
     overflow: hidden;
 
     display: flex;
     align-items: center;
+
+    box-sizing: border-box;
 }
 
-/* =========================
+
+/* =========================================================
    BACKGROUND IMAGE
-========================= */
+========================================================= */
 
 .hero-image {
     position: absolute;
@@ -25,31 +33,36 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    z-index: 0;
 }
 
-/* =========================
-   OVERLAY
-========================= */
+
+/* =========================================================
+   DARK OVERLAY
+========================================================= */
 
 .hero-overlay {
     position: absolute;
 
     inset: 0;
 
-    background: 
+    background:
         linear-gradient(
             90deg,
             rgba(10, 30, 22, 0.88) 0%,
             rgba(10, 30, 22, 0.65) 40%,
             rgba(10, 30, 22, 0.15) 75%,
-            rgba(10, 30, 22, 0.05) 100%,
-        )
-    ;
+            rgba(10, 30, 22, 0.05) 100%
+        );
+
+    z-index: 1;
 }
 
-/* =========================
-   CONTENT
-========================= */
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
 
 .hero-content {
     position: relative;
@@ -57,17 +70,22 @@
     z-index: 2;
 
     width: 90%;
-    min-width: 1200px;
+    max-width: 1400px;
 
     margin: 0 auto;
 
     padding-left: 5%;
+
+    box-sizing: border-box;
 }
 
-/* Small heading */
+
+/* =========================================================
+   SMALL HEADING
+========================================================= */
 
 .hero-small-text {
-    margin-bottom: 22px;
+    margin: 0 0 22px;
 
     color: #C9A96E;
 
@@ -75,12 +93,17 @@
     font-weight: 600;
 
     letter-spacing: 4px;
+
+    line-height: 1.5;
 }
 
-/* Main heading */
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
 
 .hero h1 {
-    margin-bottom: 25px;
+    margin: 0 0 25px;
 
     color: #F8F6F1;
 
@@ -101,13 +124,16 @@
     font-style: italic;
 }
 
-/* Description */ 
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
 
 .hero-description {
     width: 500px;
     max-width: 90%;
 
-    margin-bottom: 35px;
+    margin: 0 0 35px;
 
     color: #E8E3D8;
 
@@ -116,9 +142,10 @@
     line-height: 1.8;
 }
 
-/* =========================
+
+/* =========================================================
    BUTTONS
-========================= */
+========================================================= */
 
 .hero-buttons {
     display: flex;
@@ -126,22 +153,31 @@
     align-items: center;
 
     gap: 15px;
+
+    flex-wrap: wrap;
 }
 
 .primary-btn,
 .secondary-btn {
     display: flex;
+
     align-items: center;
+    justify-content: center;
 
     text-decoration: none;
 
     font-size: 13px;
     font-weight: 600;
 
+    box-sizing: border-box;
+
     transition: all 0.3s ease;
 }
 
-/* Primary */
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
 
 .primary-btn {
     gap: 15px;
@@ -167,7 +203,10 @@
     transform: translateX(5px);
 }
 
-/* Secondary */
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
 
 .secondary-btn {
     padding: 14px 23px;
@@ -183,9 +222,10 @@
     border-color: #F8F6F1;
 }
 
-/* =========================
+
+/* =========================================================
    SCROLL INDICATOR
-========================= */
+========================================================= */
 
 .scroll-indicator {
     position: absolute;
@@ -196,6 +236,7 @@
     right: 6%;
 
     display: flex;
+
     align-items: center;
 
     gap: 12px;
@@ -207,6 +248,8 @@
     letter-spacing: 2px;
 
     text-transform: uppercase;
+
+    white-space: nowrap;
 }
 
 .scroll-indicator span {
@@ -218,3 +261,518 @@
     background-color: #C9A96E;
 }
 
+
+/* =========================================================
+   LARGE LAPTOP
+   1101px - 1300px
+========================================================= */
+
+@media (max-width: 1300px) {
+
+    .hero-content {
+        width: 92%;
+
+        padding-left: 3%;
+    }
+
+    .hero h1 {
+        font-size: clamp(50px, 6vw, 76px);
+    }
+
+    .hero-description {
+        width: 480px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .hero {
+        height: calc(100vh - 76px);
+
+        min-height: 600px;
+    }
+
+
+    /* -----------------------------------------
+       Background
+    ----------------------------------------- */
+
+    .hero-image {
+        background-position: center center;
+    }
+
+
+    /* -----------------------------------------
+       Overlay
+    ----------------------------------------- */
+
+    .hero-overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(10, 30, 22, 0.82) 0%,
+                rgba(10, 30, 22, 0.58) 50%,
+                rgba(10, 30, 22, 0.18) 100%
+            );
+    }
+
+
+    /* -----------------------------------------
+       Content
+    ----------------------------------------- */
+
+    .hero-content {
+        width: 90%;
+
+        max-width: 1000px;
+
+        padding-left: 3%;
+    }
+
+
+    /* -----------------------------------------
+       Small heading
+    ----------------------------------------- */
+
+    .hero-small-text {
+        margin-bottom: 18px;
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+    }
+
+
+    /* -----------------------------------------
+       Main heading
+    ----------------------------------------- */
+
+    .hero h1 {
+        margin-bottom: 20px;
+
+        font-size: clamp(48px, 7vw, 68px);
+
+        letter-spacing: -1.5px;
+    }
+
+
+    /* -----------------------------------------
+       Description
+    ----------------------------------------- */
+
+    .hero-description {
+        width: 440px;
+
+        max-width: 75%;
+
+        margin-bottom: 30px;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    /* -----------------------------------------
+       Buttons
+    ----------------------------------------- */
+
+    .hero-buttons {
+        gap: 12px;
+    }
+
+    .primary-btn {
+        padding: 14px 20px;
+    }
+
+    .secondary-btn {
+        padding: 13px 20px;
+    }
+
+
+    /* -----------------------------------------
+       Scroll indicator
+    ----------------------------------------- */
+
+    .scroll-indicator {
+        bottom: 25px;
+
+        right: 5%;
+
+        font-size: 10px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .scroll-indicator span {
+        width: 30px;
+    }
+}
+
+
+/* =========================================================
+   IPAD / TABLET
+   768px - 900px
+========================================================= */
+@media (max-width: 900px) and (min-width: 768px) {
+
+    .hero {
+        height: calc(100vh - 76px);
+        min-height: 600px;
+    }
+
+    .hero-content {
+        width: 90%;
+        padding-left: 2%;
+    }
+
+    .hero-small-text {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+        line-height: 1.04;
+        letter-spacing: -1.5px;
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        width: 430px;
+        max-width: 70%;
+
+        font-size: 14px;
+        line-height: 1.7;
+
+        margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+        gap: 10px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        font-size: 12px;
+    }
+
+    .primary-btn {
+        padding: 13px 19px;
+    }
+
+    .secondary-btn {
+        padding: 12px 19px;
+    }
+
+    .scroll-indicator {
+        bottom: 22px;
+        right: 4%;
+
+        font-size: 9px;
+    }
+
+    .scroll-indicator span {
+        width: 30px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   481px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .hero {
+        height: calc(100svh - 70px);
+
+        min-height: 600px;
+
+        align-items: center;
+    }
+
+
+    /* -----------------------------------------
+       Background
+    ----------------------------------------- */
+
+    .hero-image {
+        background-position: center center;
+    }
+
+
+    /* -----------------------------------------
+       Overlay
+    ----------------------------------------- */
+
+    .hero-overlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(10, 30, 22, 0.42) 0%,
+                rgba(10, 30, 22, 0.65) 45%,
+                rgba(10, 30, 22, 0.82) 100%
+            );
+    }
+
+
+    /* -----------------------------------------
+       Content
+    ----------------------------------------- */
+
+    .hero-content {
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0;
+
+        padding: 0 7%;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------
+       Small heading
+    ----------------------------------------- */
+
+    .hero-small-text {
+        margin-bottom: 15px;
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
+
+        line-height: 1.5;
+    }
+
+
+    /* -----------------------------------------
+       Main heading
+    ----------------------------------------- */
+
+    .hero h1 {
+        margin-bottom: 18px;
+
+        font-size: clamp(42px, 11vw, 58px);
+
+        line-height: 1.02;
+
+        letter-spacing: -1px;
+    }
+
+
+    /* -----------------------------------------
+       Description
+    ----------------------------------------- */
+
+    .hero-description {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin-bottom: 27px;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* -----------------------------------------
+       Buttons
+    ----------------------------------------- */
+
+    .hero-buttons {
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+
+        justify-content: center;
+
+        box-sizing: border-box;
+    }
+
+
+    .primary-btn {
+        padding: 14px 20px;
+    }
+
+
+    .secondary-btn {
+        padding: 13px 20px;
+    }
+
+
+    /* -----------------------------------------
+       Scroll indicator
+    ----------------------------------------- */
+
+    .scroll-indicator {
+        bottom: 18px;
+
+        right: 7%;
+
+        gap: 8px;
+
+        font-size: 8px;
+
+        letter-spacing: 1.2px;
+
+        color: ₹#C9A96E;
+    }
+
+    .scroll-indicator span {
+        width: 24px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   321px - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .hero {
+        height: calc(100svh - 70px);
+
+        min-height: 580px;
+    }
+
+
+    .hero-content {
+        padding: 0 6%;
+    }
+
+
+    .hero-small-text {
+        font-size: 8px;
+
+        letter-spacing: 1.7px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .hero h1 {
+        font-size: clamp(38px, 11vw, 52px);
+
+        line-height: 1.03;
+
+        margin-bottom: 16px;
+    }
+
+
+    .hero-description {
+        font-size: 13px;
+
+        line-height: 1.65;
+
+        margin-bottom: 23px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+        font-size: 12px;
+    }
+
+
+    .primary-btn {
+        padding: 13px 18px;
+    }
+
+
+    .secondary-btn {
+        padding: 12px 18px;
+    }
+
+
+    .scroll-indicator {
+        bottom: 15px;
+
+        right: 6%;
+
+        font-size: 7px;
+
+        letter-spacing: 1px;
+    }
+
+    .scroll-indicator span {
+        width: 20px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   320px and below
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .hero {
+        min-height: 540px;
+    }
+
+
+    .hero-content {
+        padding: 0 6%;
+    }
+
+
+    .hero-small-text {
+        font-size: 7px;
+
+        letter-spacing: 1.3px;
+    }
+
+
+    .hero h1 {
+        font-size: 36px;
+
+        letter-spacing: -0.5px;
+    }
+
+
+    .hero-description {
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+        font-size: 11px;
+
+        padding: 12px 15px;
+    }
+
+
+    .scroll-indicator {
+        display: none;
+    }
+}
