@@ -1,15 +1,29 @@
+/* =========================================================
+   WHY CHOOSE US
+========================================================= */
+
 .why-section {
+    width: 100%;
+
     padding: 130px 6%;
 
     background-color: #12372A;
 
     color: #F8F6F1;
+
+    box-sizing: border-box;
 }
 
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
 .why-container {
+    width: 100%;
     max-width: 1200px;
 
-    margin: auto;
+    margin: 0 auto;
 
     display: grid;
 
@@ -18,18 +32,21 @@
     gap: 100px;
 
     align-items: center;
+
+    box-sizing: border-box;
 }
 
-/* =========================
+
+/* =========================================================
    LEFT SIDE
-========================= */
+========================================================= */
 
 .why-intro {
     max-width: 470px;
 }
 
 .why-label {
-    margin-bottom: 20px;
+    margin: 0 0 20px;
 
     color: #C9A96E;
 
@@ -40,7 +57,7 @@
 }
 
 .why-intro h2 {
-    margin-bottom: 28px;
+    margin: 0 0 28px;
 
     font-family: "Playfair Display", serif;
 
@@ -53,16 +70,21 @@
     letter-spacing: -1px;
 }
 
-.whyintro h2 span {
+.why-intro h2 span {
     color: #D7C49F;
 
     font-style: italic;
 }
 
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
 .why-description {
     max-width: 430px;
 
-    margin-bottom: 35px;
+    margin: 0 0 35px;
 
     color: #C7D0CA;
 
@@ -70,6 +92,11 @@
 
     line-height: 1.9;
 }
+
+
+/* =========================================================
+   OPTIONAL BUTTON
+========================================================= */
 
 .why-button {
     display: inline-flex;
@@ -97,7 +124,7 @@
 
     font-size: 18px;
 
-    transition: transform 0.3 ease;
+    transition: transform 0.3s ease;
 }
 
 .why-button:hover {
@@ -112,6 +139,15 @@
     transform: translateX(5px);
 }
 
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.why-features {
+    width: 100%;
+}
+
 .why-feature {
     display: grid;
 
@@ -123,14 +159,21 @@
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 
-    transition: padding-left 0.3 ease;
+    transition: padding-left 0.3s ease;
+}
+
+.why-feature:first-child {
+    padding-top: 0;
 }
 
 .why-feature:hover {
     padding-left: 10px;
 }
 
-/* Number */
+
+/* =========================================================
+   FEATURE NUMBER
+========================================================= */
 
 .feature-number {
     padding-top: 5px;
@@ -142,10 +185,13 @@
     letter-spacing: 2px;
 }
 
-/* Content */
+
+/* =========================================================
+   FEATURE CONTENT
+========================================================= */
 
 .feature-content h3 {
-    margin-bottom: 9px;
+    margin: 0 0 9px;
 
     font-family: "Playfair Display", serif;
 
@@ -153,11 +199,15 @@
 
     font-weight: 500;
 
+    line-height: 1.2;
+
     color: #F8F6F1;
 }
 
 .feature-content p {
     max-width: 480px;
+
+    margin: 0;
 
     color: #AEBAB2;
 
@@ -166,3 +216,375 @@
     line-height: 1.7;
 }
 
+
+/* =========================================================
+   LARGE LAPTOP
+   1101px - 1300px
+========================================================= */
+
+@media (max-width: 1300px) {
+
+    .why-section {
+        padding: 110px 5%;
+    }
+
+    .why-container {
+        max-width: 1100px;
+
+        gap: 75px;
+    }
+
+    .why-intro h2 {
+        font-size: clamp(44px, 5vw, 62px);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .why-section {
+        padding: 90px 5%;
+    }
+
+    .why-container {
+        max-width: 900px;
+
+        grid-template-columns: 0.85fr 1.15fr;
+
+        gap: 55px;
+    }
+
+    .why-intro {
+        max-width: 380px;
+    }
+
+    .why-label {
+        margin-bottom: 16px;
+
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+    .why-intro h2 {
+        margin-bottom: 22px;
+
+        font-size: clamp(40px, 5.5vw, 54px);
+    }
+
+    .why-description {
+        max-width: 360px;
+
+        font-size: 14px;
+
+        line-height: 1.8;
+
+        margin-bottom: 28px;
+    }
+
+    .why-feature {
+        grid-template-columns: 50px 1fr;
+
+        gap: 18px;
+
+        padding: 25px 0;
+    }
+
+    .feature-number {
+        font-size: 10px;
+    }
+
+    .feature-content h3 {
+        font-size: 22px;
+
+        margin-bottom: 8px;
+    }
+
+    .feature-content p {
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+}
+
+
+/* =========================================================
+   IPAD / SMALL TABLET
+   768px - 900px
+========================================================= */
+
+@media (max-width: 900px) and (min-width: 768px) {
+
+    .why-section {
+        padding: 80px 5%;
+    }
+
+    .why-container {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 55px;
+
+        max-width: 700px;
+    }
+
+    .why-intro {
+        max-width: 600px;
+    }
+
+    .why-label {
+        margin-bottom: 14px;
+    }
+
+    .why-intro h2 {
+        font-size: 52px;
+
+        margin-bottom: 20px;
+    }
+
+    .why-description {
+        max-width: 560px;
+
+        font-size: 14px;
+
+        line-height: 1.8;
+
+        margin-bottom: 0;
+    }
+
+
+    /* Features */
+
+    .why-features {
+        width: 100%;
+    }
+
+    .why-feature {
+        grid-template-columns: 55px 1fr;
+
+        gap: 20px;
+
+        padding: 24px 0;
+    }
+
+    .why-feature:first-child {
+        padding-top: 0;
+    }
+
+    .feature-content h3 {
+        font-size: 23px;
+    }
+
+    .feature-content p {
+        max-width: 600px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   481px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .why-section {
+        padding: 75px 6%;
+    }
+
+    .why-container {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 45px;
+    }
+
+
+    /* Intro */
+
+    .why-intro {
+        max-width: 100%;
+    }
+
+    .why-label {
+        margin-bottom: 13px;
+
+        font-size: 9px;
+
+        letter-spacing: 2.5px;
+    }
+
+    .why-intro h2 {
+        margin-bottom: 18px;
+
+        font-size: clamp(40px, 10vw, 52px);
+
+        line-height: 1.05;
+    }
+
+    .why-description {
+        max-width: 100%;
+
+        margin-bottom: 0;
+
+        font-size: 14px;
+
+        line-height: 1.75;
+    }
+
+
+    /* Features */
+
+    .why-features {
+        width: 100%;
+    }
+
+    .why-feature {
+        grid-template-columns: 40px 1fr;
+
+        gap: 15px;
+
+        padding: 22px 0;
+    }
+
+    .why-feature:first-child {
+        padding-top: 0;
+    }
+
+    .why-feature:hover {
+        padding-left: 0;
+    }
+
+    .feature-number {
+        padding-top: 4px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .feature-content h3 {
+        margin-bottom: 7px;
+
+        font-size: 21px;
+    }
+
+    .feature-content p {
+        max-width: 100%;
+
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   321px - 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .why-section {
+        padding: 65px 6%;
+    }
+
+    .why-container {
+        gap: 38px;
+    }
+
+    .why-label {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 11px;
+    }
+
+    .why-intro h2 {
+        font-size: clamp(36px, 10vw, 48px);
+
+        margin-bottom: 16px;
+    }
+
+    .why-description {
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+    .why-feature {
+        grid-template-columns: 35px 1fr;
+
+        gap: 12px;
+
+        padding: 20px 0;
+    }
+
+    .feature-number {
+        font-size: 8px;
+    }
+
+    .feature-content h3 {
+        font-size: 20px;
+    }
+
+    .feature-content p {
+        font-size: 12px;
+
+        line-height: 1.65;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   320px and below
+========================================================= */
+
+@media (max-width: 320px) {
+
+    .why-section {
+        padding: 55px 5%;
+    }
+
+    .why-intro h2 {
+        font-size: 34px;
+    }
+
+    .why-description {
+        font-size: 12px;
+
+        line-height: 1.65;
+    }
+
+    .why-feature {
+        grid-template-columns: 32px 1fr;
+
+        gap: 10px;
+
+        padding: 18px 0;
+    }
+
+    .feature-content h3 {
+        font-size: 18px;
+    }
+
+    .feature-content p {
+        font-size: 12px;
+    }
+}
