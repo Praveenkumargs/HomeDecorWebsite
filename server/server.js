@@ -11,9 +11,14 @@ import path from "path";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+        origin: [
+            "http://localhost:5173",
+            "https://home-decor-website-lime.vercel.app"
+        ]
+    }));
 app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
@@ -438,7 +443,7 @@ app.post("/api/enquiries", async (req,res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log("Server is Running in", port);
+app.listen(PORT,"0.0.0.0", () => {
+    console.log("Server is Running in", PORT);
     
 });

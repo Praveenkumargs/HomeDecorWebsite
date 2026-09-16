@@ -2,543 +2,354 @@ import React, { useEffect, useState } from "react";
 import "../css/GalleryManagement.css";
 
 function GalleryManagement() {
+  const [images, setImages] = useState([]);
+  const [category, setCategory] = useState("curtains");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
 
-    const [images, setImages] = useState([]);
-    const [category, setCategory] = useState("curtains");
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
-    const [loading, setLoading] = useState(true);
-    const [uploading, setUploading] = useState(false);
+  const token = localStorage.getItem("adminToken");
 
-    const token = localStorage.getItem("adminToken");
+  // =========================
+  // FETCH IMAGES
+  // =========================
 
+  async function fetchImages() {
+    try {
+      setLoading(true);
 
-    // =========================
-    // FETCH IMAGES
-    // =========================
+      const response = await fetch("http://localhost:3000/api/gallery");
 
-    async function fetchImages() {
+      if (!response.ok) {
+        throw new Error("Failed to fetch gallery");
+      }
 
-        try {
+      const data = await response.json();
 
-            setLoading(true);
+      setImages(data);
+    } catch (error) {
+      console.error("Error fetching gallery:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-            const response = await fetch(
-                "http://localhost:3000/api/gallery"
-            );
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch gallery");
-            }
+  // =========================
+  // SELECT IMAGE
+  // =========================
 
-            const data = await response.json();
+  function handleFileChange(event) {
+    const file = event.target.files[0];
 
-            setImages(data);
-
-        } catch (error) {
-
-            console.error(
-                "Error fetching gallery:",
-                error
-            );
-
-        } finally {
-
-            setLoading(false);
-
-        }
+    if (!file) {
+      return;
     }
 
+    setSelectedFile(file);
 
-    useEffect(() => {
-        fetchImages();
-    }, []);
+    const imagePreview = URL.createObjectURL(file);
 
+    setPreview(imagePreview);
+  }
 
-    // =========================
-    // SELECT IMAGE
-    // =========================
+  // =========================
+  // UPLOAD IMAGE
+  // =========================
 
-    function handleFileChange(event) {
+  async function handleUpload(event) {
+    event.preventDefault();
 
-        const file = event.target.files[0];
+    if (!selectedFile) {
+      alert("Please select an image.");
 
-        if (!file) {
-            return;
-        }
-
-        setSelectedFile(file);
-
-        const imagePreview =
-            URL.createObjectURL(file);
-
-        setPreview(imagePreview);
+      return;
     }
 
+    try {
+      setUploading(true);
 
-    // =========================
-    // UPLOAD IMAGE
-    // =========================
+      const formData = new FormData();
 
-    async function handleUpload(event) {
+      formData.append("category", category);
+      formData.append("image", selectedFile);
 
-        event.preventDefault();
+      const response = await fetch("http://localhost:3000/api/gallery/upload", {
+        method: "POST",
 
-        if (!selectedFile) {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
 
-            alert("Please select an image.");
+        body: formData,
+      });
 
-            return;
-        }
+      const data = await response.json();
 
-        try {
+      if (response.status === 401) {
+        alert("Your admin session has expired.");
 
-            setUploading(true);
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("admin");
 
-            const formData = new FormData();
+        window.location.href = "/admin";
 
-            formData.append("category", category);
-            formData.append("image", selectedFile);
-            
+        return;
+      }
 
+      if (!response.ok) {
+        alert(data.message || "Failed to upload image.");
 
-            const response = await fetch(
-                "http://localhost:3000/api/gallery/upload",
-                {
-                    method: "POST",
+        return;
+      }
 
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
+      alert("Image uploaded successfully!");
 
-                    body: formData
-                }
-            );
+      // Reset
+      setSelectedFile(null);
+      setPreview(null);
 
+      document.getElementById("gallery-file-input").value = "";
 
-            const data = await response.json();
+      fetchImages();
+    } catch (error) {
+      console.error("Error uploading image:", error);
 
+      alert("Unable to upload image.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
-            if (response.status === 401) {
+  // =========================
+  // DELETE IMAGE
+  // =========================
 
-                alert("Your admin session has expired.");
+  async function handleDelete(id) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this image?",
+    );
 
-                localStorage.removeItem("adminToken");
-                localStorage.removeItem("admin");
-
-                window.location.href = "/admin";
-
-                return;
-            }
-
-
-            if (!response.ok) {
-
-                alert(
-                    data.message ||
-                    "Failed to upload image."
-                );
-
-                return;
-            }
-
-
-            alert("Image uploaded successfully!");
-
-
-            // Reset
-            setSelectedFile(null);
-            setPreview(null);
-
-            document
-                .getElementById("gallery-file-input")
-                .value = "";
-
-
-            fetchImages();
-
-        } catch (error) {
-
-            console.error(
-                "Error uploading image:",
-                error
-            );
-
-            alert("Unable to upload image.");
-
-        } finally {
-
-            setUploading(false);
-
-        }
+    if (!confirmed) {
+      return;
     }
 
+    try {
+      const response = await fetch(`http://localhost:3000/api/gallery/${id}`, {
+        method: "DELETE",
 
-    // =========================
-    // DELETE IMAGE
-    // =========================
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    async function handleDelete(id) {
+      const data = await response.json();
 
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this image?"
-        );
+      if (response.status === 401) {
+        alert("Your admin session has expired.");
 
-        if (!confirmed) {
-            return;
-        }
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("admin");
 
+        window.location.href = "/admin";
 
-        try {
+        return;
+      }
 
-            const response = await fetch(
-                `http://localhost:3000/api/gallery/${id}`,
-                {
-                    method: "DELETE",
+      if (!response.ok) {
+        alert(data.message || "Failed to delete image.");
 
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+        return;
+      }
 
+      setImages((prevImages) => prevImages.filter((image) => image.id !== id));
+    } catch (error) {
+      console.error("Error deleting image:", error);
 
-            const data = await response.json();
+      alert("Unable to delete image.");
+    }
+  }
 
+  // =========================
+  // IMAGE URL
+  // =========================
 
-            if (response.status === 401) {
+  function getImageUrl(imageUrl) {
+    if (!imageUrl) return "";
 
-                alert("Your admin session has expired.");
-
-                localStorage.removeItem("adminToken");
-                localStorage.removeItem("admin");
-
-                window.location.href = "/admin";
-
-                return;
-            }
-
-
-            if (!response.ok) {
-
-                alert(
-                    data.message ||
-                    "Failed to delete image."
-                );
-
-                return;
-            }
-
-
-            setImages(prevImages =>
-                prevImages.filter(
-                    image => image.id !== id
-                )
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Error deleting image:",
-                error
-            );
-
-            alert("Unable to delete image.");
-
-        }
+    // External image URL
+    if (imageUrl.startsWith("https://") || imageUrl.startsWith("http://")) {
+      return imageUrl;
     }
 
-
-    // =========================
-    // IMAGE URL
-    // =========================
-
-    function getImageUrl(imageUrl) {
-
-        return `http://localhost:3000${imageUrl}`;
-
+    // Local uploaded image
+    if (imageUrl.startsWith("/uploads/")) {
+      return `http://localhost:3000${imageUrl}`;
     }
 
+    // Vite public image
+    if (imageUrl.startsWith("/images/")) {
+      return imageUrl;
+    }
 
-    return (
+    return imageUrl;
+  }
 
-        <section className="gallery-management">
-
-            {/* =========================
+  return (
+    <section className="gallery-management">
+      {/* =========================
                 HEADER
             ========================= */}
 
-            <div className="gallery-header">
+      <div className="gallery-header">
+        <div>
+          <p className="dashboard-label">WEBSITE IMAGES</p>
 
-                <div>
+          <h2>Gallery</h2>
 
-                    <p className="dashboard-label">
-                        WEBSITE IMAGES
-                    </p>
+          <p className="gallery-description">
+            Upload the best curtain and blind images to showcase on your
+            website.
+          </p>
+        </div>
+      </div>
 
-                    <h2>
-                        Gallery
-                    </h2>
-
-                    <p className="gallery-description">
-                        Upload the best curtain and blind
-                        images to showcase on your website.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            {/* =========================
+      {/* =========================
                 UPLOAD AREA
             ========================= */}
 
-            <div className="gallery-upload-card">
+      <div className="gallery-upload-card">
+        <div className="gallery-upload-title">
+          <div>
+            <h3>Upload New Image</h3>
 
-                <div className="gallery-upload-title">
+            <p>
+              Choose an image and select where it should appear on the website.
+            </p>
+          </div>
+        </div>
 
-                    <div>
+        <form onSubmit={handleUpload}>
+          <div className="gallery-upload-grid">
+            {/* CATEGORY */}
 
-                        <h3>
-                            Upload New Image
-                        </h3>
+            <div className="gallery-form-group">
+              <label>Gallery Category</label>
 
-                        <p>
-                            Choose an image and select where
-                            it should appear on the website.
-                        </p>
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              >
+                <option value="curtains">Curtains</option>
 
-                    </div>
-
-                </div>
-
-
-                <form onSubmit={handleUpload}>
-
-                    <div className="gallery-upload-grid">
-
-
-                        {/* CATEGORY */}
-
-                        <div className="gallery-form-group">
-
-                            <label>
-                                Gallery Category
-                            </label>
-
-                            <select
-                                value={category}
-                                onChange={(event) =>
-                                    setCategory(
-                                        event.target.value
-                                    )
-                                }
-                            >
-
-                                <option value="curtains">
-                                    Curtains
-                                </option>
-
-                                <option value="blinds">
-                                    Blinds
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        {/* FILE */}
-
-                        <div className="gallery-form-group">
-
-                            <label>
-                                Choose Image
-                            </label>
-
-                            <input
-                                id="gallery-file-input"
-                                type="file"
-                                accept="image/jpeg,image/png,image/webp"
-                                onChange={handleFileChange}
-                            />
-
-                            <small>
-                                JPG, PNG or WebP · Max 5MB
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* PREVIEW */}
-
-                    {preview && (
-
-                        <div className="gallery-preview">
-
-                            <p>
-                                IMAGE PREVIEW
-                            </p>
-
-                            <div className="gallery-preview-image">
-
-                                <img
-                                    src={preview}
-                                    alt="Preview"
-                                />
-
-                            </div>
-
-                        </div>
-
-                    )}
-
-
-                    {/* BUTTON */}
-
-                    <div className="gallery-upload-actions">
-
-                        <button
-                            type="submit"
-                            className="gallery-upload-button"
-                            disabled={uploading}
-                        >
-
-                            {uploading
-                                ? "Uploading..."
-                                : "Upload Image"
-                            }
-
-                        </button>
-
-                    </div>
-
-                </form>
-
+                <option value="blinds">Blinds</option>
+              </select>
             </div>
 
+            {/* FILE */}
 
-            {/* =========================
+            <div className="gallery-form-group">
+              <label>Choose Image</label>
+
+              <input
+                id="gallery-file-input"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleFileChange}
+              />
+
+              <small>JPG, PNG or WebP · Max 5MB</small>
+            </div>
+          </div>
+
+          {/* PREVIEW */}
+
+          {preview && (
+            <div className="gallery-preview">
+              <p>IMAGE PREVIEW</p>
+
+              <div className="gallery-preview-image">
+                <img src={preview} alt="Preview" />
+              </div>
+            </div>
+          )}
+
+          {/* BUTTON */}
+
+          <div className="gallery-upload-actions">
+            <button
+              type="submit"
+              className="gallery-upload-button"
+              disabled={uploading}
+            >
+              {uploading ? "Uploading..." : "Upload Image"}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* =========================
                 GALLERY
             ========================= */}
 
-            <div className="gallery-list-section">
+      <div className="gallery-list-section">
+        <div className="gallery-list-header">
+          <div>
+            <p className="dashboard-label">CURRENT IMAGES</p>
 
-                <div className="gallery-list-header">
+            <h3>Website Gallery</h3>
+          </div>
 
-                    <div>
+          <span className="gallery-count">{images.length} Images</span>
+        </div>
 
-                        <p className="dashboard-label">
-                            CURRENT IMAGES
-                        </p>
+        {loading ? (
+          <div className="gallery-empty-state">
+            <p>Loading gallery...</p>
+          </div>
+        ) : images.length === 0 ? (
+          <div className="gallery-empty-state">
+            <div className="gallery-empty-icon">◇</div>
 
-                        <h3>
-                            Website Gallery
-                        </h3>
+            <h3>No Gallery Images</h3>
 
-                    </div>
+            <p>Upload your first curtain or blind image above.</p>
+          </div>
+        ) : (
+          <div className="gallery-grid">
+            {images.map((image) => (
+              <article className="gallery-card" key={image.id}>
+                <div className="gallery-card-image">
+                  <img
+                    src={getImageUrl(image.image_url)}
+                    alt={image.category === "curtains" ? "Curtain" : "Blind"}
+                  />
 
-                    <span className="gallery-count">
-                        {images.length} Images
-                    </span>
-
+                  <button
+                    className="gallery-delete-button"
+                    onClick={() => handleDelete(image.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
 
-
-                {loading ? (
-
-                    <div className="gallery-empty-state">
-                        <p>
-                            Loading gallery...
-                        </p>
-                    </div>
-
-                ) : images.length === 0 ? (
-
-                    <div className="gallery-empty-state">
-
-                        <div className="gallery-empty-icon">
-                            ◇
-                        </div>
-
-                        <h3>
-                            No Gallery Images
-                        </h3>
-
-                        <p>
-                            Upload your first curtain or blind
-                            image above.
-                        </p>
-
-                    </div>
-
-                ) : (
-
-                    <div className="gallery-grid">
-
-                        {images.map(image => (
-
-                            <article
-                                className="gallery-card"
-                                key={image.id}
-                            >
-
-                                <div className="gallery-card-image">
-
-                                    <img
-                                        src={getImageUrl(
-                                            image.image_url
-                                        )}
-                                        alt={
-                                            image.category ===
-                                            "curtains"
-                                                ? "Curtain"
-                                                : "Blind"
-                                        }
-                                    />
-
-                                    <button
-                                        className="gallery-delete-button"
-                                        onClick={() =>
-                                            handleDelete(
-                                                image.id
-                                            )
-                                        }
-                                    >
-                                        Delete
-                                    </button>
-
-                                </div>
-
-
-                                <div className="gallery-card-content">
-
-                                    <span>
-                                        {image.category ===
-                                        "curtains"
-                                            ? "CURTAINS"
-                                            : "BLINDS"
-                                        }
-                                    </span>
-
-                                </div>
-
-                            </article>
-
-                        ))}
-
-                    </div>
-
-                )}
-
-            </div>
-
-        </section>
-    );
+                <div className="gallery-card-content">
+                  <span>
+                    {image.category === "curtains" ? "CURTAINS" : "BLINDS"}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
 
 export default GalleryManagement;

@@ -1,30 +1,25 @@
 import pool from "../db.js";
-import fs from "fs/promises";
-import path from "path";
+import cloudinary from "../cloudinary.js";
+import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
 
 
-// ================================
-// GET PORTFOLIO
-// ================================
-
+/*
+    GET ALL PORTFOLIO PROJECTS
+*/
 export async function getPortfolio(req, res) {
-
     try {
-
         const result = await pool.query(
-            `SELECT *
-             FROM portfolio
-             ORDER BY created_at DESC`
+            `
+            SELECT *
+            FROM portfolio
+            ORDER BY created_at DESC
+            `
         );
 
         res.json(result.rows);
 
     } catch (error) {
-
-        console.error(
-            "Error fetching portfolio:",
-            error
-        );
+        console.error("Error fetching portfolio:", error);
 
         res.status(500).json({
             message: "Failed to fetch portfolio"
@@ -33,25 +28,23 @@ export async function getPortfolio(req, res) {
 }
 
 
-// ================================
-// GET PORTFOLIO BY ID
-// ================================
-
+/*
+    GET SINGLE PORTFOLIO PROJECT
+*/
 export async function getPortfolioById(req, res) {
-
     try {
-
         const { id } = req.params;
 
         const result = await pool.query(
-            `SELECT *
-             FROM portfolio
-             WHERE id = $1`,
+            `
+            SELECT *
+            FROM portfolio
+            WHERE id = $1
+            `,
             [id]
         );
 
         if (result.rows.length === 0) {
-
             return res.status(404).json({
                 message: "Portfolio not found"
             });
@@ -60,7 +53,6 @@ export async function getPortfolioById(req, res) {
         res.json(result.rows[0]);
 
     } catch (error) {
-
         console.error(
             "Error fetching portfolio project:",
             error
@@ -73,14 +65,21 @@ export async function getPortfolioById(req, res) {
 }
 
 
-// ================================
-// CREATE PORTFOLIO
-// ================================
+/*
+    CREATE PORTFOLIO PROJECT
 
+    Image flow:
+
+    Frontend
+       ↓
+    Multer memoryStorage
+       ↓
+    Cloudinary
+       ↓
+    PostgreSQL
+*/
 export async function createPortfolio(req, res) {
-
     try {
-
         const {
             title,
             category,
@@ -88,342 +87,328 @@ export async function createPortfolio(req, res) {
             location
         } = req.body;
 
-
-        // -------------------------
-        // VALIDATION
-        // -------------------------
-
         if (!title || !category) {
-
             return res.status(400).json({
                 message: "Title and category are required"
             });
         }
 
-
         if (!req.file) {
-
             return res.status(400).json({
                 message: "Please upload a project image"
             });
         }
 
-
-        // -------------------------
-        // CREATE IMAGE URL
-        // -------------------------
+        /*
+            Upload portfolio image to Cloudinary
+        */
+        const cloudinaryResult =
+            await uploadToCloudinary(
+                req.file.buffer,
+                `lucky-home-decor/portfolio/${category}`
+            );
 
         const image_url =
-            `/uploads/portfolio/${req.file.filename}`;
+            cloudinaryResult.secure_url;
+
+        const public_id =
+            cloudinaryResult.public_id;
 
 
-        // -------------------------
-        // INSERT
-        // -------------------------
-
+        /*
+            Save project in PostgreSQL
+        */
         const result = await pool.query(
-            `INSERT INTO portfolio
+            `
+            INSERT INTO portfolio
             (
                 title,
                 category,
                 description,
                 image_url,
-                location
+                location,
+                public_id
             )
-            VALUES ($1, $2, $3, $4, $5)
-            RETURNING *`,
-            [
-                title,
-                category,
-                description || "",
-                image_url,
-                location || ""
-            ]
-        );
-
-
-        res.status(201).json({
-
-            message:
-                "Portfolio project created successfully",
-
-            project:
-                result.rows[0]
-        });
-
-
-    } catch (error) {
-
-        console.error(
-            "Error creating portfolio project:",
-            error
-        );
-
-        res.status(500).json({
-
-            message:
-                "Failed to create portfolio project",
-
-            error:
-                error.message
-        });
-    }
-}
-
-
-// ================================
-// UPDATE PORTFOLIO
-// ================================
-
-export async function updatePortfolio(req, res) {
-
-    try {
-
-        const { id } = req.params;
-
-        const {
-            title,
-            category,
-            description,
-            location
-        } = req.body;
-
-
-        // -------------------------
-        // VALIDATION
-        // -------------------------
-
-        if (!title || !category) {
-
-            return res.status(400).json({
-                message: "Title and category are required"
-            });
-        }
-
-
-        // -------------------------
-        // GET EXISTING PROJECT
-        // -------------------------
-
-        const existingResult = await pool.query(
-            `SELECT *
-             FROM portfolio
-             WHERE id = $1`,
-            [id]
-        );
-
-
-        if (existingResult.rows.length === 0) {
-
-            return res.status(404).json({
-                message: "Portfolio project not found"
-            });
-        }
-
-
-        const existingProject =
-            existingResult.rows[0];
-
-
-        // -------------------------
-        // KEEP OLD IMAGE
-        // -------------------------
-
-        let image_url =
-            existingProject.image_url;
-
-
-        // -------------------------
-        // NEW IMAGE SELECTED
-        // -------------------------
-
-        if (req.file) {
-
-            image_url =
-                `/uploads/portfolio/${req.file.filename}`;
-        }
-
-
-        // -------------------------
-        // UPDATE DATABASE
-        // -------------------------
-
-        const result = await pool.query(
-            `UPDATE portfolio
-             SET
-                title = $1,
-                category = $2,
-                description = $3,
-                image_url = $4,
-                location = $5
-             WHERE id = $6
-             RETURNING *`,
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *
+            `,
             [
                 title,
                 category,
                 description || "",
                 image_url,
                 location || "",
-                id
+                public_id
             ]
         );
 
-
-        // -------------------------
-        // DELETE OLD IMAGE
-        // ONLY IF NEW IMAGE WAS UPLOADED
-        // -------------------------
-
-        if (
-            req.file &&
-            existingProject.image_url &&
-            existingProject.image_url.startsWith(
-                "/uploads/portfolio/"
-            )
-        ) {
-
-            const oldImagePath =
-                path.join(
-                    process.cwd(),
-                    existingProject.image_url
-                        .replace(/^\/+/, "")
-                );
-
-
-            try {
-
-                await fs.unlink(oldImagePath);
-
-            } catch (error) {
-
-                // File may already be missing.
-                console.warn(
-                    "Could not delete old portfolio image:",
-                    error.message
-                );
-            }
-        }
-
-
-        res.json({
-
+        res.status(201).json({
             message:
-                "Portfolio project updated successfully",
-
-            project:
-                result.rows[0]
+                "Portfolio project created successfully",
+            project: result.rows[0]
         });
 
-
     } catch (error) {
-
         console.error(
-            "Error updating portfolio project:",
+            "Error creating portfolio project:",
             error
         );
 
         res.status(500).json({
-
             message:
-                "Failed to update portfolio project",
-
-            error:
-                error.message
+                "Failed to create portfolio project",
+            error: error.message
         });
     }
 }
 
 
-// ================================
-// DELETE PORTFOLIO
-// ================================
+/*
+    UPDATE PORTFOLIO PROJECT
 
-export async function deletePortfolio(req, res) {
+    If a new image is uploaded:
 
+    New image
+       ↓
+    Cloudinary
+       ↓
+    Delete old Cloudinary image
+       ↓
+    Update PostgreSQL
+*/
+export async function updatePortfolio(req, res) {
     try {
-
         const { id } = req.params;
 
+        const {
+            title,
+            category,
+            description,
+            location
+        } = req.body;
 
-        // -------------------------
-        // GET PROJECT FIRST
-        // -------------------------
+        if (!title || !category) {
+            return res.status(400).json({
+                message:
+                    "Title and category are required"
+            });
+        }
 
+
+        /*
+            Get existing project
+        */
         const existingResult = await pool.query(
-            `SELECT *
-             FROM portfolio
-             WHERE id = $1`,
+            `
+            SELECT *
+            FROM portfolio
+            WHERE id = $1
+            `,
             [id]
         );
 
-
         if (existingResult.rows.length === 0) {
-
             return res.status(404).json({
                 message:
                     "Portfolio project not found"
             });
         }
 
+        const existingProject =
+            existingResult.rows[0];
+
+
+        /*
+            Keep existing image by default
+        */
+        let image_url =
+            existingProject.image_url;
+
+        let public_id =
+            existingProject.public_id;
+
+
+        /*
+            If a NEW image was uploaded
+        */
+        if (req.file) {
+
+            /*
+                Upload new image
+            */
+            const cloudinaryResult =
+                await uploadToCloudinary(
+                    req.file.buffer,
+                    `lucky-home-decor/portfolio/${category}`
+                );
+
+            image_url =
+                cloudinaryResult.secure_url;
+
+            public_id =
+                cloudinaryResult.public_id;
+
+
+            /*
+                Delete OLD Cloudinary image
+
+                Only do this if the old record
+                actually has a Cloudinary public_id.
+            */
+            if (existingProject.public_id) {
+                try {
+                    await cloudinary.uploader.destroy(
+                        existingProject.public_id,
+                        {
+                            resource_type: "image",
+                            invalidate: true
+                        }
+                    );
+
+                    console.log(
+                        "Old Cloudinary image deleted:",
+                        existingProject.public_id
+                    );
+
+                } catch (cloudinaryError) {
+                    console.warn(
+                        "Could not delete old Cloudinary image:",
+                        cloudinaryError.message
+                    );
+                }
+            }
+        }
+
+
+        /*
+            Update PostgreSQL
+        */
+        const result = await pool.query(
+            `
+            UPDATE portfolio
+            SET
+                title = $1,
+                category = $2,
+                description = $3,
+                image_url = $4,
+                location = $5,
+                public_id = $6
+            WHERE id = $7
+            RETURNING *
+            `,
+            [
+                title,
+                category,
+                description || "",
+                image_url,
+                location || "",
+                public_id,
+                id
+            ]
+        );
+
+
+        res.json({
+            message:
+                "Portfolio project updated successfully",
+            project: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error(
+            "Error updating portfolio project:",
+            error
+        );
+
+        res.status(500).json({
+            message:
+                "Failed to update portfolio project",
+            error: error.message
+        });
+    }
+}
+
+
+/*
+    DELETE PORTFOLIO PROJECT
+
+    PostgreSQL record + Cloudinary image
+*/
+export async function deletePortfolio(req, res) {
+    try {
+        const { id } = req.params;
+
+
+        /*
+            Find existing project
+        */
+        const existingResult = await pool.query(
+            `
+            SELECT *
+            FROM portfolio
+            WHERE id = $1
+            `,
+            [id]
+        );
+
+        if (existingResult.rows.length === 0) {
+            return res.status(404).json({
+                message:
+                    "Portfolio project not found"
+            });
+        }
 
         const project =
             existingResult.rows[0];
 
 
-        // -------------------------
-        // DELETE DATABASE RECORD
-        // -------------------------
-
-        const result = await pool.query(
-            `DELETE FROM portfolio
-             WHERE id = $1
-             RETURNING *`,
-            [id]
-        );
-
-
-        // -------------------------
-        // DELETE PHYSICAL IMAGE
-        // -------------------------
-
-        if (
-            project.image_url &&
-            project.image_url.startsWith(
-                "/uploads/portfolio/"
-            )
-        ) {
-
-            const imagePath =
-                path.join(
-                    process.cwd(),
-                    project.image_url
-                        .replace(/^\/+/, "")
-                );
-
+        /*
+            Delete Cloudinary image
+        */
+        if (project.public_id) {
 
             try {
+                await cloudinary.uploader.destroy(
+                    project.public_id,
+                    {
+                        resource_type: "image",
+                        invalidate: true
+                    }
+                );
 
-                await fs.unlink(imagePath);
+                console.log(
+                    "Cloudinary image deleted:",
+                    project.public_id
+                );
 
-            } catch (error) {
+            } catch (cloudinaryError) {
 
                 console.warn(
-                    "Could not delete portfolio image:",
-                    error.message
+                    "Could not delete Cloudinary image:",
+                    cloudinaryError.message
                 );
             }
         }
 
 
-        res.json({
+        /*
+            Delete PostgreSQL record
+        */
+        const result = await pool.query(
+            `
+            DELETE FROM portfolio
+            WHERE id = $1
+            RETURNING *
+            `,
+            [id]
+        );
 
+
+        res.json({
             message:
                 "Portfolio project deleted successfully",
-
-            project:
-                result.rows[0]
+            project: result.rows[0]
         });
-
 
     } catch (error) {
 
@@ -433,9 +418,9 @@ export async function deletePortfolio(req, res) {
         );
 
         res.status(500).json({
-
             message:
-                "Failed to delete portfolio project"
+                "Failed to delete portfolio project",
+            error: error.message
         });
     }
 }

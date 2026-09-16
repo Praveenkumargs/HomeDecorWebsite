@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../css/Installation.css";
+import SEO from "../components/SEO";
 
 function Installation() {
   const [projects, setProjects] = useState([]);
