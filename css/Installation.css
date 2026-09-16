@@ -512,27 +512,225 @@
 
 
 /* =========================================
-   RESPONSIVE
+   TABLET
+   768px - 1100px
 ========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) and (min-width: 768px) {
 
-    .installation-service-grid,
+    /* =====================================
+       HERO
+    ===================================== */
+
+    .installation-hero {
+        min-height: 560px;
+
+        padding: 70px 7%;
+    }
+
+    .installation-hero-content {
+        max-width: 620px;
+    }
+
+    .installation-hero h1 {
+        font-size: 58px;
+    }
+
+    .installation-hero-text {
+        max-width: 500px;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =====================================
+       INTRO
+    ===================================== */
+
+    .installation-intro {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 50px;
+
+        padding: 85px 7%;
+    }
+
+    .installation-intro-heading h2 {
+        font-size: 40px;
+    }
+
+    .installation-intro-text {
+        max-width: 100%;
+    }
+
+
+    /* =====================================
+       SERVICES
+    ===================================== */
+
+    .installation-services {
+        padding: 85px 7%;
+    }
+
+    .installation-section-heading {
+        margin-bottom: 40px;
+    }
+
+    .installation-section-heading h2 {
+        font-size: 40px;
+    }
+
+    .installation-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .installation-service-card {
+        padding: 32px 27px;
+    }
+
+    .installation-service-card h3 {
+        font-size: 23px;
+    }
+
+
+    /* =====================================
+       PORTFOLIO
+    ===================================== */
+
+    .installation-portfolio {
+        padding: 85px 7%;
+    }
+
     .installation-project-grid {
         grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
     }
 
-    .installation-intro,
+    .installation-project-image {
+        height: 250px;
+    }
+
+    .installation-project-content {
+        padding: 22px;
+    }
+
+
+    /* =====================================
+       FILTERS
+    ===================================== */
+
+    .installation-filters {
+        margin-bottom: 30px;
+    }
+
+
+    /* =====================================
+       CTA
+    ===================================== */
+
     .installation-cta {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
 
-        gap: 40px;
+        gap: 50px;
+
+        padding: 75px 7%;
     }
 
+    .installation-cta h2 {
+        font-size: 40px;
+    }
+
+    .installation-cta-right {
+        max-width: 100%;
+    }
+
+    .installation-service-grid
+    .installation-service-card:last-child {
+        grid-column: 1 / -1;
+        width: 50%;
+        justify-self: center;
+    }
 }
 
 
-@media (max-width: 650px) {
+/* =========================================
+   SMALL TABLET
+   768px - 850px
+========================================= */
+
+@media (max-width: 850px) and (min-width: 768px) {
+
+    .installation-hero {
+        min-height: 520px;
+
+        padding: 65px 6%;
+    }
+
+    .installation-hero h1 {
+        font-size: 52px;
+    }
+
+    .installation-intro,
+    .installation-services,
+    .installation-portfolio {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .installation-intro {
+        gap: 35px;
+    }
+
+    .installation-intro-heading h2,
+    .installation-section-heading h2 {
+        font-size: 36px;
+    }
+
+    .installation-service-grid,
+    .installation-project-grid {
+        gap: 16px;
+    }
+
+    .installation-service-card {
+        padding: 28px 23px;
+    }
+
+    .installation-service-card h3 {
+        font-size: 21px;
+    }
+
+    .installation-project-image {
+        height: 220px;
+    }
+
+    .installation-cta {
+        padding-left: 6%;
+        padding-right: 6%;
+
+        gap: 35px;
+    }
+
+    .installation-cta h2 {
+        font-size: 36px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   Below 768px
+========================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================
+       HERO
+    ===================================== */
 
     .installation-hero {
         min-height: 520px;
@@ -540,29 +738,217 @@
         padding: 60px 7%;
     }
 
+    .installation-hero-content {
+        max-width: 100%;
+    }
+
     .installation-hero h1 {
-        font-size: 45px;
+        font-size: clamp(42px, 11vw, 50px);
+
+        line-height: 1.05;
+    }
+
+    .installation-hero-text {
+        max-width: 100%;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+        margin-bottom: 30px;
+    }
+
+    .installation-primary-button {
+        padding: 14px 22px;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================
+       INTRO
+    ===================================== */
+
+    .installation-intro {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding: 70px 7%;
+    }
+
+    .installation-intro-heading h2 {
+        font-size: 35px;
+    }
+
+    .installation-intro-text {
+        max-width: 100%;
+    }
+
+    .installation-intro-text p {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =====================================
+       SERVICES
+    ===================================== */
+
+    .installation-services {
+        padding: 70px 7%;
+    }
+
+    .installation-section-heading {
+        margin-bottom: 35px;
+    }
+
+    .installation-section-heading h2 {
+        font-size: 35px;
+
+        line-height: 1.15;
+    }
+
+    .installation-service-grid {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .installation-service-card {
+        padding: 32px 26px;
+    }
+
+    .installation-service-card h3 {
+        font-size: 23px;
+    }
+
+    .installation-service-card p {
+        font-size: 13px;
+    }
+
+
+    /* =====================================
+       PORTFOLIO
+    ===================================== */
+
+    .installation-portfolio {
+        padding: 70px 7%;
+    }
+
+    .installation-filters {
+        width: 100%;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 8px;
+
+        margin-bottom: 30px;
+    }
+
+    .installation-filters button {
+        padding: 10px 18px;
+
+        font-size: 10px;
+    }
+
+    .installation-project-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .installation-project-image {
+        height: 240px;
+    }
+
+    .installation-project-content {
+        padding: 22px;
+    }
+
+    .installation-project-content h3 {
+        font-size: 21px;
+    }
+
+
+    /* =====================================
+       EMPTY STATE
+    ===================================== */
+
+    .installation-empty {
+        padding: 65px 20px;
+    }
+
+
+    /* =====================================
+       CTA
+    ===================================== */
+
+    .installation-cta {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding: 65px 7%;
+    }
+
+    .installation-cta h2 {
+        font-size: 35px;
+    }
+
+    .installation-cta-right {
+        max-width: 100%;
+    }
+
+    .installation-cta-right p {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   Below 400px
+========================================= */
+
+@media (max-width: 400px) {
+
+    .installation-hero {
+        min-height: 480px;
+
+        padding: 50px 7%;
+    }
+
+    .installation-hero h1 {
+        font-size: 40px;
     }
 
     .installation-intro,
     .installation-services,
     .installation-portfolio {
-        padding: 75px 7%;
+        padding-top: 60px;
+        padding-bottom: 60px;
     }
 
     .installation-intro-heading h2,
     .installation-section-heading h2,
     .installation-cta h2 {
-        font-size: 35px;
+        font-size: 32px;
     }
 
-    .installation-service-grid,
-    .installation-project-grid {
-        grid-template-columns: 1fr;
+    .installation-service-card {
+        padding: 28px 22px;
+    }
+
+    .installation-project-image {
+        height: 220px;
     }
 
     .installation-cta {
-        padding: 70px 7%;
+        padding-top: 55px;
+        padding-bottom: 55px;
     }
-
 }
