@@ -27,6 +27,11 @@ function Blinds() {
 
   return (
     <>
+      <SEO 
+        title="Premium Blinds in Bangalore | Lucky Home Decor"
+        description="Explore premium blinds and window solutions from Lucky Home Decor, including roller, Roman and vertical blinds in Bangalore."
+        path="/blinds"
+      />
       <Header />
 
       <main className="product-page">

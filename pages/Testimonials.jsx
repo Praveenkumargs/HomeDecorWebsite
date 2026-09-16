@@ -32,6 +32,11 @@ function Testimonials() {
 
     return (
         <>
+            <SEO 
+                title="Customer Reviews | Lucky Home Decor"
+                description="Read customer reviews and experiences with Lucky Home Decor's curtains, blinds and installation services."
+                path="/testimonials"
+            />
             <Header />
 
             <main className="testimonials-page">

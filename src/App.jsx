@@ -28,6 +28,11 @@ import ScrollToTop from "../components/ScrollToTop";
 function Home() {
   return (
     <div>
+      <SEO 
+        title="Lucky Home Decor | Curtains, Blinds & Home Interiors in Bangalore"
+        description="Lucky Home Decor offers premium curtains, blinds, curtain stitching, blind installation and home interior solutions in Bangalore."
+        path="/"
+      />
       <Header />
       <Hero />
       <Collections />

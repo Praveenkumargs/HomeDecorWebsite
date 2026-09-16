@@ -61,6 +61,11 @@ function Installation() {
   }
   return (
     <>
+      <SEO 
+        title="Curtain & Blind Installation in Bangalore | Lucky Home Decor"
+        description="Professional curtain and blind installation services from Lucky Home Decor in Bangalore."
+        path="/installation"
+      />
       <Header />
 
       <main className="installation-page">

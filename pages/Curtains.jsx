@@ -27,6 +27,11 @@ function Curtains() {
 
   return (
     <>
+      <SEO 
+        title="Custom Curtains in Bangalore | Lucky Home Decor"
+        description="Explore custom curtains, curtain stitching and premium window solutions from Lucky Home Decor in Bangalore."
+        path="/curtains"
+      />
       <Header />
 
       <main className="product-page">
