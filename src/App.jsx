@@ -24,6 +24,7 @@ import Testimonials from "../pages/Testimonials";
 import PrivacyPolicy from "../components/PrivacyPolicy";
 import TermsAndConditions from "../components/TermsAndConditions";
 import ScrollToTop from "../components/ScrollToTop";
+import SEO from "../components/SEO";
 
 function Home() {
   return (

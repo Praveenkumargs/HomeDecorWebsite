@@ -28,7 +28,7 @@
 
     inset: 0;
 
-    background-image: url("../images/Background.jpeg");
+    background-image: url("/images/Background.jpeg");
 
     background-size: cover;
     background-position: center;
