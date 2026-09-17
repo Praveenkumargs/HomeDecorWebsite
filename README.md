@@ -213,8 +213,9 @@ PostgreSQL is used to store structured application data. This can include:
 
 
 ```markdown
-![Home Page](./screenshots/home.png)
-![Products Page](./screenshots/products.png)
+<img width="1440" height="783" alt="Screenshot 2026-09-17 at 4 31 49 PM" src="https://github.com/user-attachments/assets/0f45c17a-463e-4550-977c-e2a33213140b" />
+<img width="1440" height="932" alt="Screenshot 2026-09-17 at 4 34 13 PM" src="https://github.com/user-attachments/assets/96e0cca0-29af-43fe-81fb-3e78d5f9c149" />
+<img width="1440" height="932" alt="Screenshot 2026-09-17 at 4 34 57 PM" src="https://github.com/user-attachments/assets/db6b60ca-7f53-4dec-9222-ae7f023e2190" />
 ```
 
 ## Future Enhancements
