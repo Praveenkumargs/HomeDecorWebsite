@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Quote.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 import API_URL from "../api";
 
 function Quote() {
