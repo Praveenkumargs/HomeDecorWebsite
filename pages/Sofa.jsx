@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API_URL from "../api";
 
 import "./ProductPage.css";
 
@@ -12,7 +13,7 @@ function Sofa() {
 
     useEffect(() => {
 
-        fetch("http://localhost:3000/api/products/3")
+        fetch(`${API_URL}/api/products/3`)
             .then(response => response.json())
             .then(data => {
                 setProduct(data);

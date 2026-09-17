@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/PortfolioManagement.css";
+import API_URL from "../api";
 
 function PortfolioManagement() {
   const [projects, setProjects] = useState([]);
@@ -28,7 +29,7 @@ function PortfolioManagement() {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:3000/api/portfolio");
+      const response = await fetch(`${API_URL}/api/portfolio`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch portfolio");
@@ -90,7 +91,7 @@ function getImageUrl(imageUrl) {
 
     // New uploaded images
     if (imageUrl.startsWith("/uploads/")) {
-        return `http://localhost:3000${imageUrl}`;
+        return `${API_URL}${imageUrl}`;
     }
 
     // Existing images from React public folder
@@ -176,8 +177,8 @@ function getImageUrl(imageUrl) {
     try {
 
         const url = editingProject
-            ? `http://localhost:3000/api/portfolio/${editingProject.id}`
-            : "http://localhost:3000/api/portfolio";
+            ? `${API_URL}/api/portfolio/${editingProject.id}`
+            : `${API_URL}/api/portfolio`;
 
 
         const method = editingProject
@@ -304,7 +305,7 @@ function getImageUrl(imageUrl) {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/portfolio/${id}`,
+        `${API_URL}/api/portfolio/${id}`,
         {
           method: "DELETE",
 

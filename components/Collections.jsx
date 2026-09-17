@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Collections.css";
+import API_URL from "../api";
 
 function Collections() {
 
@@ -8,7 +9,7 @@ function Collections() {
 
     useEffect(() => {
 
-        fetch("http://localhost:3000/api/products")
+        fetch(`${API_URL}/api/products`)
 
             .then((response) => response.json())
 

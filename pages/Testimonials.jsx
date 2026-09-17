@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API_URL from "../api";
 
 import "../pages/Testimonials.css";
 
@@ -11,7 +12,7 @@ function Testimonials() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/reviews")
+        fetch(`${API_URL}/api/reviews`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Failed to fetch reviews");

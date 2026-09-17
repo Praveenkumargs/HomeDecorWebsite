@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/PublicGallery.css";
+import API_URL from "../api";
 
 function PublicGallery({ category, title, description }) {
   const [images, setImages] = useState([]);
@@ -7,7 +8,7 @@ function PublicGallery({ category, title, description }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/gallery?category=${category}`)
+    fetch(`${API_URL}/api/gallery?category=${category}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch gallery");
@@ -53,7 +54,7 @@ function PublicGallery({ category, title, description }) {
 
     // Local uploaded image
     if (imageUrl.startsWith("/uploads/")) {
-      return `http://localhost:3000${imageUrl}`;
+      return `${API_URL}${imageUrl}`;
     }
 
     // Vite public image

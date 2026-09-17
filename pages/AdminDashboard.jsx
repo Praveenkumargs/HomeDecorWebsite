@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 import PortfolioManagement from "../components/PortfolioManagement";
 import GalleryManagement from "../components/GalleryManagement";
+import API_URL from "../api";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function AdminDashboard() {
 
   async function fetchStats() {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/stats", {
+      const response = await fetch(`${API_URL}/api/admin/stats`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,7 +82,7 @@ function AdminDashboard() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/reviews");
+      const response = await fetch(`${API_URL}/api/reviews`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch reviews");
@@ -120,7 +121,7 @@ function AdminDashboard() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/enquiries", {
+      const response = await fetch(`${API_URL}/api/enquiries`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -195,8 +196,8 @@ function AdminDashboard() {
 
     try {
       const url = editingReview
-        ? `http://localhost:3000/api/reviews/${editingReview.id}`
-        : "http://localhost:3000/api/reviews";
+        ? `${API_URL}/api/reviews/${editingReview.id}`
+        : `${API_URL}/api/reviews`;
 
       const method = editingReview ? "PUT" : "POST";
 
@@ -292,7 +293,7 @@ function AdminDashboard() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/reviews/${id}`, {
+      const response = await fetch(`${API_URL}/api/reviews/${id}`, {
         method: "DELETE",
 
         headers: {
@@ -333,7 +334,7 @@ function AdminDashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/enquiries/${id}`,
+        `${API_URL}/api/enquiries/${id}`,
         {
           method: "DELETE",
 

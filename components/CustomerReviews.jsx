@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/CustomerReviews.css";
+import API_URL from "../api";
 
 function CustomerReviews() {
 
@@ -14,7 +15,7 @@ function CustomerReviews() {
             try {
 
                 const response = await fetch(
-                    "http://localhost:3000/api/reviews"
+                    `${API_URL}/api/reviews`
                 );
 
                 if (!response.ok) {

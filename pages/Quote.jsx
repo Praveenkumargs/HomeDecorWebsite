@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Quote.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import API_URL from "../api";
 
 function Quote() {
   const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ function Quote() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/enquiries", {
+      const response = await fetch(`${API_URL}/api/enquiries`, {
         method: "POST",
 
         headers: {

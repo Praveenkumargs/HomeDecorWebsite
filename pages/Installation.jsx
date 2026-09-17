@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../css/Installation.css";
 import SEO from "../components/SEO";
+import API_URL from "../api";
 
 function Installation() {
   const [projects, setProjects] = useState([]);
@@ -16,7 +17,7 @@ function Installation() {
 
   async function fetchInstallationProjects() {
     try {
-      const response = await fetch("http://localhost:3000/api/portfolio");
+      const response = await fetch(`${API_URL}/api/portfolio`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch portfolio");
@@ -50,7 +51,7 @@ function Installation() {
 
     // Images uploaded through the admin dashboard
     if (imageUrl.startsWith("/uploads/")) {
-      return `http://localhost:3000${imageUrl}`;
+      return `${API_URL}${imageUrl}`;
     }
 
     // Existing images from React public folder

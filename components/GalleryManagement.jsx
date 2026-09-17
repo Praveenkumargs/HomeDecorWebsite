@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/GalleryManagement.css";
+import API_URL from "../api";
 
 function GalleryManagement() {
   const [images, setImages] = useState([]);
@@ -20,7 +21,7 @@ function GalleryManagement() {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:3000/api/gallery");
+      const response = await fetch(`${API_URL}/api/gallery`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch gallery");
@@ -79,7 +80,7 @@ function GalleryManagement() {
       formData.append("category", category);
       formData.append("image", selectedFile);
 
-      const response = await fetch("http://localhost:3000/api/gallery/upload", {
+      const response = await fetch(`${API_URL}/api/gallery/upload`, {
         method: "POST",
 
         headers: {
@@ -140,7 +141,7 @@ function GalleryManagement() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/gallery/${id}`, {
+      const response = await fetch(`${API_URL}/api/gallery/${id}`, {
         method: "DELETE",
 
         headers: {
@@ -187,9 +188,9 @@ function GalleryManagement() {
       return imageUrl;
     }
 
-    // Local uploaded image
+    // uploaded image
     if (imageUrl.startsWith("/uploads/")) {
-      return `http://localhost:3000${imageUrl}`;
+      return `${API_URL}${imageUrl}`;
     }
 
     // Vite public image

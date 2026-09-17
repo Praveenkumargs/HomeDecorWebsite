@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PublicGallery from "../components/PublicGallery";
 import SEO from "../components/SEO";
+import API_URL from "../api";
 
 import "./ProductPage.css";
 
@@ -12,7 +13,7 @@ function Curtains() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/products/1")
+    fetch(`${API_URL}/api/products/1`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);
