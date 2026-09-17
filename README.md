@@ -1,154 +1,244 @@
 # HomeDecorWebsite
 
-A modern and responsive home décor website designed to showcase interior products, furniture, and decorative ideas in an attractive and user-friendly interface.
+A full-stack home decor web application where users can explore home decor products, view product details, and manage product images using cloud storage. The project uses a deployed frontend, backend API, PostgreSQL database, and Cloudinary for image storage.
 
-## Overview
+## Project Overview
 
-HomeDecorWebsite provides a visually engaging platform for users to explore home décor products and get inspiration for improving their living spaces. The website focuses on clean design, easy navigation, responsive layouts, and an enjoyable browsing experience.
+HomeDecorWebsite is designed as a modern home decor platform with a clean user interface and backend support for managing product data and images. The frontend is deployed on **Vercel**, the backend is deployed on **Render**, images are stored using **Cloudinary**, and application data is stored in a **PostgreSQL** database.
 
 ## Features
 
-- Responsive design for desktop, tablet, and mobile devices
-- Modern home décor-inspired user interface
-- Navigation menu for accessing different sections
-- Hero section for highlighting featured content
-- Product or décor item display cards
-- Organized categories for easier browsing
-- Attractive image-based layout
-- Clean and user-friendly design
-- Cross-browser compatible interface
+- Modern home decor website interface
+- Responsive frontend design
+- Product listing and product display sections
+- Image upload and storage using Cloudinary
+- Backend API for handling application data
+- PostgreSQL database integration
+- Frontend deployment using Vercel
+- Backend deployment using Render
+- Organized full-stack project structure
+- Suitable for portfolio and learning full-stack web development
 
-## Technologies Used
+## Tech Stack
 
-- HTML5
-- CSS3
+### Frontend
+
+- HTML
+- CSS
 - JavaScript
-- Responsive Web Design
-- Git and GitHub
+- Vercel for deployment
 
-> Update this section if your project uses additional technologies or frameworks such as React, Bootstrap, Tailwind CSS, Firebase, or a backend service.
+### Backend
 
-## Project Structure
+- Node.js
+- Express.js
+- Render for deployment
+
+### Database
+
+- PostgreSQL
+
+### Cloud Storage
+
+- Cloudinary for storing uploaded product or website images
+
+### Version Control
+
+- Git
+- GitHub
+
+## Deployment
+
+### Frontend
+
+The frontend is deployed using **Vercel**.
+
+Add your frontend live URL here:
 
 ```text
-HomeDecorWebsite/
-│
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── images/
-│   └── website-images
-└── README.md
+Frontend Live URL: Add your Vercel deployment link
 ```
 
-> The folder structure may vary depending on the files used in the project.
+### Backend
 
-## Getting Started
+The backend server is deployed using **Render**.
 
-### Clone the Repository
+Add your backend API URL here:
+
+```text
+Backend API URL: Add your Render backend link
+```
+
+### Database
+
+The project uses **PostgreSQL** as the database for storing application data such as products, categories, users, or other website-related records.
+
+### Image Storage
+
+The project uses **Cloudinary** to store uploaded images. This helps keep image files separate from the application server and makes image delivery faster and easier to manage.
+
+## Environment Variables
+
+Create a `.env` file in the backend directory and add the required environment variables.
+
+```env
+PORT=5000
+DATABASE_URL=your_postgresql_database_url
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
+
+> Do not upload your `.env` file to GitHub. Add it to `.gitignore` to keep your credentials safe.
+
+## Installation and Setup
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Praveenkumargs/HomeDecorWebsite.git
 ```
 
-### Open the Project
-
-Move into the project directory:
+### 2. Move Into the Project Folder
 
 ```bash
 cd HomeDecorWebsite
 ```
 
-Open the project in your preferred code editor.
+### 3. Install Dependencies
 
-For a basic HTML, CSS, and JavaScript project, open the `index.html` file in a web browser.
+If your project has separate frontend and backend folders, install dependencies in both folders.
 
-For the best development experience, use the **Live Server** extension in Visual Studio Code.
+```bash
+npm install
+```
 
-## Usage
+If your project uses separate folders:
 
-Users can browse the website to:
+```bash
+cd frontend
+npm install
 
-- Explore home décor products
-- View furniture and interior design ideas
-- Navigate through different sections
-- Discover visual inspiration for home interiors
-- Access the website from different screen sizes
+cd ../backend
+npm install
+```
 
-## Responsive Design
+### 4. Configure Environment Variables
 
-The website is designed to provide a consistent experience across:
+Create a `.env` file in the backend folder and add your PostgreSQL and Cloudinary credentials.
 
-- Desktop computers
-- Laptops
-- Tablets
-- Mobile phones
+### 5. Run the Development Server
 
-## Future Improvements
+For frontend:
 
-Possible future enhancements include:
+```bash
+npm run dev
+```
 
-- Product search functionality
-- Shopping cart and wishlist features
-- User authentication
-- Product filtering and sorting
-- Product detail pages
-- Online payment integration
-- Admin dashboard
-- Backend database integration
-- Customer reviews and ratings
-- Dark mode support
+For backend:
+
+```bash
+npm start
+```
+
+or, if using nodemon:
+
+```bash
+npm run server
+```
+
+## Suggested Project Structure
+
+```text
+HomeDecorWebsite/
+│
+├── frontend/
+│   ├── index.html
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   ├── config/
+│   └── package.json
+│
+├── README.md
+└── .gitignore
+```
+
+> Your actual folder structure may be different. Update this section based on your repository files if needed.
+
+## API and Backend
+
+The backend handles requests from the frontend and connects with PostgreSQL and Cloudinary.
+
+Common backend responsibilities may include:
+
+- Connecting to the PostgreSQL database
+- Handling product-related API routes
+- Uploading images to Cloudinary
+- Returning stored product and image data to the frontend
+- Managing server-side logic
+
+## Cloudinary Usage
+
+Cloudinary is used to upload and store images. Instead of storing images directly in the project folder or database, the image is uploaded to Cloudinary and the image URL can be saved in PostgreSQL.
+
+Typical flow:
+
+1. User or admin uploads an image.
+2. Backend sends the image to Cloudinary.
+3. Cloudinary returns a secure image URL.
+4. The image URL is saved in PostgreSQL.
+5. Frontend displays the image using the stored URL.
+
+## PostgreSQL Usage
+
+PostgreSQL is used to store structured application data. This can include:
+
+- Product details
+- Image URLs
+- Categories
+- User information
+- Contact form data
+- Admin-managed content
 
 ## Screenshots
 
-Add screenshots of your website here:
+Add screenshots of your website here.
 
 ```markdown
-![Home Page](images/home-page.png)
+![Home Page](./screenshots/home.png)
+![Products Page](./screenshots/products.png)
 ```
 
-## Live Demo
+## Future Enhancements
 
-Add your deployed website link here:
+- User authentication
+- Admin dashboard
+- Product search and filtering
+- Add to cart functionality
+- Wishlist feature
+- Online payment integration
+- Product reviews and ratings
+- Order management system
+- Improved UI animations
+- Better image optimization
 
-```text
-Live Demo: Add your deployment URL
-```
+## Repository
 
-## Contributing
-
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a new branch:
-
-```bash
-git checkout -b feature/new-feature
-```
-
-3. Make your changes.
-4. Commit your changes:
-
-```bash
-git commit -m "Add new feature"
-```
-
-5. Push the branch:
-
-```bash
-git push origin feature/new-feature
-```
-
-6. Open a pull request.
-
-## License
-
-This project is available for educational and personal use. You may modify and improve it according to your requirements.
+GitHub Repository: [HomeDecorWebsite](https://github.com/Praveenkumargs/HomeDecorWebsite)
 
 ## Author
 
 **Praveen Kumar G S**
 
 GitHub: [@Praveenkumargs](https://github.com/Praveenkumargs)
+
+## License
+
+This project is for educational and portfolio purposes. You can modify and improve it based on your requirements.
