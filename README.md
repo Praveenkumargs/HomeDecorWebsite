@@ -26,6 +26,7 @@ HomeDecorWebsite is designed as a modern home decor platform with a clean user i
 - HTML
 - CSS
 - JavaScript
+- React.js
 - Vercel for deployment
 
 ### Backend
@@ -210,8 +211,9 @@ PostgreSQL is used to store structured application data. This can include:
 ## Screenshots
 
 <img width="1440" height="783" alt="Screenshot 2026-09-17 at 4 31 49 PM" src="https://github.com/user-attachments/assets/0f45c17a-463e-4550-977c-e2a33213140b" />
-<img width="1440" height="932" alt="Screenshot 2026-09-17 at 4 34 13 PM" src="https://github.com/user-attachments/assets/96e0cca0-29af-43fe-81fb-3e78d5f9c149" />
-<img width="1440" height="932" alt="Screenshot 2026-09-17 at 4 34 57 PM" src="https://github.com/user-attachments/assets/db6b60ca-7f53-4dec-9222-ae7f023e2190" />
+<img width="1440" height="768" alt="Screenshot 2026-09-17 at 4 40 01 PM" src="https://github.com/user-attachments/assets/26c698f6-fd56-4257-86f8-c9b2ba5aa13f" />
+<img width="1440" height="782" alt="Screenshot 2026-09-17 at 4 40 13 PM" src="https://github.com/user-attachments/assets/6495fd3f-4b89-4316-b3de-dbbfd244a09d" />
+
 
 
 ```markdown
@@ -222,13 +224,10 @@ PostgreSQL is used to store structured application data. This can include:
 
 ## Future Enhancements
 
-- User authentication
-- Admin dashboard
 - Product search and filtering
 - Add to cart functionality
 - Wishlist feature
 - Online payment integration
-- Product reviews and ratings
 - Order management system
 - Improved UI animations
 - Better image optimization
