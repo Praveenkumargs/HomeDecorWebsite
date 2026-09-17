@@ -13,15 +13,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://home-decor-website-lime.vercel.app",
-        "https://home-decor-website-odbpqeywi-vnps.vercel.app",
-        "https://luckyhomedecor.in",
-        "https://www.luckyhomedecor.in"
-    ]
-}));
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            // Allow requests without an origin
+            // and localhost during development
+            if (
+                !origin ||
+                origin === "http://localhost:5173" ||
+                origin.endsWith(".vercel.app") ||
+                origin === "https://luckyhomedecor.in" ||
+                origin === "https://www.luckyhomedecor.in"
+            ) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        }
+    })
+);
 app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
