@@ -56,7 +56,7 @@ The frontend is deployed using **Vercel**.
 Add your frontend live URL here:
 
 ```text
-Frontend Live URL: Add your Vercel deployment link
+[Frontend Live URL: Add your Vercel deployment link](https://home-decor-website-8jefy0q2p-vnps.vercel.app/)
 ```
 
 ### Backend
@@ -66,7 +66,7 @@ The backend server is deployed using **Render**.
 Add your backend API URL here:
 
 ```text
-Backend API URL: Add your Render backend link
+https://lucky-home-decor-api.onrender.com/
 ```
 
 ### Database
@@ -209,7 +209,8 @@ PostgreSQL is used to store structured application data. This can include:
 
 ## Screenshots
 
-Add screenshots of your website here.
+<img width="1440" height="783" alt="Screenshot 2026-09-17 at 4 31 49 PM" src="https://github.com/user-attachments/assets/0f45c17a-463e-4550-977c-e2a33213140b" />
+
 
 ```markdown
 ![Home Page](./screenshots/home.png)
