@@ -52,7 +52,7 @@ function PublicGallery({ category, title, description }) {
       return imageUrl;
     }
 
-    // Local uploaded image
+    // uploaded image
     if (imageUrl.startsWith("/uploads/")) {
       return `${API_URL}${imageUrl}`;
     }

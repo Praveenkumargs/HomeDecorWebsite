@@ -14,11 +14,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-        origin: [
-            "http://localhost:5173",
-            "https://home-decor-website-lime.vercel.app"
-        ]
-    }));
+    origin: [
+        "http://localhost:5173",
+        "https://home-decor-website-lime.vercel.app",
+        "https://home-decor-website-odbpqeywi-vnps.vercel.app",
+        "https://luckyhomedecor.in",
+        "https://www.luckyhomedecor.in"
+    ]
+}));
 app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
